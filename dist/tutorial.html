@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Engineering Mathematics Tutorial · BE Biomedical · Osmania University</title>
+<meta name="description" content="A worked tutorial for Engineering Mathematics I–IV, BE Biomedical Engineering, Osmania University — concepts, key results, solved examples and exam tips." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+    svg: { fontCache: 'global' },
+    startup: { typeset: true }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+  :root{
+    --paper:#eef3f1;--paper-2:#e4ebe8;--card:#ffffff;
+    --ink:#132420;--ink-soft:#3f524d;
+    --teal:#0e4e4a;--teal-bright:#178a7e;
+    --rose:#e23e6b;--rose-deep:#b62a53;--amber:#d98a1f;
+    --line:#cdd8d3;--line-soft:#dde6e2;
+    --shadow:0 1px 2px rgba(19,36,32,.05),0 8px 30px rgba(19,36,32,.06);
+    --radius:14px;--maxw:1000px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:132px}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Newsreader",Georgia,serif;font-size:18px;line-height:1.64;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  h1,h2,h3,h4,.disp{font-family:"Space Grotesk",system-ui,sans-serif;line-height:1.14;letter-spacing:-.01em}
+  code,.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+  a{color:var(--teal-bright);text-decoration:none}a:hover{text-decoration:underline}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+  mjx-container{overflow-x:auto;overflow-y:hidden;max-width:100%}
+
+  /* nav */
+  header.nav{position:sticky;top:0;z-index:60;background:rgba(238,243,241,.9);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav-inner{max-width:var(--maxw);margin:0 auto;padding:11px 22px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  .brand{display:flex;align-items:center;gap:9px;font-family:"Space Grotesk";font-weight:600;
+    font-size:14px;letter-spacing:.02em;color:var(--teal);white-space:nowrap}
+  .brand svg{width:24px;height:24px;color:var(--rose)}
+  .papertabs{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+  .ptab{font-family:"Space Grotesk";font-size:13.5px;font-weight:600;color:var(--ink-soft);
+    padding:7px 14px;border-radius:9px;border:1px solid var(--line);background:var(--card);cursor:pointer;transition:.16s}
+  .ptab:hover{border-color:var(--teal-bright);color:var(--teal)}
+  .ptab.active{background:var(--teal);color:#fff;border-color:var(--teal)}
+  /* unit rail */
+  .rail{border-top:1px solid var(--line-soft);background:var(--paper-2)}
+  .rail-inner{max-width:var(--maxw);margin:0 auto;padding:9px 22px;display:flex;gap:6px;flex-wrap:wrap;overflow-x:auto}
+  .rail a{font-family:"JetBrains Mono";font-size:11.5px;color:var(--ink-soft);padding:5px 10px;
+    border-radius:7px;white-space:nowrap;transition:.15s}
+  .rail a:hover{background:#fff;color:var(--teal);text-decoration:none}
+
+  /* hero */
+  .hero{padding:52px 0 20px}
+  .eyebrow{font-family:"JetBrains Mono";font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--rose-deep);font-weight:500;margin-bottom:16px}
+  .hero h1{font-size:clamp(34px,6.2vw,60px);font-weight:700;margin:0;color:var(--ink)}
+  .hero h1 .g{color:var(--teal)}
+  .hero .lede{font-size:clamp(18px,2.3vw,21px);max-width:640px;color:var(--ink-soft);margin:16px 0 0}
+  .legend{margin-top:26px;display:flex;gap:10px;flex-wrap:wrap}
+  .lg{font-family:"JetBrains Mono";font-size:11.5px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card)}
+  .lg.idea{color:var(--teal)}.lg.key{color:var(--rose-deep)}.lg.ex{color:var(--amber)}.lg.trap{color:var(--rose)}
+  .pulse{display:block;width:100%;height:30px;color:var(--rose);margin-top:30px}
+  .pulse path{fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;
+    stroke-dasharray:1400;stroke-dashoffset:1400;animation:trace 3s ease forwards}
+  @keyframes trace{to{stroke-dashoffset:0}}
+
+  /* paper panel */
+  .paper{display:none}
+  .paper.active{display:block}
+  .paper-head{padding:40px 0 8px}
+  .paper-head .pk{font-family:"JetBrains Mono";font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--rose)}
+  .paper-head h2{font-size:clamp(26px,4vw,40px);font-weight:700;margin:8px 0 0;color:var(--teal)}
+  .paper-head p{margin:10px 0 0;color:var(--ink-soft);max-width:680px}
+
+  /* unit */
+  .unit{scroll-margin-top:140px;padding:34px 0;border-bottom:1px solid var(--line-soft)}
+  .unit-tag{font-family:"JetBrains Mono";font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--rose);font-weight:500}
+  .unit h3{font-size:clamp(22px,3.2vw,29px);font-weight:700;margin:7px 0 0;color:var(--ink)}
+  .unit .intro{margin:14px 0 0;color:var(--ink-soft)}
+  .unit .intro strong{color:var(--ink);font-weight:600}
+
+  /* blocks */
+  .block{margin-top:22px;border-radius:12px;padding:18px 22px;box-shadow:var(--shadow)}
+  .block h4{font-family:"Space Grotesk";font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;margin:0 0 12px;font-weight:600;display:flex;align-items:center;gap:8px}
+  .block h4 svg{width:16px;height:16px}
+  .b-key{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--rose)}
+  .b-key h4{color:var(--rose-deep)}
+  .b-ex{background:#fffdf7;border:1px solid #ecdcb8;border-left:4px solid var(--amber)}
+  .b-ex h4{color:var(--amber)}
+  .b-trap{background:#fff5f7;border:1px solid #f2cdd7;border-left:4px solid var(--rose)}
+  .b-trap h4{color:var(--rose-deep)}
+  .block p{margin:8px 0}
+  .block ul{margin:6px 0;padding-left:20px}
+  .block li{margin:6px 0}
+  .ex-step{font-size:16px}
+  .ex-step .lab{font-family:"JetBrains Mono";font-size:11.5px;color:var(--amber);font-weight:600;display:block;margin-top:12px;margin-bottom:2px;letter-spacing:.04em}
+  .keygrid{display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+  @media(max-width:720px){.keygrid{grid-template-columns:1fr}}
+  .exam{margin-top:16px;display:flex;gap:12px;align-items:flex-start;font-size:15px;color:var(--ink-soft)}
+  .exam svg{flex:none;width:20px;height:20px;color:var(--teal-bright);margin-top:3px}
+  .exam b{color:var(--teal);font-family:"Space Grotesk"}
+
+  /* how-to-use */
+  .howto{background:var(--teal);color:#d5e6e2;border-radius:var(--radius);padding:24px 26px;margin:8px 0 6px}
+  .howto h3{color:#fff;font-size:19px;margin:0 0 10px}
+  .howto p{margin:6px 0;font-size:15.5px}
+  .howto b{color:#fff}
+
+  footer{background:var(--ink);color:#c4d2cd;padding:44px 0 38px;margin-top:24px}
+  footer h4{font-family:"Space Grotesk";color:#fff;font-size:15px;margin:0 0 12px}
+  footer p{font-size:14px;color:#9fb3ad;line-height:1.6}
+  footer a{color:#5fc0b2}
+  footer .fine{border-top:1px solid #2a3d38;padding-top:18px;margin-top:22px;font-size:12.5px;color:#7f938d}
+  footer .fine .mono{color:#5fc0b2}
+
+  @media(max-width:820px){body{font-size:17px}.papertabs{width:100%;margin-left:0}}
+  @media(prefers-reduced-motion:reduce){.pulse path{animation:none;stroke-dashoffset:0}html{scroll-behavior:auto}}
+  @media print{header.nav,.rail{position:static}.paper{display:block!important}.unit{break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <span class="brand">
+      <svg viewBox="0 0 40 24" aria-hidden="true"><path d="M1 12h8l3-9 5 18 4-13 3 6 3-2h9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      OU · BME MATHS · TUTORIAL
+    </span>
+    <div class="papertabs" id="papertabs">
+      <button class="ptab active" data-p="p1">Maths&nbsp;I</button>
+      <button class="ptab" data-p="p2">Maths&nbsp;II</button>
+      <button class="ptab" data-p="p3">Maths&nbsp;III</button>
+      <button class="ptab" data-p="p4">Maths&nbsp;IV</button>
+    </div>
+  </div>
+  <div class="rail"><div class="rail-inner" id="rail"></div></div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Worked tutorial · a companion to the syllabus &amp; study plan</div>
+    <h1>Learn the <span class="g">Maths</span>, unit by unit</h1>
+    <p class="lede">Every unit across the four papers, taught the way you'd actually study it: the core idea in plain words, the key results you must memorise, a fully worked example, and the mistakes that quietly cost marks.</p>
+    <div class="legend">
+      <span class="lg idea">◆ The idea</span>
+      <span class="lg key">◆ Key results</span>
+      <span class="lg ex">◆ Worked example</span>
+      <span class="lg trap">◆ Watch out</span>
+    </div>
+    <svg class="pulse" viewBox="0 0 1200 30" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 15 H200 l14 -12 l20 24 l16 -20 H460 l12 -10 l22 22 l14 -16 H760 l14 12 l18 -10 H1200"/>
+    </svg>
+  </div>
+</div>
+
+<main class="wrap">
+
+<!-- ================= PAPER I ================= -->
+<section class="paper active" id="p1" data-title="Mathematics – I">
+  <div class="paper-head">
+    <div class="pk">BS 101 MT · Semester 1</div>
+    <h2>Mathematics – I</h2>
+    <p>The calculus toolkit. You'll decide whether infinite sums settle down, sketch curves from their behaviour, extend differentiation to surfaces, and turn integration into a way of measuring area, volume and flow.</p>
+  </div>
+
+  <div class="unit" id="u1-1">
+    <span class="unit-tag">Unit I</span>
+    <h3>Sequences &amp; Series</h3>
+    <p class="intro">A <strong>series</strong> is an infinite sum \(a_1+a_2+a_3+\cdots\). The only question that matters is: does it add up to a finite number (<strong>converges</strong>) or run off to infinity (<strong>diverges</strong>)? You never sum it by hand — you apply a <em>test</em>. Learning which test to reach for is the whole game.</p>
+
+    <div class="block b-key"><h4>Key results — the convergence tests</h4>
+      <div class="keygrid">
+        <div>
+          <p><b>p-series:</b> \(\sum \frac{1}{n^p}\) converges iff \(p>1\).</p>
+          <p><b>D'Alembert's ratio test:</b> let \(L=\lim\limits_{n\to\infty}\left|\frac{a_{n+1}}{a_n}\right|\). Then \(L<1\Rightarrow\) converges, \(L>1\Rightarrow\) diverges, \(L=1\Rightarrow\) inconclusive.</p>
+          <p><b>Cauchy's root test:</b> \(L=\lim (a_n)^{1/n}\); same rule as the ratio test.</p>
+        </div>
+        <div>
+          <p><b>Raabe's test</b> (use when \(L=1\)): \(\lim n\!\left(\frac{a_n}{a_{n+1}}-1\right)>1\Rightarrow\) converges.</p>
+          <p><b>Leibnitz (alternating):</b> \(\sum(-1)^{n}a_n\) converges if \(a_n\) decreases and \(a_n\to0\).</p>
+          <p><b>Absolute convergence:</b> if \(\sum|a_n|\) converges, so does \(\sum a_n\).</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="block b-ex"><h4>Worked example</h4>
+      <p class="ex-step">Test \(\displaystyle\sum_{n=1}^{\infty}\frac{n}{2^{n}}\) for convergence.</p>
+      <p class="ex-step"><span class="lab">Choose the test</span> Terms have a power \(2^n\) in the denominator, so the <em>ratio test</em> is natural.</p>
+      <p class="ex-step"><span class="lab">Form the ratio</span>\[\frac{a_{n+1}}{a_n}=\frac{(n+1)/2^{\,n+1}}{n/2^{\,n}}=\frac{n+1}{2n}\]</p>
+      <p class="ex-step"><span class="lab">Take the limit</span>\[L=\lim_{n\to\infty}\frac{n+1}{2n}=\frac{1}{2}\]</p>
+      <p class="ex-step"><span class="lab">Conclude</span> Since \(L=\tfrac12<1\), the series <b>converges</b>.</p>
+    </div>
+
+    <div class="block b-trap"><h4>Watch out</h4>
+      <ul>
+        <li>When the ratio test gives \(L=1\) it tells you <em>nothing</em> — switch to Raabe's test, don't guess.</li>
+        <li>\(a_n\to0\) does <em>not</em> prove convergence (the harmonic series \(\sum 1/n\) diverges). It's only a necessary condition.</li>
+        <li>For alternating series, check <em>both</em> Leibnitz conditions — decreasing <em>and</em> tending to zero.</li>
+      </ul>
+    </div>
+    <div class="exam"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l2-7 4 14 2-7h6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Exam focus:</b> nearly every paper has a "test for convergence" question. Practise spotting the right test in under ten seconds.</span></div>
+  </div>
+
+  <div class="unit" id="u1-2">
+    <span class="unit-tag">Unit II</span>
+    <h3>Differential Calculus</h3>
+    <p class="intro">This unit connects a function's <strong>derivative</strong> to its <strong>shape</strong>. The mean value theorems guarantee a point where the tangent matches the average slope; curvature measures how sharply a curve bends; Taylor's series rebuilds a function from its derivatives at one point.</p>
+
+    <div class="block b-key"><h4>Key results</h4>
+      <p><b>Rolle's theorem:</b> if \(f(a)=f(b)\) then \(f'(c)=0\) for some \(c\in(a,b)\).</p>
+      <p><b>Lagrange's mean value theorem:</b> \(\displaystyle f'(c)=\frac{f(b)-f(a)}{b-a}\).</p>
+      <p><b>Taylor's series:</b> \(\displaystyle f(x)=f(a)+f'(a)(x-a)+\frac{f''(a)}{2!}(x-a)^2+\cdots\)</p>
+      <p><b>Radius of curvature:</b> \(\displaystyle \rho=\frac{\left(1+y'^{\,2}\right)^{3/2}}{|y''|}\).</p>
+    </div>
+
+    <div class="block b-ex"><h4>Worked example</h4>
+      <p class="ex-step">Find the radius of curvature of \(y=x^{2}\) at the origin.</p>
+      <p class="ex-step"><span class="lab">Derivatives</span> \(y'=2x,\quad y''=2\).</p>
+      <p class="ex-step"><span class="lab">Evaluate at (0,0)</span> \(y'=0,\ y''=2\).</p>
+      <p class="ex-step"><span class="lab">Apply the formula</span>\[\rho=\frac{(1+0)^{3/2}}{|2|}=\frac{1}{2}\]</p>
+      <p class="ex-step">So the parabola bends as tightly as a circle of radius \(\tfrac12\) at its vertex.</p>
+    </div>
+
+    <div class="block b-trap"><h4>Watch out</h4>
+      <ul>
+        <li>Rolle's theorem needs \(f(a)=f(b)\) <em>and</em> continuity/differentiability — state all hypotheses or lose marks.</li>
+        <li>In the curvature formula the numerator power is \(3/2\), not \(1/2\). This is the single most common slip.</li>
+      </ul>
+    </div>
+    <div class="exam"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l2-7 4 14 2-7h6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Exam focus:</b> radius/centre of curvature and Taylor expansions are recurring numerical questions — memorise the formulas cold.</span></div>
+  </div>
+
+  <div class="unit" id="u1-3">
+    <span class="unit-tag">Unit III</span>
+    <h3>Functions of Several Real Variables</h3>
+    <p class="intro">Now the input is a point \((x,y)\), not a single number. <strong>Partial derivatives</strong> measure change in one direction at a time; the <strong>Jacobian</strong> tracks how areas stretch under a change of variables; and finding maxima/minima needs a second-derivative test built for surfaces.</p>
+
+    <div class="block b-key"><h4>Key results</h4>
+      <p><b>Jacobian:</b> \(\displaystyle \frac{\partial(u,v)}{\partial(x,y)}=\begin{vmatrix}u_x & u_y\\ v_x & v_y\end{vmatrix}\).</p>
+      <p><b>Maxima/minima test</b> at a stationary point \((f_x=f_y=0)\). Let \(r=f_{xx},\ s=f_{xy},\ t=f_{yy}\):</p>
+      <ul>
+        <li>\(rt-s^{2}>0\) and \(r<0\) → <b>maximum</b></li>
+        <li>\(rt-s^{2}>0\) and \(r>0\) → <b>minimum</b></li>
+        <li>\(rt-s^{2}<0\) → <b>saddle point</b> (no extremum)</li>
+      </ul>
+      <p><b>Lagrange multipliers</b> (constrained extrema of \(f\) subject to \(g=0\)): solve \(\nabla f=\lambda\nabla g\) together with \(g=0\).</p>
+    </div>
+
+    <div class="block b-ex"><h4>Worked example</h4>
+      <p class="ex-step">Find and classify the stationary point of \(f=x^{2}+xy+y^{2}-3x\).</p>
+      <p class="ex-step"><span class="lab">Stationary point</span> \(f_x=2x+y-3=0,\quad f_y=x+2y=0\). Solving: \(x=2,\ y=-1\).</p>
+      <p class="ex-step"><span class="lab">Second derivatives</span> \(r=f_{xx}=2,\ s=f_{xy}=1,\ t=f_{yy}=2\).</p>
+      <p class="ex-step"><span class="lab">Test</span> \(rt-s^{2}=4-1=3>0\) and \(r=2>0\).</p>
+      <p class="ex-step"><span class="lab">Conclude</span> A <b>minimum</b> at \((2,-1)\).</p>
+    </div>
+
+    <div class="block b-trap"><h4>Watch out</h4>
+      <ul>
+        <li>\(rt-s^2=0\) is inconclusive — the test fails and you'd need another method. Note it, don't force an answer.</li>
+        <li>In Lagrange problems, don't forget the constraint equation itself — it's the extra equation you need.</li>
+      </ul>
+    </div>
+    <div class="exam"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l2-7 4 14 2-7h6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Exam focus:</b> constrained maxima/minima via Lagrange multipliers is a classic 10-mark question.</span></div>
+  </div>
+
+  <div class="unit" id="u1-4">
+    <span class="unit-tag">Unit IV</span>
+    <h3>Multiple Integrals</h3>
+    <p class="intro">A double integral \(\iint f\,dA\) adds up a quantity over a 2-D region; a triple integral does it over a solid. The two skills examiners test: <strong>changing the order of integration</strong> (redrawing the region and re-reading its limits) and using integrals to find <strong>areas and volumes</strong>.</p>
+
+    <div class="block b-key"><h4>Key results</h4>
+      <p><b>Area</b> of a region \(R\): \(\displaystyle A=\iint_R dx\,dy\).</p>
+      <p><b>Volume</b> under \(z=f(x,y)\): \(\displaystyle V=\iint_R f(x,y)\,dx\,dy\).</p>
+      <p><b>Polar form</b> (for circular regions): \(dx\,dy \to r\,dr\,d\theta\).</p>
+      <p><b>Change of order:</b> sketch the region, then re-express the limits with the outer/inner variables swapped — the region is the same, only the description changes.</p>
+    </div>
+
+    <div class="block b-ex"><h4>Worked example</h4>
+      <p class="ex-step">Evaluate \(\displaystyle\int_{0}^{1}\!\int_{0}^{x} (x+y)\,dy\,dx\).</p>
+      <p class="ex-step"><span class="lab">Inner integral (over y)</span>\[\int_0^x (x+y)\,dy=\Big[xy+\tfrac{y^2}{2}\Big]_0^x=x^2+\tfrac{x^2}{2}=\tfrac{3x^2}{2}\]</p>
+      <p class="ex-step"><span class="lab">Outer integral (over x)</span>\[\int_0^1 \tfrac{3x^2}{2}\,dx=\tfrac{3}{2}\cdot\tfrac{x^3}{3}\Big|_0^1=\tfrac{1}{2}\]</p>
+      <p class="ex-step">Value \(=\tfrac12\).</p>
+    </div>
+
+    <div class="block b-trap"><h4>Watch out</h4>
+      <ul>
+        <li>Integrate the <em>inner</em> variable first, treating the outer variable as a constant.</li>
+        <li>When changing order you <em>must</em> sketch the region — guessing the new limits is where most marks are lost.</li>
+        <li>Switching to polar? Remember the extra factor of \(r\) in \(r\,dr\,d\theta\).</li>
+      </ul>
+    </div>
+    <div class="exam"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l2-7 4 14 2-7h6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Exam focus:</b> "change the order of integration and evaluate" appears almost every year.</span></div>
+  </div>
+
+  <div class="unit" id="u1-5">
+    <span class="unit-tag">Unit V</span>
+    <h3>Vector Calculus</h3>
+    <p class="intro">Three operators unlock this unit: <strong>gradient</strong> (steepest increase of a scalar), <strong>divergence</strong> (how much a field spreads out), and <strong>curl</strong> (how much it rotates). Three big theorems — Green's, Gauss's and Stoke's — then let you swap a hard integral for an easier one.</p>
+
+    <div class="block b-key"><h4>Key results</h4>
+      <p><b>Gradient:</b> \(\nabla\varphi=\varphi_x\,\mathbf i+\varphi_y\,\mathbf j+\varphi_z\,\mathbf k\).</p>
+      <p><b>Divergence:</b> \(\nabla\!\cdot\!\mathbf F=\dfrac{\partial F_1}{\partial x}+\dfrac{\partial F_2}{\partial y}+\dfrac{\partial F_3}{\partial z}\) (a scalar).</p>
+      <p><b>Curl:</b> \(\nabla\times\mathbf F\) (a vector, from the determinant of \(\mathbf i,\mathbf j,\mathbf k\), \(\partial\), and \(\mathbf F\)).</p>
+      <p><b>Green's theorem:</b> \(\displaystyle\oint_C (P\,dx+Q\,dy)=\iint_R\!\left(\frac{\partial Q}{\partial x}-\frac{\partial P}{\partial y}\right)dx\,dy\).</p>
+      <p><b>Gauss divergence:</b> \(\displaystyle\iint_S \mathbf F\!\cdot\!\mathbf n\,dS=\iiint_V (\nabla\!\cdot\!\mathbf F)\,dV\).</p>
+      <p><b>Stoke's theorem:</b> \(\displaystyle\oint_C \mathbf F\!\cdot\!d\mathbf r=\iint_S (\nabla\times\mathbf F)\!\cdot\!\mathbf n\,dS\).</p>
+    </div>
+
+    <div class="block b-ex"><h4>Worked example</h4>
+      <p class="ex-step">Find \(\nabla\!\cdot\!\mathbf F\) and \(\nabla\times\mathbf F\) for \(\mathbf F=(x^{2}y)\,\mathbf i+(yz)\,\mathbf j+(xz)\,\mathbf k\).</p>
+      <p class="ex-step"><span class="lab">Divergence</span>\[\nabla\!\cdot\!\mathbf F=\frac{\partial}{\partial x}(x^2y)+\frac{\partial}{\partial y}(yz)+\frac{\partial}{\partial z}(xz)=2xy+z+x\]</p>
+      <p class="ex-step"><span class="lab">Curl</span> Component-wise, \(\nabla\times\mathbf F=(0-y)\,\mathbf i-(z-0)\,\mathbf j+(0-x^2)\,\mathbf k\)\[=-y\,\mathbf i-z\,\mathbf j-x^{2}\,\mathbf k\]</p>
+    </div>
+
+    <div class="block b-trap"><h4>Watch out</h4>
+      <ul>
+        <li>Divergence is a <em>scalar</em>; curl is a <em>vector</em>. Mixing them up is an instant giveaway.</li>
+        <li>Mind the middle sign in the curl determinant expansion — the \(\mathbf j\) term carries a minus.</li>
+        <li>Green's theorem is the 2-D special case of Stoke's — knowing that saves memorising two things.</li>
+      </ul>
+    </div>
+    <div class="exam"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l2-7 4 14 2-7h6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Exam focus:</b> "verify Green's / Gauss's / Stoke's theorem" for a given field and region is a guaranteed long-answer question.</span></div>
+  </div>
+</section>
+
+<!-- ================= PAPER II ================= -->
+<section class="paper" id="p2" data-title="Mathematics – II">
+  <div class="paper-head">
+    <div class="pk">BS 201 MT · Semester 2</div>
+    <h2>Mathematics – II</h2>
+    <p>Linear algebra and differential equations — the two engines of applied maths. You'll solve linear systems and eigenvalue problems, then learn a ladder of techniques for differential equations, from first-order tricks to series solutions and named special functions.</p>
+  </div>
+
+  <div class="unit" id="u2-1">
+    <span class="unit-tag">Unit I</span>
+    <h3>Matrices</h3>
+    <p class="intro">Matrices package linear systems compactly. <strong>Rank</strong> tells you how many independent equations you really have; <strong>eigenvalues</strong> and <strong>eigenvectors</strong> reveal the directions a matrix merely stretches; and <strong>Cayley–Hamilton</strong> says every matrix obeys its own characteristic equation.</p>
+
+    <div class="block b-key"><h4>Key results</h4>
+      <p><b>Eigenvalues</b> solve the characteristic equation \(\det(A-\lambda I)=0\).</p>
+      <p><b>Eigenvector</b> for \(\lambda\): any non-zero \(\mathbf x\) with \((A-\lambda I)\mathbf x=\mathbf 0\).</p>
+      <p><b>Trace &amp; product checks:</b> sum of eigenvalues \(=\) trace of \(A\); product \(=\det A\).</p>
+      <p><b>Cayley–Hamilton:</b> \(A\) satisfies its own characteristic polynomial — a fast route to \(A^{-1}\) and high powers of \(A\).</p>
+    </div>
+
+    <div class="block b-ex"><h4>Worked example</h4>
+      <p class="ex-step">Find the eigenvalues of \(A=\begin{pmatrix}4&1\\2&3\end{pmatrix}\).</p>
+      <p class="ex-step"><span class="lab">Characteristic equation</span>\[\det(A-\lambda I)=\begin{vmatrix}4-\lambda&1\\2&3-\lambda\end{vmatrix}=(4-\lambda)(3-\lambda)-2=0\]</p>
+      <p class="ex-step"><span class="lab">Expand</span>\[\lambda^{2}-7\lambda+10=0\]</p>
+      <p class="ex-step"><span class="lab">Solve</span> \((\lambda-2)(\lambda-5)=0\Rightarrow \lambda=2,\ 5\).</p>
+      <p class="ex-step"><span class="lab">Sanity check</span> Sum \(=7=\) trace ✓, product \(=10=\det A\) ✓.</p>
+    </div>
+
+    <div class="block b-trap"><h4>Watch out</h4>
+      <ul>
+        <li>Reducing a matrix to echelon form: apply row operations consistently — a single arithmetic slip corrupts the rank.</li>
+        <li>Use the trace and determinant checks on your eigenvalues; they catch most errors instantly.</li>
+        <li>For a quadratic form, reduction to canonical form must be by an <em>orthogonal</em> transformation.</li>
+      </ul>
+    </div>
+    <div class="exam"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l2-7 4 14 2-7h6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Exam focus:</b> verifying Cayley–Hamilton and using it to find \(A^{-1}\) is a repeat favourite.</span></div>
+  </div>
+
+  <div class="unit" id="u2-2">
+    <span class="unit-tag">Unit II</span>
+    <h3>Ordinary Differential Equations — First Order</h3>
+    <p class="intro">A first-order ODE relates \(y\) and \(\tfrac{dy}{dx}\). Success is all about <strong>recognising the type</strong>: is it exact, linear, Bernoulli, Clairaut? Each type has a fixed recipe, so classification is 80% of the work.</p>
+
+    <div class="block b-key"><h4>Key results</h4>
+      <p><b>Exact</b> \(M\,dx+N\,dy=0\): exact iff \(\dfrac{\partial M}{\partial y}=\dfrac{\partial N}{\partial x}\).</p>
+      <p><b>Linear</b> \(\dfrac{dy}{dx}+Py=Q\): integrating factor \(\mu=e^{\int P\,dx}\), then \((\mu y)'=\mu Q\).</p>
+      <p><b>Bernoulli</b> \(\dfrac{dy}{dx}+Py=Qy^{n}\): substitute \(v=y^{1-n}\) to linearise.</p>
+      <p><b>Clairaut</b> \(y=px+f(p)\) where \(p=y'\): general solution \(y=cx+f(c)\).</p>
+    </div>
+
+    <div class="block b-ex"><h4>Worked example</h4>
+      <p class="ex-step">Solve \(\dfrac{dy}{dx}+y=e^{x}\).</p>
+      <p class="ex-step"><span class="lab">Identify</span> Linear with \(P=1,\ Q=e^x\).</p>
+      <p class="ex-step"><span class="lab">Integrating factor</span> \(\mu=e^{\int 1\,dx}=e^{x}\).</p>
+      <p class="ex-step"><span class="lab">Multiply &amp; recognise</span>\[\frac{d}{dx}\!\left(y\,e^{x}\right)=e^{x}\cdot e^{x}=e^{2x}\]</p>
+      <p class="ex-step"><span class="lab">Integrate</span>\[y\,e^{x}=\frac{e^{2x}}{2}+C\ \Rightarrow\ y=\frac{e^{x}}{2}+Ce^{-x}\]</p>
+    </div>
+
+    <div class="block b-trap"><h4>Watch out</h4>
+      <ul>
+        <li>Get the equation into standard form \(y'+Py=Q\) <em>before</em> reading off \(P\) — a stray coefficient ruins \(\mu\).</li>
+        <li>Bernoulli only linearises after the substitution — don't try the integrating factor directly.</li>
+        <li>Add the constant of integration; a "particular vs general solution" mark often hangs on it.</li>
+      </ul>
+    </div>
+    <div class="exam"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l2-7 4 14 2-7h6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Exam focus:</b> orthogonal trajectories build directly on the linear/exact methods — expect them.</span></div>
+  </div>
+
+  <div class="unit" id="u2-3">
+    <span class="unit-tag">Unit III</span>
+    <h3>Linear DEs of Higher Order</h3>
+    <p class="intro">Second- and higher-order linear equations split into two jobs: the <strong>complementary function</strong> (CF) from the roots of the auxiliary equation, and the <strong>particular integral</strong> (PI) driven by the right-hand side. The full solution is <em>CF + PI</em>.</p>
+
+    <div class="block b-key"><h4>Key results</h4>
+      <p><b>Auxiliary equation</b> for constant coefficients: replace \(\tfrac{d}{dx}\) with \(m\) and solve for the roots.</p>
+      <ul>
+        <li>Real distinct \(m_1,m_2\): \(\;y_c=c_1e^{m_1x}+c_2e^{m_2x}\)</li>
+        <li>Repeated root \(m\): \(\;y_c=(c_1+c_2x)e^{mx}\)</li>
+        <li>Complex \(\alpha\pm i\beta\): \(\;y_c=e^{\alpha x}(c_1\cos\beta x+c_2\sin\beta x)\)</li>
+      </ul>
+      <p><b>Variation of parameters</b> handles a general right-hand side when the operator method is awkward.</p>
+      <p><b>Euler–Cauchy</b> \(x^2y''+axy'+by=0\): substitute \(x=e^{t}\) to get constant coefficients.</p>
+    </div>
+
+    <div class="block b-ex"><h4>Worked example</h4>
+      <p class="ex-step">Solve \(y''-5y'+6y=0\).</p>
+      <p class="ex-step"><span class="lab">Auxiliary equation</span> \(m^{2}-5m+6=0\).</p>
+      <p class="ex-step"><span class="lab">Roots</span> \((m-2)(m-3)=0\Rightarrow m=2,\ 3\) (real, distinct).</p>
+      <p class="ex-step"><span class="lab">General solution</span>\[y=c_1e^{2x}+c_2e^{3x}\]</p>
+    </div>
+
+    <div class="block b-trap"><h4>Watch out</h4>
+      <ul>
+        <li>For a repeated root, the extra factor of \(x\) is essential — \(c_1e^{mx}+c_2e^{mx}\) is really just one constant.</li>
+        <li>The PI must be found separately and added; the CF alone is not the answer to a non-homogeneous equation.</li>
+        <li>When the forcing term duplicates a CF term, multiply your trial PI by \(x\) to avoid a clash.</li>
+      </ul>
+    </div>
+    <div class="exam"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l2-7 4 14 2-7h6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Exam focus:</b> a full CF + PI solve, plus one variation-of-parameters problem, is standard.</span></div>
+  </div>
+
+  <div class="unit" id="u2-4">
+    <span class="unit-tag">Unit IV</span>
+    <h3>Series Solutions &amp; Special Integrals</h3>
+    <p class="intro">When coefficients aren't constant, assume the solution is a <strong>power series</strong> and grind out its coefficients. Near a "regular singular point" you use the <strong>Frobenius method</strong>. This unit also introduces the Beta and Gamma functions — compact ways to write otherwise nasty integrals.</p>
+
+    <div class="block b-key"><h4>Key results</h4>
+      <p><b>Gamma function:</b> \(\Gamma(n+1)=n\,\Gamma(n)\), \(\Gamma(n+1)=n!\) for integers, and \(\Gamma\!\left(\tfrac12\right)=\sqrt{\pi}\).</p>
+      <p><b>Beta function:</b> \(\displaystyle B(m,n)=\int_0^1 x^{m-1}(1-x)^{n-1}dx=\frac{\Gamma(m)\,\Gamma(n)}{\Gamma(m+n)}\).</p>
+      <p><b>Frobenius:</b> assume \(y=\sum_{k\ge 0} a_k x^{k+r}\); the <em>indicial equation</em> fixes \(r\), and a recurrence fixes the \(a_k\).</p>
+    </div>
+
+    <div class="block b-ex"><h4>Worked example</h4>
+      <p class="ex-step">Evaluate \(\displaystyle\int_0^1 x^{3}(1-x)^{2}\,dx\) using the Beta function.</p>
+      <p class="ex-step"><span class="lab">Match the form</span> This is \(B(4,3)\) since \(m-1=3\Rightarrow m=4\) and \(n-1=2\Rightarrow n=3\).</p>
+      <p class="ex-step"><span class="lab">Apply the identity</span>\[B(4,3)=\frac{\Gamma(4)\,\Gamma(3)}{\Gamma(7)}=\frac{3!\,\cdot 2!}{6!}=\frac{6\cdot 2}{720}=\frac{1}{60}\]</p>
+    </div>
+
+    <div class="block b-trap"><h4>Watch out</h4>
+      <ul>
+        <li>Beta's exponents are \(m-1\) and \(n-1\) — subtract one before reading off \(m,n\).</li>
+        <li>The indicial equation comes from the <em>lowest</em> power of \(x\); don't skip it.</li>
+      </ul>
+    </div>
+    <div class="exam"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l2-7 4 14 2-7h6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Exam focus:</b> Beta–Gamma evaluation of definite integrals is a reliable, quick-scoring question.</span></div>
+  </div>
+
+  <div class="unit" id="u2-5">
+    <span class="unit-tag">Unit V</span>
+    <h3>Special Functions — Legendre &amp; Bessel</h3>
+    <p class="intro">Two named families that fall out of physics problems in spherical and cylindrical geometry. <strong>Legendre polynomials</strong> \(P_n(x)\) and <strong>Bessel functions</strong> \(J_n(x)\) come with generating functions, recurrence relations and orthogonality — properties you use rather than derive.</p>
+
+    <div class="block b-key"><h4>Key results</h4>
+      <p><b>Rodrigue's formula:</b> \(\displaystyle P_n(x)=\frac{1}{2^{n}\,n!}\frac{d^{n}}{dx^{n}}\left(x^{2}-1\right)^{n}\).</p>
+      <p><b>First few:</b> \(P_0=1,\ P_1=x,\ P_2=\tfrac12(3x^2-1)\).</p>
+      <p><b>Orthogonality:</b> \(\displaystyle\int_{-1}^{1}P_m(x)P_n(x)\,dx=0\) for \(m\neq n\).</p>
+      <p><b>Bessel recurrence:</b> \(\displaystyle J_{n-1}(x)+J_{n+1}(x)=\frac{2n}{x}J_n(x)\).</p>
+    </div>
+
+    <div class="block b-ex"><h4>Worked example</h4>
+      <p class="ex-step">Derive \(P_2(x)\) from Rodrigue's formula.</p>
+      <p class="ex-step"><span class="lab">Set up</span> \(n=2\): \(P_2=\dfrac{1}{2^{2}\,2!}\dfrac{d^{2}}{dx^{2}}(x^{2}-1)^{2}=\dfrac{1}{8}\dfrac{d^{2}}{dx^{2}}(x^{4}-2x^{2}+1)\).</p>
+      <p class="ex-step"><span class="lab">Differentiate twice</span> \(\dfrac{d}{dx}=4x^{3}-4x\), then \(\dfrac{d^{2}}{dx^{2}}=12x^{2}-4\).</p>
+      <p class="ex-step"><span class="lab">Simplify</span>\[P_2=\frac{12x^{2}-4}{8}=\frac{3x^{2}-1}{2}\]</p>
+    </div>
+
+    <div class="block b-trap"><h4>Watch out</h4>
+      <ul>
+        <li>Keep the \(\tfrac{1}{2^n n!}\) prefactor — dropping it gives the right shape but the wrong polynomial.</li>
+        <li>Orthogonality of \(P_n\) is over \([-1,1]\) specifically; the interval matters.</li>
+      </ul>
+    </div>
+    <div class="exam"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l2-7 4 14 2-7h6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Exam focus:</b> proving a recurrence relation or the orthogonality property is a standard theory question.</span></div>
+  </div>
+</section>
+
+<!-- ================= PAPER III ================= -->
+<section class="paper" id="p3" data-title="Mathematics – III">
+  <div class="paper-head">
+    <div class="pk">BS 901 MT · Semester 3 · BME-specific</div>
+    <h2>Mathematics – III</h2>
+    <p>The mathematics behind biosignals. Complex analysis gives elegant ways to evaluate real integrals; Fourier series decomposes any periodic signal into sine waves; and partial differential equations model heat, waves and diffusion in the body.</p>
+  </div>
+
+  <div class="unit" id="u3-1">
+    <span class="unit-tag">Unit I</span>
+    <h3>Functions of Complex Variables</h3>
+    <p class="intro">A complex function \(f(z)=u+iv\) is <strong>analytic</strong> when it's differentiable in a whole region. The test is the <strong>Cauchy–Riemann equations</strong>. Analytic functions are astonishingly rigid — knowing them on a boundary determines them inside, which is what Cauchy's theorems capture.</p>
+
+    <div class="block b-key"><h4>Key results</h4>
+      <p><b>Cauchy–Riemann equations:</b> \(f=u+iv\) is analytic iff \(\;u_x=v_y\;\) and \(\;u_y=-v_x\).</p>
+      <p><b>Harmonic:</b> \(u\) and \(v\) each satisfy Laplace's equation \(u_{xx}+u_{yy}=0\).</p>
+      <p><b>Cauchy's integral theorem:</b> \(\displaystyle\oint_C f(z)\,dz=0\) if \(f\) is analytic inside and on \(C\).</p>
+      <p><b>Cauchy's integral formula:</b> \(\displaystyle f(a)=\frac{1}{2\pi i}\oint_C\frac{f(z)}{z-a}\,dz\).</p>
+    </div>
+
+    <div class="block b-ex"><h4>Worked example</h4>
+      <p class="ex-step">Show \(f(z)=z^{2}\) is analytic and find its derivative via C–R.</p>
+      <p class="ex-step"><span class="lab">Separate parts</span> \(z^2=(x+iy)^2=(x^2-y^2)+i(2xy)\), so \(u=x^2-y^2,\ v=2xy\).</p>
+      <p class="ex-step"><span class="lab">Check C–R</span> \(u_x=2x=v_y\ \checkmark\) and \(u_y=-2y=-v_x\ \checkmark\).</p>
+      <p class="ex-step"><span class="lab">Conclude</span> Analytic everywhere, with \(f'(z)=u_x+iv_x=2x+i\,2y=2z\), as expected.</p>
+    </div>
+
+    <div class="block b-trap"><h4>Watch out</h4>
+      <ul>
+        <li>C–R being satisfied at a point isn't enough for analyticity — the partials must also be continuous in a neighbourhood.</li>
+        <li>Watch the sign: the second C–R equation is \(u_y=-v_x\), not \(+\).</li>
+      </ul>
+    </div>
+    <div class="exam"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l2-7 4 14 2-7h6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Exam focus:</b> "find the harmonic conjugate" and "evaluate using Cauchy's integral formula" are staples.</span></div>
+  </div>
+
+  <div class="unit" id="u3-2">
+    <span class="unit-tag">Unit II</span>
+    <h3>Residue Calculus</h3>
+    <p class="intro">The <strong>residue theorem</strong> is complex analysis' superpower: a contour integral equals \(2\pi i\) times the sum of residues inside. That turns hard real integrals into a bookkeeping exercise over poles.</p>
+
+    <div class="block b-key"><h4>Key results</h4>
+      <p><b>Residue at a simple pole</b> \(z=a\): \(\displaystyle \operatorname{Res}_{z=a}f=\lim_{z\to a}(z-a)f(z)\).</p>
+      <p><b>Residue theorem:</b> \(\displaystyle\oint_C f(z)\,dz=2\pi i\sum(\text{residues inside }C)\).</p>
+      <p><b>Laurent series</b> classifies singularities: a finite principal part ⇒ pole; infinite ⇒ essential singularity.</p>
+    </div>
+
+    <div class="block b-ex"><h4>Worked example</h4>
+      <p class="ex-step">Evaluate \(\displaystyle\oint_{|z|=2}\frac{z}{(z-1)(z-3)}\,dz\).</p>
+      <p class="ex-step"><span class="lab">Locate poles</span> At \(z=1\) and \(z=3\). Only \(z=1\) lies inside \(|z|=2\).</p>
+      <p class="ex-step"><span class="lab">Residue at z = 1</span>\[\lim_{z\to1}(z-1)\frac{z}{(z-1)(z-3)}=\frac{1}{1-3}=-\frac12\]</p>
+      <p class="ex-step"><span class="lab">Apply the theorem</span>\[\oint=2\pi i\left(-\tfrac12\right)=-\pi i\]</p>
+    </div>
+
+    <div class="block b-trap"><h4>Watch out</h4>
+      <ul>
+        <li>Only count poles <em>inside</em> the contour — check each against the given circle's radius.</li>
+        <li>For a pole of order \(m>1\), use the derivative formula, not the simple-pole limit.</li>
+      </ul>
+    </div>
+    <div class="exam"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l2-7 4 14 2-7h6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Exam focus:</b> evaluating a real integral \(\int_0^{2\pi}\) or \(\int_{-\infty}^{\infty}\) by residues is a high-mark question.</span></div>
+  </div>
+
+  <div class="unit" id="u3-3">
+    <span class="unit-tag">Unit III</span>
+    <h3>Fourier Series</h3>
+    <p class="intro">Any reasonable periodic function is a sum of sines and cosines. The <strong>Fourier coefficients</strong> pick out "how much" of each frequency is present — the exact idea behind analysing an ECG or EEG trace into its rhythms.</p>
+
+    <div class="block b-key"><h4>Key results</h4>
+      <p><b>Series</b> on \((-\pi,\pi)\): \(\displaystyle f(x)=\frac{a_0}{2}+\sum_{n=1}^{\infty}\big(a_n\cos nx+b_n\sin nx\big)\).</p>
+      <p><b>Coefficients:</b> \(\displaystyle a_n=\frac1\pi\!\int_{-\pi}^{\pi}\! f\cos nx\,dx,\quad b_n=\frac1\pi\!\int_{-\pi}^{\pi}\! f\sin nx\,dx\).</p>
+      <p><b>Symmetry shortcut:</b> even \(f\) → cosine terms only \((b_n=0)\); odd \(f\) → sine terms only \((a_n=0)\).</p>
+    </div>
+
+    <div class="block b-ex"><h4>Worked example</h4>
+      <p class="ex-step">Find the Fourier series of \(f(x)=x\) on \((-\pi,\pi)\).</p>
+      <p class="ex-step"><span class="lab">Use symmetry</span> \(x\) is <em>odd</em>, so \(a_0=a_n=0\) — only sine terms survive.</p>
+      <p class="ex-step"><span class="lab">Sine coefficient</span>\[b_n=\frac{2}{\pi}\int_0^{\pi}x\sin nx\,dx=\frac{2}{\pi}\left[-\frac{x\cos nx}{n}+\frac{\sin nx}{n^2}\right]_0^{\pi}\]</p>
+      <p class="ex-step"><span class="lab">Evaluate</span> \(=\dfrac{2}{\pi}\cdot\left(-\dfrac{\pi\cos n\pi}{n}\right)=-\dfrac{2\cos n\pi}{n}=\dfrac{2(-1)^{n+1}}{n}\).</p>
+      <p class="ex-step"><span class="lab">Result</span>\[x=2\sum_{n=1}^{\infty}\frac{(-1)^{n+1}}{n}\sin nx\]</p>
+    </div>
+
+    <div class="block b-trap"><h4>Watch out</h4>
+      <ul>
+        <li>Always test even/odd symmetry first — it can halve the work by killing a whole family of coefficients.</li>
+        <li>Integration by parts on \(x\sin nx\) is where sign errors creep in; keep the bookkeeping tidy.</li>
+        <li>Half-range series require you to <em>extend</em> the function (as even or odd) before computing.</li>
+      </ul>
+    </div>
+    <div class="exam"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l2-7 4 14 2-7h6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Exam focus:</b> expand a given \(f(x)\) as a Fourier series, then use it to sum a numerical series — a two-part classic.</span></div>
+  </div>
+
+  <div class="unit" id="u3-4">
+    <span class="unit-tag">Unit IV</span>
+    <h3>Partial Differential Equations</h3>
+    <p class="intro">A PDE involves partial derivatives of an unknown function of several variables. First you <strong>form</strong> the PDE by eliminating arbitrary constants or functions; then you <strong>solve</strong> it — Lagrange's method for linear first-order, Charpit's for non-linear.</p>
+
+    <div class="block b-key"><h4>Key results</h4>
+      <p>Notation: \(p=\dfrac{\partial z}{\partial x},\ q=\dfrac{\partial z}{\partial y}\).</p>
+      <p><b>Lagrange's linear equation</b> \(Pp+Qq=R\): solve the auxiliary system \(\displaystyle\frac{dx}{P}=\frac{dy}{Q}=\frac{dz}{R}\), giving two independent solutions \(u=c_1,\ v=c_2\); general solution \(\phi(u,v)=0\).</p>
+      <p><b>Charpit's method</b> handles general non-linear first-order equations \(f(x,y,z,p,q)=0\).</p>
+    </div>
+
+    <div class="block b-ex"><h4>Worked example</h4>
+      <p class="ex-step">Solve \(y\,p - x\,q = 0\) by Lagrange's method.</p>
+      <p class="ex-step"><span class="lab">Auxiliary equations</span>\[\frac{dx}{y}=\frac{dy}{-x}=\frac{dz}{0}\]</p>
+      <p class="ex-step"><span class="lab">From the last ratio</span> \(dz=0\Rightarrow z=c_1\).</p>
+      <p class="ex-step"><span class="lab">From the first pair</span> \(x\,dx+y\,dy=0\Rightarrow x^2+y^2=c_2\).</p>
+      <p class="ex-step"><span class="lab">General solution</span> \(\phi(z,\ x^2+y^2)=0\), i.e. \(z=F(x^2+y^2)\).</p>
+    </div>
+
+    <div class="block b-trap"><h4>Watch out</h4>
+      <ul>
+        <li>Match \(P,Q,R\) carefully to \(\tfrac{dx}{P}=\tfrac{dy}{Q}=\tfrac{dz}{R}\); a swapped term derails everything.</li>
+        <li>When forming a PDE, count the arbitrary constants — you need that many differentiations to eliminate them.</li>
+      </ul>
+    </div>
+    <div class="exam"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l2-7 4 14 2-7h6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Exam focus:</b> one "form the PDE" and one "solve by Lagrange/Charpit" question is the usual split.</span></div>
+  </div>
+
+  <div class="unit" id="u3-5">
+    <span class="unit-tag">Unit V</span>
+    <h3>Fourier Series Applied to PDEs</h3>
+    <p class="intro">The payoff unit: <strong>separation of variables</strong> reduces a PDE to ordinary ODEs, and Fourier series stitches the pieces back into a solution that fits the boundary conditions. This is exactly how the <strong>heat</strong>, <strong>wave</strong> and <strong>Laplace</strong> equations are solved.</p>
+
+    <div class="block b-key"><h4>Key results</h4>
+      <p><b>Heat equation:</b> \(\dfrac{\partial u}{\partial t}=c^{2}\dfrac{\partial^{2}u}{\partial x^{2}}\) (diffusion).</p>
+      <p><b>Wave equation:</b> \(\dfrac{\partial^{2}u}{\partial t^{2}}=c^{2}\dfrac{\partial^{2}u}{\partial x^{2}}\) (vibration).</p>
+      <p><b>Laplace's equation:</b> \(\dfrac{\partial^{2}u}{\partial x^{2}}+\dfrac{\partial^{2}u}{\partial y^{2}}=0\) (steady state).</p>
+      <p><b>Method:</b> assume \(u(x,t)=X(x)\,T(t)\), separate, solve each ODE, then match boundary/initial conditions with a Fourier series.</p>
+    </div>
+
+    <div class="block b-ex"><h4>Worked example — the method in outline</h4>
+      <p class="ex-step">Solve the heat equation \(u_t=c^2u_{xx}\) with \(u=0\) at \(x=0,L\).</p>
+      <p class="ex-step"><span class="lab">Separate</span> Put \(u=X(x)T(t)\). Dividing, \(\dfrac{T'}{c^2T}=\dfrac{X''}{X}=-\lambda\) (a constant).</p>
+      <p class="ex-step"><span class="lab">Solve the space part</span> \(X''+\lambda X=0\) with \(X(0)=X(L)=0\) gives \(X_n=\sin\dfrac{n\pi x}{L}\), \(\lambda_n=\left(\dfrac{n\pi}{L}\right)^2\).</p>
+      <p class="ex-step"><span class="lab">Solve the time part</span> \(T_n=e^{-c^2\lambda_n t}\).</p>
+      <p class="ex-step"><span class="lab">Superpose</span>\[u(x,t)=\sum_{n=1}^{\infty}b_n\sin\frac{n\pi x}{L}\,e^{-c^2\lambda_n t}\]with \(b_n\) fixed by the initial temperature via a Fourier sine series.</p>
+    </div>
+
+    <div class="block b-trap"><h4>Watch out</h4>
+      <ul>
+        <li>The sign of the separation constant \(-\lambda\) matters — the wrong choice gives exponentials where you need sines.</li>
+        <li>Apply the boundary conditions <em>before</em> the initial condition; boundaries fix the eigenfunctions, the initial condition fixes the coefficients.</li>
+      </ul>
+    </div>
+    <div class="exam"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l2-7 4 14 2-7h6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Exam focus:</b> a full separation-of-variables solve of the 1-D heat or wave equation is the big question of this paper.</span></div>
+  </div>
+</section>
+
+<!-- ================= PAPER IV ================= -->
+<section class="paper" id="p4" data-title="Mathematics – IV">
+  <div class="paper-head">
+    <div class="pk">BS 401 MT · Semester 4</div>
+    <h2>Mathematics – IV</h2>
+    <p>Transforms and computation — the working mathematics of engineering. Laplace and Fourier transforms turn calculus into algebra; Z-transforms do the same for discrete signals; numerical methods deliver answers when formulas run out; and regression fits models to real data.</p>
+  </div>
+
+  <div class="unit" id="u4-1">
+    <span class="unit-tag">Unit I</span>
+    <h3>Laplace Transforms</h3>
+    <p class="intro">The Laplace transform \(\mathcal L\{f(t)\}=F(s)\) converts a differential equation in \(t\) into an <em>algebraic</em> equation in \(s\). Solve the algebra, then invert. It's the fastest route through initial-value problems.</p>
+
+    <div class="block b-key"><h4>Key results — the transform table</h4>
+      <div class="keygrid">
+        <div>
+          <p>\(\mathcal L\{1\}=\dfrac1s\)</p>
+          <p>\(\mathcal L\{t^n\}=\dfrac{n!}{s^{n+1}}\)</p>
+          <p>\(\mathcal L\{e^{at}\}=\dfrac{1}{s-a}\)</p>
+        </div>
+        <div>
+          <p>\(\mathcal L\{\sin at\}=\dfrac{a}{s^2+a^2}\)</p>
+          <p>\(\mathcal L\{\cos at\}=\dfrac{s}{s^2+a^2}\)</p>
+          <p>\(\mathcal L\{f'(t)\}=sF(s)-f(0)\)</p>
+        </div>
+      </div>
+      <p style="margin-top:10px"><b>First shifting:</b> \(\mathcal L\{e^{at}f(t)\}=F(s-a)\). &nbsp; <b>Convolution:</b> \(\mathcal L\{f*g\}=F(s)\,G(s)\).</p>
+    </div>
+
+    <div class="block b-ex"><h4>Worked example</h4>
+      <p class="ex-step">Solve \(y'+y=1\), \(y(0)=0\), using Laplace transforms.</p>
+      <p class="ex-step"><span class="lab">Transform both sides</span> \(sY(s)-y(0)+Y(s)=\dfrac1s\), and \(y(0)=0\), so \((s+1)Y=\dfrac1s\).</p>
+      <p class="ex-step"><span class="lab">Solve algebraically</span>\[Y(s)=\frac{1}{s(s+1)}=\frac{1}{s}-\frac{1}{s+1}\quad\text{(partial fractions)}\]</p>
+      <p class="ex-step"><span class="lab">Invert</span>\[y(t)=1-e^{-t}\]</p>
+    </div>
+
+    <div class="block b-trap"><h4>Watch out</h4>
+      <ul>
+        <li>\(\mathcal L\{f'\}=sF(s)-f(0)\) — forgetting the \(-f(0)\) term drops the initial condition entirely.</li>
+        <li>Partial fractions before inverting; the table only recognises standard shapes.</li>
+        <li>The shifting theorems save enormous effort — learn to spot the \(e^{at}\) factor.</li>
+      </ul>
+    </div>
+    <div class="exam"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l2-7 4 14 2-7h6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Exam focus:</b> solving an IVP by Laplace transform, and an inverse transform by convolution, are both near-certain.</span></div>
+  </div>
+
+  <div class="unit" id="u4-2">
+    <span class="unit-tag">Unit II</span>
+    <h3>Fourier Transforms</h3>
+    <p class="intro">Where the Fourier <em>series</em> handles periodic signals, the Fourier <em>transform</em> handles one-off (non-periodic) signals over the whole line — the mathematical basis of frequency analysis and filtering in signal processing.</p>
+
+    <div class="block b-key"><h4>Key results</h4>
+      <p><b>Fourier transform:</b> \(\displaystyle F(s)=\int_{-\infty}^{\infty}f(x)\,e^{isx}\,dx\).</p>
+      <p><b>Fourier sine transform:</b> \(\displaystyle F_s(s)=\int_0^{\infty}f(x)\sin sx\,dx\).</p>
+      <p><b>Fourier cosine transform:</b> \(\displaystyle F_c(s)=\int_0^{\infty}f(x)\cos sx\,dx\).</p>
+      <p>Even functions pair naturally with the cosine transform; odd functions with the sine transform.</p>
+    </div>
+
+    <div class="block b-ex"><h4>Worked example</h4>
+      <p class="ex-step">Find the Fourier cosine transform of \(f(x)=e^{-ax}\ (a>0)\).</p>
+      <p class="ex-step"><span class="lab">Set up</span>\[F_c(s)=\int_0^{\infty}e^{-ax}\cos sx\,dx\]</p>
+      <p class="ex-step"><span class="lab">Standard integral</span>\[\int_0^{\infty}e^{-ax}\cos sx\,dx=\frac{a}{a^{2}+s^{2}}\]</p>
+      <p class="ex-step">So \(F_c(s)=\dfrac{a}{a^{2}+s^{2}}\).</p>
+    </div>
+
+    <div class="block b-trap"><h4>Watch out</h4>
+      <ul>
+        <li>Constant conventions (the \(\tfrac{1}{\sqrt{2\pi}}\) factor) vary between textbooks — follow the one your course prescribes.</li>
+        <li>Choose sine vs cosine transform based on the boundary condition given, not at random.</li>
+      </ul>
+    </div>
+    <div class="exam"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l2-7 4 14 2-7h6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Exam focus:</b> finding the transform of \(e^{-ax}\) or a rectangular pulse, and applying the convolution theorem.</span></div>
+  </div>
+
+  <div class="unit" id="u4-3">
+    <span class="unit-tag">Unit III</span>
+    <h3>Z-Transforms</h3>
+    <p class="intro">The Z-transform is the Laplace transform's discrete cousin. It converts a <strong>difference equation</strong> (a recurrence in a sequence \(y_n\)) into algebra in \(z\) — the standard tool for digital filters and sampled-data systems.</p>
+
+    <div class="block b-key"><h4>Key results</h4>
+      <div class="keygrid">
+        <div>
+          <p>\(Z\{1\}=\dfrac{z}{z-1}\)</p>
+          <p>\(Z\{a^n\}=\dfrac{z}{z-a}\)</p>
+        </div>
+        <div>
+          <p>\(Z\{n\}=\dfrac{z}{(z-1)^2}\)</p>
+          <p><b>Shifting:</b> \(Z\{y_{n+1}\}=zY(z)-z\,y_0\)</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="block b-ex"><h4>Worked example</h4>
+      <p class="ex-step">Solve \(y_{n+1}-2y_n=0\), \(y_0=3\), using Z-transforms.</p>
+      <p class="ex-step"><span class="lab">Transform</span> \(zY(z)-z\,y_0-2Y(z)=0\Rightarrow (z-2)Y=3z\).</p>
+      <p class="ex-step"><span class="lab">Solve</span> \(Y(z)=\dfrac{3z}{z-2}\).</p>
+      <p class="ex-step"><span class="lab">Invert</span> Comparing with \(Z\{a^n\}=\dfrac{z}{z-a}\) gives \(a=2\), so \(y_n=3\cdot 2^{n}\).</p>
+    </div>
+
+    <div class="block b-trap"><h4>Watch out</h4>
+      <ul>
+        <li>The shift rule brings in the initial term \(y_0\) — the discrete analogue of the \(-f(0)\) in Laplace.</li>
+        <li>Keep the \(z\) in the numerator when inverting; \(\tfrac{z}{z-a}\) and \(\tfrac{1}{z-a}\) invert differently.</li>
+      </ul>
+    </div>
+    <div class="exam"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l2-7 4 14 2-7h6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Exam focus:</b> solving a second-order difference equation by Z-transform is the signature question.</span></div>
+  </div>
+
+  <div class="unit" id="u4-4">
+    <span class="unit-tag">Unit IV</span>
+    <h3>Numerical Methods</h3>
+    <p class="intro">When an equation has no clean formula, you compute an answer by <strong>iteration</strong>. This unit is a toolbox: root-finding, solving linear systems, interpolation from a table, and stepping an ODE forward in time.</p>
+
+    <div class="block b-key"><h4>Key results</h4>
+      <p><b>Newton–Raphson</b> (roots): \(\displaystyle x_{n+1}=x_n-\frac{f(x_n)}{f'(x_n)}\).</p>
+      <p><b>Gauss–Seidel</b> (linear systems): iterate each variable using the newest available values.</p>
+      <p><b>Newton's forward interpolation:</b> \(\displaystyle y=y_0+p\,\Delta y_0+\frac{p(p-1)}{2!}\Delta^2y_0+\cdots,\ \ p=\frac{x-x_0}{h}\).</p>
+      <p><b>Runge–Kutta 4th order</b> (ODEs): a weighted average of four slopes per step — the workhorse method.</p>
+    </div>
+
+    <div class="block b-ex"><h4>Worked example</h4>
+      <p class="ex-step">Find \(\sqrt{2}\) by Newton–Raphson using \(f(x)=x^{2}-2\), starting at \(x_0=1.5\).</p>
+      <p class="ex-step"><span class="lab">Iteration formula</span> \(f'(x)=2x\), so \(x_{n+1}=x_n-\dfrac{x_n^{2}-2}{2x_n}=\dfrac{x_n}{2}+\dfrac{1}{x_n}\).</p>
+      <p class="ex-step"><span class="lab">Step 1</span> \(x_1=\dfrac{1.5}{2}+\dfrac{1}{1.5}=0.75+0.6667=1.4167\).</p>
+      <p class="ex-step"><span class="lab">Step 2</span> \(x_2=\dfrac{1.4167}{2}+\dfrac{1}{1.4167}=0.7083+0.7059=1.4142\).</p>
+      <p class="ex-step">Converged to \(\sqrt2\approx1.4142\) in two steps.</p>
+    </div>
+
+    <div class="block b-trap"><h4>Watch out</h4>
+      <ul>
+        <li>Newton–Raphson can diverge from a poor start or where \(f'(x)\approx0\) — pick a sensible \(x_0\).</li>
+        <li>Gauss–Seidel converges reliably only when the system is diagonally dominant; rearrange rows if needed.</li>
+        <li>Use <em>forward</em> differences near the start of a table, <em>backward</em> near the end.</li>
+      </ul>
+    </div>
+    <div class="exam"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l2-7 4 14 2-7h6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Exam focus:</b> two Newton–Raphson iterations, a Gauss–Seidel round, and one RK4 step are common short-to-medium questions.</span></div>
+  </div>
+
+  <div class="unit" id="u4-5">
+    <span class="unit-tag">Unit V</span>
+    <h3>Curve Fitting, Correlation &amp; Regression</h3>
+    <p class="intro">Given scattered data, <strong>least squares</strong> finds the best-fitting line; <strong>correlation</strong> measures how tightly two variables move together; <strong>regression</strong> gives the equation to predict one from the other. This is the statistics you'll actually use analysing experimental results.</p>
+
+    <div class="block b-key"><h4>Key results</h4>
+      <p><b>Least-squares line</b> \(y=a+bx\) via the normal equations:</p>
+      \[\sum y=na+b\sum x,\qquad \sum xy=a\sum x+b\sum x^{2}\]
+      <p><b>Karl Pearson's correlation coefficient:</b> \(\displaystyle r=\frac{\sum(x-\bar x)(y-\bar y)}{\sqrt{\sum(x-\bar x)^2\,\sum(y-\bar y)^2}}\), with \(-1\le r\le 1\).</p>
+      <p><b>Spearman's rank correlation:</b> \(\displaystyle \rho=1-\frac{6\sum d^{2}}{n(n^{2}-1)}\), where \(d\) is the difference in ranks.</p>
+    </div>
+
+    <div class="block b-ex"><h4>Worked example</h4>
+      <p class="ex-step">Interpret correlation for four data points where \(\sum d^2 = 2\), \(n=4\) (ranked data).</p>
+      <p class="ex-step"><span class="lab">Apply Spearman</span>\[\rho=1-\frac{6(2)}{4(16-1)}=1-\frac{12}{60}=1-0.2=0.8\]</p>
+      <p class="ex-step"><span class="lab">Interpret</span> \(\rho=0.8\) indicates a strong positive association between the two rankings.</p>
+    </div>
+
+    <div class="block b-trap"><h4>Watch out</h4>
+      <ul>
+        <li>The two regression lines (\(y\) on \(x\), and \(x\) on \(y\)) are different — use the right one for the prediction asked.</li>
+        <li>\(r=b_{yx}\cdot b_{xy}\) under a square root; and \(r\) always lies in \([-1,1]\) — a value outside signals an arithmetic error.</li>
+        <li>Correlation is not causation — a strong \(r\) doesn't prove one variable drives the other.</li>
+      </ul>
+    </div>
+    <div class="exam"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l2-7 4 14 2-7h6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Exam focus:</b> fitting a straight line by least squares and computing Karl Pearson's \(r\) from a table are both reliable questions.</span></div>
+  </div>
+</section>
+
+<div class="howto">
+  <h3>How to work through this tutorial</h3>
+  <p><b>Read actively.</b> For each unit, cover the worked example and try it yourself first — then check. Passive reading of solved maths creates false confidence.</p>
+  <p><b>Build your own key-results sheet.</b> Copy each "Key results" box by hand onto one page per unit. By exam time you revise from five sheets, not five chapters.</p>
+  <p><b>Then hit past papers.</b> This tutorial teaches the method; Osmania University's previous question papers teach the exam. Alternate between them.</p>
+</div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <h4>About this tutorial</h4>
+    <p>A worked companion to the Engineering Mathematics I–IV syllabus for BE Biomedical Engineering, University College of Engineering (Autonomous), Osmania University. Concepts, key results and examples are standard treatments aligned to the prescribed texts (Grewal; Jain &amp; Iyengar; Kreyszig). Equations render via MathJax.</p>
+    <p style="margin-top:12px">Pair this with the syllabus &amp; study-plan page. Worked examples are illustrative — always practise the full range from your prescribed textbooks and past Osmania University question papers.</p>
+    <div class="fine">
+      Self-contained single file — upload <span class="mono">index.html</span> to tiiny.host to publish. Needs an internet connection only to load web fonts and the MathJax equation renderer. &nbsp;Compiled study reference, not an official university publication. &nbsp;Prepared <span class="mono">04 July 2026</span>.
+    </div>
+  </div>
+</footer>
+
+<script>
+  // paper tabs + unit rail
+  (function(){
+    var tabs = Array.prototype.slice.call(document.querySelectorAll('.ptab'));
+    var papers = Array.prototype.slice.call(document.querySelectorAll('.paper'));
+    var rail = document.getElementById('rail');
+
+    function buildRail(paperEl){
+      rail.innerHTML='';
+      var units = paperEl.querySelectorAll('.unit');
+      units.forEach(function(u){
+        var tag = u.querySelector('.unit-tag').textContent.trim();
+        var name = u.querySelector('h3').textContent.trim();
+        var a = document.createElement('a');
+        a.href = '#'+u.id;
+        a.textContent = tag + ' · ' + name;
+        rail.appendChild(a);
+      });
+    }
+
+    function activate(pid){
+      tabs.forEach(function(t){ t.classList.toggle('active', t.dataset.p===pid); });
+      papers.forEach(function(p){ p.classList.toggle('active', p.id===pid); });
+      var active = document.getElementById(pid);
+      if(active) buildRail(active);
+      window.scrollTo({top:0, behavior:'auto'});
+    }
+
+    tabs.forEach(function(t){ t.addEventListener('click', function(){ activate(t.dataset.p); }); });
+    buildRail(document.getElementById('p1'));
+  })();
+</script>
+</body>
+</html>
