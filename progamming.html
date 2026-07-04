@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B.E. Biomedical Engineering - C & Python Curriculum Portal</title>
+    <style>
+        :root {
+            --primary: #0f172a;       /* Deep Slate Blue */
+            --secondary: #0284c7;     /* High-Tech Medical Cyan Blue */
+            --accent: #b45309;        /* Academic Omani Gold/Amber Accent */
+            --bg-light: #f8fafc;      /* Light Background */
+            --card-bg: #ffffff;       /* Pure White for Cards */
+            --text-main: #334155;     /* Main Text Charcoal */
+            --text-dark: #1e293b;     /* Dark Heading Text */
+            --border: #e2e8f0;        /* Card and Table Borders */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, #1e3a8a 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 5px solid var(--accent);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: #93c5fd;
+            font-weight: 300;
+        }
+
+        nav {
+            background-color: #1e293b;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgb(0 0 0 / 0.05);
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #cbd5e1;
+            text-decoration: none;
+            padding: 15px 20px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            color: white;
+            background-color: var(--secondary);
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .intro-box {
+            background: var(--card-bg);
+            border-left: 5px solid var(--secondary);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+            margin-bottom: 40px;
+        }
+
+        .intro-box h2 {
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: var(--text-dark);
+            border-bottom: 3px solid var(--border);
+            padding-bottom: 8px;
+            margin: 40px 0 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: "";
+            display: inline-block;
+            width: 8px;
+            height: 32px;
+            background-color: var(--accent);
+            border-radius: 4px;
+        }
+
+        /* Syllabus Timeline & Semester Grid Layout */
+        .semester-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        .semester-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+            transition: transform 0.2s ease;
+        }
+
+        .semester-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .sem-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sem-header h3 {
+            font-size: 1.25rem;
+        }
+
+        .sem-badge {
+            background-color: var(--accent);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .sem-body {
+            padding: 25px;
+        }
+
+        .course-meta {
+            background-color: #f1f5f9;
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .course-meta span strong {
+            color: var(--text-dark);
+        }
+
+        .syllabus-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 0.95rem;
+        }
+
+        .syllabus-table th, .syllabus-table td {
+            border: 1px solid var(--border);
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        .syllabus-table th {
+            background-color: #f8fafc;
+            color: var(--text-dark);
+            font-weight: 600;
+            width: 25%;
+        }
+
+        .bme-integration {
+            margin-top: 15px;
+            background-color: #f0fdf4;
+            border: 1px dashed #bbf7d0;
+            padding: 15px;
+            border-radius: 6px;
+            color: #166534;
+            font-size: 0.95rem;
+        }
+
+        /* Study Plan Styling */
+        .plan-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .plan-phase {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+        }
+
+        .phase-title {
+            color: var(--secondary);
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #e0f2fe;
+            padding-bottom: 5px;
+        }
+
+        .week-list {
+            list-style: none;
+            margin-top: 10px;
+        }
+
+        .week-item {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .week-item::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        .week-item strong {
+            color: var(--text-dark);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            background-color: var(--primary);
+            color: #94a3b8;
+            font-size: 0.9rem;
+            margin-top: 60px;
+            border-top: 4px solid var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8rem; }
+            .syllabus-table th, .syllabus-table td { display: block; width: 100%; }
+            .syllabus-table th { background-color: #e2e8f0; }
+            nav a { padding: 10px 15px; font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Omani University</h1>
+        <p>College of Engineering — Department of Biomedical Engineering</p>
+        <div style="margin-top: 15px; font-weight: bold; font-size: 1.3rem; color: #fff;">
+            B.E. Biomedical Engineering: C & Python Programming Curriculum Portal
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <a href="#overview">Program Overview</a>
+            <a href="#syllabus">Detailed Syllabus Map</a>
+            <a href="#study-plan">Comprehensive Study Plan</a>
+        </div>
+    </nav>
+
+    <div class="main-container">
+
+        <section id="overview" class="intro-box">
+            <h2>The Role of Computing in Biomedical Engineering</h2>
+            <p>In modern healthcare, modern medicine intersects closely with software and computing hardware. This document outlines the structured integration of <strong>Programming in C</strong> and <strong>Python</strong> throughout the 4-Year Bachelor of Engineering program at Omani University. Students develop foundational programming logic, execute real-time low-level device control via <strong>C firmware</strong>, and apply data analysis, biomedical signal manipulation, and artificial intelligence models using <strong>Python</strong> ecosystem standards.</p>
+        </section>
+
+        <section id="syllabus">
+            <h2 class="section-title">Detailed Programming Syllabus Across Semesters</h2>
+            
+            <div class="semester-grid">
+
+                <div class="semester-card">
+                    <div class="sem-header">
+                        <h3>Semester I: Introduction to Computing & Algorithmic Logic</h3>
+                        <span class="sem-badge">Python Core</span>
+                    </div>
+                    <div class="sem-body">
+                        <div class="course-meta">
+                            <span><strong>Course Code:</strong> COMP 1101</span>
+                            <span><strong>Credits:</strong> 3 (L: 2, T: 0, P: 2)</span>
+                            <span><strong>Pre-requisites:</strong> None</span>
+                        </div>
+                        <table class="syllabus-table">
+                            <tr>
+                                <th>Theoretical Units</th>
+                                <td>Introduction to computational thinking; Variables, Expressions, and Built-in Data Types; Control Structures (Conditional branches and loops); Functions, Scoping, and Modular structural programming.</td>
+                            </tr>
+                            <tr>
+                                <th>Practical Lab Modules</th>
+                                <td>Writing Python scripts to parse simulated textual patient logs; Automating unit metrics parsing (e.g., Celsius to Fahrenheit conversions, BMI calculations); Implementation of basic recursion.</td>
+                            </tr>
+                        </table>
+                        <div class="bme-integration">
+                            <strong>Biomedical Context Element:</strong> Writing algorithms to screen datasets for basic anomalies, mimicking high-level data pre-sorting logic found in electronic health record (EHR) systems.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="semester-card">
+                    <div class="sem-header">
+                        <h3>Semester II: Engineering Computer Programming for Problem Solving</h3>
+                        <span class="sem-badge">C Core</span>
+                    </div>
+                    <div class="sem-body">
+                        <div class="course-meta">
+                            <span><strong>Course Code:</strong> COMP 1102</span>
+                            <span><strong>Credits:</strong> 4 (L: 2, T: 1, P: 2)</span>
+                            <span><strong>Pre-requisites:</strong> COMP 1101</span>
+                        </div>
+                        <table class="syllabus-table">
+                            <tr>
+                                <th>Theoretical Units</th>
+                                <td>Procedural style development in C; Strict typing, Constants, operators, and formatting primitives; Complex control flows (`switch-case`, nested `while`/`for`); Single and Multi-dimensional Arrays; Memory Address space basics, Pointers, and Function arguments execution styles.</td>
+                            </tr>
+                            <tr>
+                                <th>Practical Lab Modules</th>
+                                <td>Writing string sorting algorithms; Multi-dimensional matrix mathematical execution programs; Dynamic memory allocations tracking via `malloc()`, `calloc()`, and memory cleaning with `free()`.</td>
+                            </tr>
+                        </table>
+                        <div class="bme-integration">
+                            <strong>Biomedical Context Element:</strong> Constructing multidimensional arrays intended to store grid values representing localized biosensor reading streams mapped over geometric tissue coordinates.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="semester-card">
+                    <div class="sem-header">
+                        <h3>Semester III: Data Structures & Computational Logic</h3>
+                        <span class="sem-badge">C & Python Dual Application</span>
+                    </div>
+                    <div class="sem-body">
+                        <div class="course-meta">
+                            <span><strong>Course Code:</strong> BMED 2101</span>
+                            <span><strong>Credits:</strong> 3 (L: 2, T: 0, P: 2)</span>
+                            <span><strong>Pre-requisites:</strong> COMP 1102</span>
+                        </div>
+                        <table class="syllabus-table">
+                            <tr>
+                                <th>Theoretical Units</th>
+                                <td>Linear structures (Singly, Doubly, and Circular Linked Lists; Stacks and Queues operations architectures); Non-linear structural paradigms (Binary Search Trees, Graph representations); Searching techniques and Sorting sorting algorithms optimizations.</td>
+                            </tr>
+                            <tr>
+                                <th>Practical Lab Modules</th>
+                                <td>Developing fully functional self-referential linked list node paths in C; Tracking dynamic buffers utilizing Queues; Performance optimization audits tracking time complexity limits.</td>
+                            </tr>
+                        </table>
+                        <div class="bme-integration">
+                            <strong>Biomedical Context Element:</strong> Developing structural Queues modeling the FIFO storage pipelines required when handling live biosignal streaming inputs before filtering.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="semester-card">
+                    <div class="sem-header">
+                        <h3>Semester IV: Object-Oriented Software Design</h3>
+                        <span class="sem-badge">Advanced Python</span>
+                    </div>
+                    <div class="sem-body">
+                        <div class="course-meta">
+                            <span><strong>Course Code:</strong> COMP 2201</span>
+                            <span><strong>Credits:</strong> 3 (L: 2, T: 0, P: 2)</span>
+                            <span><strong>Pre-requisites:</strong> COMP 1101</span>
+                        </div>
+                        <table class="syllabus-table">
+                            <tr>
+                                <th>Theoretical Units</th>
+                                <td>Object-Oriented Programming (OOP) paradigms; Classes, instance initializations, and structural Methods; Inheritance patterns, Encapsulation rules, and Polymorphism; Advanced exception handling; Modular systems build mechanics.</td>
+                            </tr>
+                            <tr>
+                                <th>Practical Lab Modules</th>
+                                <td>Building structured class hierarchies with Python; Exception assertion routines parsing continuous text files; Constructing desktop application interfaces (using Tkinter/PyQt framework).</td>
+                            </tr>
+                        </table>
+                        <div class="bme-integration">
+                            <strong>Biomedical Context Element:</strong> Modeling clinical hardware component behaviors via virtual software abstractions (e.g., generating an abstract base class `MedicalSensor` from which classes like `Oximeter` and `ECG` inherit).
+                        </div>
+                    </div>
+                </div>
+
+                <div class="semester-card">
+                    <div class="sem-header">
+                        <h3>Semester V: Microcontrollers & Biomedical Instrumentation Interfacing</h3>
+                        <span class="sem-badge">Embedded C</span>
+                    </div>
+                    <div class="sem-body">
+                        <div class="course-meta">
+                            <span><strong>Course Code:</strong> BMED 3101</span>
+                            <span><strong>Credits:</strong> 4 (L: 3, T: 0, P: 2)</span>
+                            <span><strong>Pre-requisites:</strong> COMP 1102 & EE Circuits</span>
+                        </div>
+                        <table class="syllabus-table">
+                            <tr>
+                                <th>Theoretical Units</th>
+                                <td>Microcontroller hardware architecture; Low-level Register manipulations using Embedded C; General Purpose Input/Output (GPIO) operational constraints; Analog-to-Digital Conversion (ADC) techniques; Serial Communication interfaces (UART, I2C, SPI); Interrupt service handling routines.</td>
+                            </tr>
+                            <tr>
+                                <th>Practical Lab Modules</th>
+                                <td>Configuring internal MCU timing behaviors; Programming ADC registers to collect voltage readings from an external analog source; Interfacing hardware peripheral screens using SPI protocols.</td>
+                            </tr>
+                        </table>
+                        <div class="bme-integration">
+                            <strong>Biomedical Context Element:</strong> Writing real-time Embedded C code to capture analog signals from a pulse oximeter circuit frontend, digitize the waveform data, and send it over a serial interface.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="semester-card">
+                    <div class="sem-header">
+                        <h3>Semester VI: Digital Biomedical Signal Processing</h3>
+                        <span class="sem-badge">Python Libraries</span>
+                    </div>
+                    <div class="sem-body">
+                        <div class="course-meta">
+                            <span><strong>Course Code:</strong> BMED 3202</span>
+                            <span><strong>Credits:</strong> 4 (L: 3, T: 1, P: 2)</span>
+                            <span><strong>Pre-requisites:</strong> BMED 2101 & Signals Systems</span>
+                        </div>
+                        <table class="syllabus-table">
+                            <tr>
+                                <th>Theoretical Units</th>
+                                <td>Discrete-time signal operations; Sampling theorem compliance; Discrete Fourier Transform (DFT) and Fast Fourier Transform (FFT) theory; Digital filter architectures (FIR and IIR filter structures); Noise attenuation and feature tracking algorithms.</td>
+                            </tr>
+                            <tr>
+                                <th>Practical Lab Modules</th>
+                                <td>Using Python data libraries (`NumPy`, `SciPy.signal`, `Matplotlib`) to implement digital filtering systems; Removing baseline wander and powerline noise from real, unfiltered patient ECG records.</td>
+                            </tr>
+                        </table>
+                        <div class="bme-integration">
+                            <strong>Biomedical Context Element:</strong> Building automated data-cleaning pipelines in Python to remove environmental electrical noise from electromyogram (EMG) or electrocardiogram (ECG) sensor traces.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="semester-card">
+                    <div class="sem-header">
+                        <h3>Semester VII: Medical Image Processing & Healthcare Artificial Intelligence</h3>
+                        <span class="sem-badge">Python Ecosystem</span>
+                    </div>
+                    <div class="sem-body">
+                        <div class="course-meta">
+                            <span><strong>Course Code:</strong> BMED 4101</span>
+                            <span><strong>Credits:</strong> 4 (L: 3, T: 0, P: 2)</span>
+                            <span><strong>Pre-requisites:</strong> BMED 3202</span>
+                        </div>
+                        <table class="syllabus-table">
+                            <tr>
+                                <th>Theoretical Units</th>
+                                <td>Digital medical imaging structure paradigms (DICOM file specs); Spatial filters, morphological segmentation, edge detection mechanisms; Classical Machine Learning frameworks; Artificial Neural Networks and Convolutional Neural Networks (CNN) for imagery structures processing.</td>
+                            </tr>
+                            <tr>
+                                <th>Practical Lab Modules</th>
+                                <td>Processing raw imaging slices with OpenCV and Scikit-Image; Extracting tumor geometries via automated boundary masks; Building simple classifier models using Scikit-Learn.</td>
+                            </tr>
+                        </table>
+                        <div class="bme-integration">
+                            <strong>Biomedical Context Element:</strong> Designing a custom CNN pipeline in Python to identify structural abnormalities in lung X-rays or classify tissue anomalies in brain MRI scans.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="semester-card">
+                    <div class="sem-header">
+                        <h3>Semester VIII: Capstone Graduation Project & System Deployments</h3>
+                        <span class="sem-badge">Full Deployment (C + Python)</span>
+                    </div>
+                    <div class="sem-body">
+                        <div class="course-meta">
+                            <span><strong>Course Code:</strong> BMED 4202</span>
+                            <span><strong>Credits:</strong> 6 (L: 0, T: 0, P: 12)</span>
+                            <span><strong>Pre-requisites:</strong> All Prior Technical Blocks</span>
+                        </div>
+                        <table class="syllabus-table">
+                            <tr>
+                                <th>Theoretical Units</th>
+                                <td>Full-stack embedded-to-cloud software engineering; Code profiling, optimization, and documentation practices; Medical software lifecycle compliance frameworks (IEC 62304 standards); Inter-language bindings (running C optimization subroutines inside Python wrapper blocks).</td>
+                            </tr>
+                            <tr>
+                                <th>Practical Lab Modules</th>
+                                <td>Developing and debugging a cross-platform prototype; Implementing structural firmware pipelines alongside diagnostic Python analytics engines; Writing rigorous integration tests.</td>
+                            </tr>
+                        </table>
+                        <div class="bme-integration">
+                            <strong>Biomedical Context Element:</strong> Designing a functional medical device prototype (e.g., a wearable biosensor system using Embedded C for data gathering and a Python GUI dashboard for cloud analytics and medical diagnostics).
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="study-plan">
+            <h2 class="section-title">Comprehensive 4-Year Academic Study Plan</h2>
+            <div class="plan-timeline">
+
+                <div class="plan-phase" style="border-left: 5px solid #10b981;">
+                    <div class="phase-title">Phase 1: Computational Thinking & Procedural Foundations (Years 1)</div>
+                    <p><strong>Goal:</strong> Transition from programmatic ignorance to absolute code tracking literacy across procedural environments.</p>
+                    <ul class="week-list">
+                        <li class="week-item"><strong>Weeks 1 - 8 (S1):</strong> Master Python primitives, flow paths, loops, and list manipulation mechanics. Omit complex algorithms and prioritize writing functional code blocks.</li>
+                        <li class="week-item"><strong>Weeks 9 - 16 (S1):</strong> Focus on data collection paradigms, dictionary lookups, and basic text file parsing containing mock vitals data.</li>
+                        <li class="week-item"><strong>Weeks 17 - 24 (S2):</strong> Re-evaluate execution logic through strict typing conventions in C. Practice writing correct memory layout syntax manually.</li>
+                        <li class="week-item"><strong>Weeks 25 - 32 (S2):</strong> Master pointer structures, memory addresses, allocations, and manually configure complex structural arrays.</li>
+                    </ul>
+                </div>
+
+                <div class="plan-phase" style="border-left: 5px solid #06b6d4;">
+                    <div class="phase-title">Phase 2: Structural Cleanliness & Enterprise Objects Foundations (Year 2)</div>
+                    <p><strong>Goal:</strong> Learn to choose efficient data layouts and object relationships for complex software applications.</p>
+                    <ul class="week-list">
+                        <li class="week-item"><strong>Weeks 33 - 40 (S3):</strong> Implement dynamic structures (Singly and Doubly Linked Lists) in C. Trace memory allocations step-by-step to prevent leaks.</li>
+                        <li class="week-item"><strong>Weeks 41 - 48 (S3):</strong> Build recursive trees and custom sorting routines. Evaluate algorithm execution costs using Big-O time complexity models.</li>
+                        <li class="week-item"><strong>Weeks 49 - 56 (S4):</strong> Transition back to Python using Object-Oriented paradigms. Model sensor payloads using classes, attributes, methods, and inheritances.</li>
+                        <li class="week-item"><strong>Weeks 57 - 64 (S4):</strong> Learn to build standard desktop application interfaces using Tkinter or PyQt for real-time visualization of mock data feeds.</li>
+                    </ul>
+                </div>
+
+                <div class="plan-phase" style="border-left: 5px solid #f59e0b;">
+                    <div class="phase-title">Phase 3: Hardware Interfacing & Analytical Signal Implementations (Year 3)</div>
+                    <p><strong>Goal:</strong> Bridge software with actual physical medical hardware instrumentation components.</p>
+                    <ul class="week-list">
+                        <li class="week-item"><strong>Weeks 65 - 72 (S5):</strong> Study target MCU register maps. Write low-level Embedded C scripts to control hardware pins and respond to external interrupts.</li>
+                        <li class="week-item"><strong>Weeks 73 - 80 (S5):</strong> Interface SPI/I2C communication chips and program the ADC system to fetch analog sensor waves cleanly.</li>
+                        <li class="week-item"><strong>Weeks 81 - 88 (S6):</strong> Load digital signal wave series array objects into Python using NumPy. Master array transformations and vector operations.</li>
+                        <li class="week-item"><strong>Weeks 89 - 96 (S6):</strong> Apply SciPy filter modules to extract clean clinical bio-wave signals from heavily corrupted raw data recordings.</li>
+                    </ul>
+                </div>
+
+                <div class="plan-phase" style="border-left: 5px solid #ef4444;">
+                    <div class="phase-title">Phase 4: Advanced Intelligent Classifiers & Medical Deployments (Year 4)</div>
+                    <p><strong>Goal:</strong> Deploy production-ready, AI-driven medical device prototypes that follow international design standards.</p>
+                    <ul class="week-list">
+                        <li class="week-item"><strong>Weeks 97 - 104 (S7):</strong> Process medical imagery structures (DICOM files) using OpenCV. Apply morphology transforms to segment tissue boundaries and isolate target tumors.</li>
+                        <li class="week-item"><strong>Weeks 105 - 112 (S7):</strong> Train Scikit-Learn classifiers and build Convolutional Neural Networks (CNNs) to automate disease screening tasks.</li>
+                        <li class="week-item"><strong>Weeks 113 - 128 (S8):</strong> Develop your final capstone project. Build real-time data-acquisition systems using Embedded C and combine them with Python analytics and visualization suites. Maintain clean git commit histories and verify system safety profiles.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Omani University — College of Engineering — Department of Biomedical Engineering.</p>
+        <p style="font-size: 0.75rem; margin-top: 5px; color: #64748b;">Curriculum mapped in accordance with modern medical device software lifecycle specifications (IEC 62304).</p>
+    </footer>
+
+</body>
+</html>
