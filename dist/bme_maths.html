@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Engineering Mathematics · BE Biomedical Engineering · Osmania University</title>
+<meta name="description" content="Detailed syllabus and study plan for Engineering Mathematics I–IV, BE Biomedical Engineering, University College of Engineering, Osmania University." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#eef3f1;
+    --paper-2:#e4ebe8;
+    --card:#ffffff;
+    --ink:#132420;
+    --ink-soft:#3f524d;
+    --teal:#0e4e4a;
+    --teal-bright:#178a7e;
+    --rose:#e23e6b;
+    --rose-deep:#b62a53;
+    --amber:#d98a1f;
+    --line:#cdd8d3;
+    --line-soft:#dde6e2;
+    --shadow:0 1px 2px rgba(19,36,32,.05),0 8px 30px rgba(19,36,32,.06);
+    --radius:14px;
+    --maxw:1080px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:78px}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Newsreader",Georgia,serif;font-size:18px;line-height:1.62;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  }
+  h1,h2,h3,h4,.disp{font-family:"Space Grotesk",system-ui,sans-serif;line-height:1.12;letter-spacing:-.01em}
+  code,.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+  a{color:var(--teal-bright);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+
+  /* ---- pulse motif ---- */
+  .pulse{display:block;width:100%;height:34px;color:var(--rose)}
+  .pulse path{fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;
+    stroke-dasharray:1400;stroke-dashoffset:1400;animation:trace 3.2s ease forwards}
+  @keyframes trace{to{stroke-dashoffset:0}}
+
+  /* ---- nav ---- */
+  header.nav{position:sticky;top:0;z-index:50;background:rgba(238,243,241,.86);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav-inner{max-width:var(--maxw);margin:0 auto;padding:12px 22px;display:flex;align-items:center;gap:20px}
+  .brand{display:flex;align-items:center;gap:10px;font-family:"Space Grotesk";font-weight:600;
+    font-size:15px;letter-spacing:.02em;color:var(--teal);white-space:nowrap}
+  .brand svg{width:26px;height:26px;color:var(--rose)}
+  .nav-links{margin-left:auto;display:flex;gap:4px;flex-wrap:wrap}
+  .nav-links a{font-family:"Space Grotesk";font-size:13.5px;font-weight:500;color:var(--ink-soft);
+    padding:7px 11px;border-radius:8px;transition:.18s}
+  .nav-links a:hover{background:var(--paper-2);color:var(--teal);text-decoration:none}
+  .nav-links a.active{background:var(--teal);color:#fff}
+
+  /* ---- hero ---- */
+  .hero{padding:64px 0 26px;position:relative;overflow:hidden}
+  .eyebrow{font-family:"JetBrains Mono";font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--rose-deep);font-weight:500;margin-bottom:18px}
+  .hero h1{font-size:clamp(38px,7vw,72px);font-weight:700;margin:0 0 8px;color:var(--ink)}
+  .hero h1 .g{color:var(--teal)}
+  .hero .lede{font-size:clamp(19px,2.4vw,23px);max-width:640px;color:var(--ink-soft);margin:16px 0 0}
+  .hero .who{margin-top:26px;display:inline-flex;flex-wrap:wrap;gap:8px}
+  .chip{font-family:"JetBrains Mono";font-size:12.5px;background:var(--card);border:1px solid var(--line);
+    border-radius:999px;padding:6px 13px;color:var(--teal)}
+  .chip b{color:var(--rose-deep);font-weight:600}
+
+  /* ---- section frame ---- */
+  section{padding:52px 0}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:6px}
+  .sec-num{font-family:"JetBrains Mono";font-size:14px;color:var(--rose);font-weight:600}
+  .sec-head h2{font-size:clamp(26px,4vw,38px);font-weight:600;margin:0;color:var(--ink)}
+  .sec-sub{color:var(--ink-soft);max-width:660px;margin:2px 0 34px}
+  .divider{border:none;border-top:1px solid var(--line);margin:0}
+
+  /* ---- at a glance table ---- */
+  .glance{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    overflow:hidden;box-shadow:var(--shadow)}
+  .glance table{width:100%;border-collapse:collapse}
+  .glance th,.glance td{text-align:left;padding:15px 18px;border-bottom:1px solid var(--line-soft);font-size:15.5px}
+  .glance th{font-family:"Space Grotesk";font-size:12px;letter-spacing:.09em;text-transform:uppercase;
+    color:var(--ink-soft);background:var(--paper-2);font-weight:600}
+  .glance tr:last-child td{border-bottom:none}
+  .glance td.code{font-family:"JetBrains Mono";color:var(--teal);font-size:13.5px;white-space:nowrap}
+  .glance td.name{font-weight:600;font-family:"Space Grotesk";font-size:15px}
+  .glance td.name a{color:var(--ink)}
+  .glance .sem{font-family:"JetBrains Mono";font-size:12.5px;color:var(--rose-deep)}
+  .glance tr:hover td{background:#f6faf8}
+
+  /* ---- course blocks ---- */
+  .course{scroll-margin-top:80px}
+  .course + .course{margin-top:14px}
+  .course-top{display:flex;flex-wrap:wrap;align-items:flex-end;gap:14px 20px;
+    padding-bottom:18px;border-bottom:2px solid var(--teal);margin-bottom:26px}
+  .course-tag{font-family:"JetBrains Mono";font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--rose);font-weight:500;display:block;margin-bottom:6px}
+  .course-top h3{font-size:clamp(24px,3.4vw,32px);font-weight:700;margin:0;color:var(--teal)}
+  .meta-strip{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+  .meta{font-family:"JetBrains Mono";font-size:11.5px;background:var(--paper-2);border:1px solid var(--line);
+    padding:5px 10px;border-radius:7px;color:var(--ink-soft)}
+  .meta b{color:var(--teal);font-weight:600}
+
+  .goals{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:30px}
+  .goal-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow)}
+  .goal-card h4{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--rose-deep);margin:0 0 10px;font-weight:600}
+  .goal-card ul{margin:0;padding-left:18px}
+  .goal-card li{margin:5px 0;font-size:15.5px;color:var(--ink-soft)}
+
+  .units{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .unit{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 22px;
+    box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .unit::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--rose)}
+  .unit .u-no{font-family:"JetBrains Mono";font-size:12px;color:var(--rose);font-weight:600;letter-spacing:.05em}
+  .unit h4{font-family:"Space Grotesk";font-size:18px;font-weight:600;margin:6px 0 10px;color:var(--ink)}
+  .unit p{margin:0;font-size:15px;line-height:1.58;color:var(--ink-soft)}
+
+  .books{margin-top:26px;background:var(--paper-2);border:1px dashed var(--line);border-radius:12px;padding:18px 22px}
+  .books h4{font-family:"Space Grotesk";font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--teal);margin:0 0 10px;font-weight:600}
+  .books ol{margin:0;padding-left:20px}
+  .books li{font-size:14.5px;margin:4px 0;color:var(--ink-soft)}
+
+  .bme-note{margin-top:20px;display:flex;gap:14px;align-items:flex-start;background:#fff;
+    border:1px solid var(--line);border-left:4px solid var(--teal-bright);border-radius:10px;padding:16px 18px}
+  .bme-note svg{flex:none;width:22px;height:22px;color:var(--teal-bright);margin-top:2px}
+  .bme-note p{margin:0;font-size:15px;color:var(--ink-soft)}
+  .bme-note b{color:var(--teal);font-weight:600;font-family:"Space Grotesk"}
+
+  /* ---- study plan ---- */
+  .plan-intro{background:var(--teal);color:#eef3f1;border-radius:var(--radius);padding:26px 28px;margin-bottom:30px}
+  .plan-intro p{margin:0;font-size:16.5px;color:#d5e6e2}
+  .plan-intro b{color:#fff}
+
+  .timeline{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:34px}
+  .tl{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 22px;box-shadow:var(--shadow)}
+  .tl .tl-sem{font-family:"JetBrains Mono";font-size:12px;color:var(--rose-deep);letter-spacing:.05em}
+  .tl h4{font-family:"Space Grotesk";font-size:19px;margin:6px 0 12px;color:var(--teal)}
+  .tl ul{margin:0;padding-left:18px}
+  .tl li{font-size:15px;margin:6px 0;color:var(--ink-soft)}
+  .tl li b{color:var(--ink);font-weight:600}
+
+  .rhythm{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:34px}
+  .beat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;box-shadow:var(--shadow)}
+  .beat .n{font-family:"Space Grotesk";font-size:30px;font-weight:700;color:var(--rose);line-height:1}
+  .beat h4{font-family:"Space Grotesk";font-size:16px;margin:10px 0 6px;color:var(--ink)}
+  .beat p{margin:0;font-size:14.5px;color:var(--ink-soft)}
+
+  .strategy{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:26px 28px;box-shadow:var(--shadow)}
+  .strategy h4{font-family:"Space Grotesk";font-size:18px;margin:0 0 4px;color:var(--teal)}
+  .strategy h4 + p{margin:0 0 20px;color:var(--ink-soft);font-size:15px}
+  .strat-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .strat-grid h5{font-family:"Space Grotesk";font-size:14px;color:var(--rose-deep);margin:0 0 8px;
+    text-transform:uppercase;letter-spacing:.05em;font-weight:600}
+  .strat-grid ul{margin:0;padding-left:18px}
+  .strat-grid li{font-size:15px;margin:6px 0;color:var(--ink-soft)}
+
+  /* ---- consolidated books ---- */
+  .ref-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .ref{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow)}
+  .ref .r-title{font-family:"Space Grotesk";font-weight:600;font-size:16px;color:var(--ink);margin:0 0 4px}
+  .ref .r-auth{font-size:14px;color:var(--ink-soft);margin:0 0 8px}
+  .ref .r-use{font-family:"JetBrains Mono";font-size:11.5px;color:var(--teal-bright)}
+
+  /* ---- footer ---- */
+  footer{background:var(--ink);color:#c4d2cd;padding:48px 0 40px;margin-top:20px}
+  footer .wrap{max-width:var(--maxw)}
+  footer h4{font-family:"Space Grotesk";color:#fff;font-size:15px;margin:0 0 14px;letter-spacing:.02em}
+  footer p,footer li{font-size:14px;color:#9fb3ad;line-height:1.6}
+  footer a{color:#5fc0b2}
+  footer .src{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-bottom:28px}
+  footer ul{margin:0;padding-left:18px}
+  footer li{margin:5px 0}
+  footer .fine{border-top:1px solid #2a3d38;padding-top:20px;font-size:12.5px;color:#7f938d}
+  footer .fine .mono{color:#5fc0b2}
+
+  /* ---- responsive ---- */
+  @media(max-width:820px){
+    .goals,.units,.timeline,.strat-grid,.ref-grid,footer .src{grid-template-columns:1fr}
+    .rhythm{grid-template-columns:1fr}
+    .nav-links{display:none}
+    .meta-strip{margin-left:0;width:100%}
+    body{font-size:17px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .pulse path{animation:none;stroke-dashoffset:0}
+    html{scroll-behavior:auto}
+  }
+  @media print{
+    header.nav{position:static}
+    .unit,.tl,.beat,.ref,.goal-card{break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <span class="brand">
+      <svg viewBox="0 0 40 24" aria-hidden="true"><path d="M1 12h8l3-9 5 18 4-13 3 6 3-2h9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      OU · BME MATHS
+    </span>
+    <nav class="nav-links" id="navlinks">
+      <a href="#glance">Overview</a>
+      <a href="#m1">Maths&nbsp;I</a>
+      <a href="#m2">Maths&nbsp;II</a>
+      <a href="#m3">Maths&nbsp;III</a>
+      <a href="#m4">Maths&nbsp;IV</a>
+      <a href="#plan">Study&nbsp;Plan</a>
+      <a href="#books">Books</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Osmania University · University College of Engineering (A)</div>
+    <h1>Engineering <span class="g">Mathematics</span><br>I – IV</h1>
+    <p class="lede">The complete syllabus and a semester-by-semester study plan for the four mathematics papers in BE Biomedical Engineering — from sequences and calculus to transforms and numerical methods.</p>
+    <div class="who">
+      <span class="chip">Programme: <b>BE Biomedical Engineering</b></span>
+      <span class="chip">Duration: <b>4 papers · Sem 1–4</b></span>
+      <span class="chip">Pattern: <b>70 SEE + 30 CIE</b></span>
+    </div>
+  </div>
+  <div class="wrap" style="margin-top:34px">
+    <svg class="pulse" viewBox="0 0 1200 34" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 17 H180 l14 -14 l22 28 l18 -24 l16 20 H420 l14 -12 l20 24 l16 -18 H720 l12 -14 l22 28 l16 -20 H980 l14 12 l18 -10 H1200"/>
+    </svg>
+  </div>
+</div>
+
+<section id="glance">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">01</span><h2>The four papers at a glance</h2></div>
+    <p class="sec-sub">Mathematics runs through the first two years. Papers I and II are common to all engineering branches; Paper III is the Biomedical Engineering–specific paper; Paper IV covers transforms, numerical methods and statistics.</p>
+    <div class="glance">
+      <table>
+        <thead>
+          <tr><th>Code</th><th>Paper</th><th>Semester</th><th>Credits</th><th>Focus</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="code">BS 101 MT</td><td class="name"><a href="#m1">Mathematics&nbsp;–&nbsp;I</a></td><td class="sem">Semester 1</td><td>3</td><td>Sequences, calculus, vector calculus</td></tr>
+          <tr><td class="code">BS 201 MT</td><td class="name"><a href="#m2">Mathematics&nbsp;–&nbsp;II</a></td><td class="sem">Semester 2</td><td>3</td><td>Matrices, differential equations</td></tr>
+          <tr><td class="code">BS 901 MT</td><td class="name"><a href="#m3">Mathematics&nbsp;–&nbsp;III</a></td><td class="sem">Semester 3</td><td>3</td><td>Complex variables, PDE, Fourier</td></tr>
+          <tr><td class="code">BS 401 MT</td><td class="name"><a href="#m4">Mathematics&nbsp;–&nbsp;IV</a></td><td class="sem">Semester 4</td><td>3</td><td>Transforms, numerical methods, statistics</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ============ MATHS I ============ -->
+<section id="m1" class="course">
+  <div class="wrap">
+    <div class="course-top">
+      <div>
+        <span class="course-tag">Semester 1 · Basic Sciences</span>
+        <h3>Mathematics – I</h3>
+      </div>
+      <div class="meta-strip">
+        <span class="meta">Code <b>BS 101 MT</b></span>
+        <span class="meta">4 periods/wk <b>(3T + 1 Tut)</b></span>
+        <span class="meta">SEE <b>70</b> · CIE <b>30</b></span>
+      </div>
+    </div>
+
+    <div class="goals">
+      <div class="goal-card">
+        <h4>Course objectives</h4>
+        <ul>
+          <li>Introduce sequences, series and their properties.</li>
+          <li>Build the tools of curve sketching.</li>
+          <li>Cover functions of several variables and multiple integrals.</li>
+          <li>Develop vector differential and integral calculus.</li>
+        </ul>
+      </div>
+      <div class="goal-card">
+        <h4>Course outcomes</h4>
+        <ul>
+          <li>Determine the nature (convergence) of sequences and series.</li>
+          <li>Sketch the graphs of given curves.</li>
+          <li>Use multiple integrals to find areas and volumes of bounded regions.</li>
+          <li>Apply these methods across the wider curriculum.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="units">
+      <div class="unit"><span class="u-no">UNIT I</span><h4>Sequences &amp; Series</h4><p>Sequences and series; general properties of series; series of positive terms; comparison tests; D'Alembert's ratio test; Raabe's test; Cauchy's root test; alternating series; series of positive and negative terms; absolute and conditional convergence.</p></div>
+      <div class="unit"><span class="u-no">UNIT II</span><h4>Differential Calculus</h4><p>Rolle's theorem; Lagrange's and Cauchy's mean value theorems; Taylor's series; curvature; circle of curvature; radius of curvature; centre of circle of curvature; envelope of a family of curves; asymptotes to a curve; curve sketching.</p></div>
+      <div class="unit"><span class="u-no">UNIT III</span><h4>Functions of Several Real Variables</h4><p>Functions of two variables; limits and continuity; partial derivatives; total differential and differentiability; derivatives of composite and implicit functions (chain rules); change of variables; Jacobian; higher-order partial derivatives; Taylor's series of two variables; maxima and minima; Lagrange's method of multipliers.</p></div>
+      <div class="unit"><span class="u-no">UNIT IV</span><h4>Multiple Integrals</h4><p>Double integrals; change of order of integration; triple integrals; change of variables in integrals; applications to areas and volumes.</p></div>
+      <div class="unit"><span class="u-no">UNIT V</span><h4>Vector Calculus</h4><p>Scalar and vector fields; gradient of a scalar field; directional derivative; divergence and curl of a vector field; line, surface and volume integrals; Green's theorem in a plane; Gauss's divergence theorem; Stoke's theorem (without proof).</p></div>
+    </div>
+
+    <div class="bme-note">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l2-7 4 14 2-7h6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <p><b>Why it matters for BME —</b> Vector calculus (divergence, gradient, curl) is the language of bioelectric fields and blood-flow modelling; multiple integrals underpin area/volume computations used later in imaging and biomechanics.</p>
+    </div>
+
+    <div class="books">
+      <h4>Suggested reading</h4>
+      <ol>
+        <li>R. K. Jain &amp; S. R. K. Iyengar, <i>Advanced Engineering Mathematics</i>, Narosa, 4th ed., 2014.</li>
+        <li>B. S. Grewal, <i>Higher Engineering Mathematics</i>, Khanna, 43rd ed., 2014.</li>
+        <li>Erwin Kreyszig, <i>Advanced Engineering Mathematics</i>, Wiley, 9th ed., 2012.</li>
+        <li>G. B. Thomas, Weir &amp; Hass, <i>Thomas' Calculus</i>, Pearson, 12th ed., 2010.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MATHS II ============ -->
+<section id="m2" class="course">
+  <div class="wrap">
+    <div class="course-top">
+      <div>
+        <span class="course-tag">Semester 2 · Basic Sciences</span>
+        <h3>Mathematics – II</h3>
+      </div>
+      <div class="meta-strip">
+        <span class="meta">Code <b>BS 201 MT</b></span>
+        <span class="meta">4 periods/wk <b>(3T + 1 Tut)</b></span>
+        <span class="meta">SEE <b>70</b> · CIE <b>30</b></span>
+      </div>
+    </div>
+
+    <div class="goals">
+      <div class="goal-card">
+        <h4>Course objectives</h4>
+        <ul>
+          <li>Study matrix algebra for linear systems and eigenvalue problems.</li>
+          <li>Provide an overview of ordinary differential equations.</li>
+          <li>Introduce series solutions of differential equations.</li>
+          <li>Cover special functions — Legendre and Bessel.</li>
+        </ul>
+      </div>
+      <div class="goal-card">
+        <h4>Course outcomes</h4>
+        <ul>
+          <li>Solve systems of linear equations and eigenvalue problems.</li>
+          <li>Solve certain first-order and higher-order differential equations.</li>
+          <li>Find series solutions of differential equations.</li>
+          <li>Apply these methods across the curriculum.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="units">
+      <div class="unit"><span class="u-no">UNIT I</span><h4>Matrices</h4><p>Elementary row and column operations; rank of a matrix; echelon form; systems of linear equations; linear dependence and independence of vectors; linear and orthogonal transformations; eigenvalues, eigenvectors and their properties; Cayley–Hamilton theorem; quadratic forms; reduction to canonical form by orthogonal transformation; nature of quadratic forms.</p></div>
+      <div class="unit"><span class="u-no">UNIT II</span><h4>ODEs of First Order</h4><p>Exact first-order differential equations; integrating factors; linear first-order equations; Bernoulli's, Riccati's and Clairaut's differential equations; orthogonal trajectories of a family of curves.</p></div>
+      <div class="unit"><span class="u-no">UNIT III</span><h4>Linear DEs of Higher Order</h4><p>Linear independence and dependence; solutions of second- and higher-order homogeneous equations with constant coefficients; reduction of order for variable coefficients; non-homogeneous equations; method of variation of parameters; Euler–Cauchy equation; simultaneous linear differential equations.</p></div>
+      <div class="unit"><span class="u-no">UNIT IV</span><h4>Series Solutions of DEs</h4><p>Ordinary and singular points of an equation; power series solution; series solution about a regular singular point; Frobenius method; Beta, Gamma and error functions.</p></div>
+      <div class="unit"><span class="u-no">UNIT V</span><h4>Special Functions</h4><p>Legendre's differential equation and polynomials; Rodrigue's formula; generating function and recurrence relations for P<sub>n</sub>(x); orthogonal and orthonormal functions; orthogonal property of P<sub>n</sub>(x); Bessel's differential equation and functions; derivatives, integrals, recurrence relations and generating function for J<sub>n</sub>(x).</p></div>
+    </div>
+
+    <div class="bme-note">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l2-7 4 14 2-7h6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <p><b>Why it matters for BME —</b> Matrices and eigenvalues drive medical image processing, PCA and system modelling; differential equations describe pharmacokinetics, nerve conduction and every dynamic physiological system you'll meet in later years.</p>
+    </div>
+
+    <div class="books">
+      <h4>Suggested reading</h4>
+      <ol>
+        <li>R. K. Jain &amp; S. R. K. Iyengar, <i>Advanced Engineering Mathematics</i>, Narosa, 4th ed., 2014.</li>
+        <li>B. S. Grewal, <i>Higher Engineering Mathematics</i>, Khanna, 43rd ed., 2014.</li>
+        <li>M. D. Raisinghania, <i>Ordinary and Partial Differential Equations</i>, S. Chand, 17th ed., 2014.</li>
+        <li>Erwin Kreyszig, <i>Advanced Engineering Mathematics</i>, Wiley, 9th ed., 2012.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MATHS III ============ -->
+<section id="m3" class="course">
+  <div class="wrap">
+    <div class="course-top">
+      <div>
+        <span class="course-tag">Semester 3 · BME-specific paper</span>
+        <h3>Mathematics – III</h3>
+      </div>
+      <div class="meta-strip">
+        <span class="meta">Code <b>BS 901 MT</b></span>
+        <span class="meta">4 periods/wk <b>(3T + 1 Tut)</b></span>
+        <span class="meta">Credits <b>3</b> · SEE <b>70</b> · CIE <b>30</b></span>
+      </div>
+    </div>
+
+    <div class="goals">
+      <div class="goal-card">
+        <h4>Course objectives</h4>
+        <ul>
+          <li>Introduce functions of complex variables and their properties.</li>
+          <li>Formulate PDEs and solve first-order linear and non-linear PDEs.</li>
+          <li>Study Fourier series and its applications to PDEs.</li>
+        </ul>
+      </div>
+      <div class="goal-card">
+        <h4>Course outcomes</h4>
+        <ul>
+          <li>Determine analyticity and expand functions as Taylor and Laurent series.</li>
+          <li>Evaluate complex and real integrals using the residue theorem.</li>
+          <li>Expand functions as a Fourier series.</li>
+          <li>Solve first- and second-order partial differential equations.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="units">
+      <div class="unit"><span class="u-no">UNIT I</span><h4>Functions of Complex Variables</h4><p>Limits and continuity; differentiability and analyticity; necessary and sufficient conditions for analyticity; Cauchy–Riemann equations in polar form; harmonic functions; complex integration; Cauchy's integral theorem and its extension for multiply-connected regions; Cauchy's integral formula; Cauchy's formula for derivatives and applications.</p></div>
+      <div class="unit"><span class="u-no">UNIT II</span><h4>Residue Calculus</h4><p>Power series; Taylor's series; Laurent's series; zeros and singularities; residues; residue theorem; evaluation of real integrals using the residue theorem; bilinear transformation; conformal mapping.</p></div>
+      <div class="unit"><span class="u-no">UNIT III</span><h4>Fourier Series</h4><p>Fourier series; Fourier expansions of even and odd functions; convergence of Fourier series; Fourier half-range series.</p></div>
+      <div class="unit"><span class="u-no">UNIT IV</span><h4>Partial Differential Equations</h4><p>Formation of first- and second-order PDEs; solution of first-order equations; Lagrange's equation; non-linear first-order equations; Charpit's method; higher-order linear equations with constant coefficients.</p></div>
+      <div class="unit"><span class="u-no">UNIT V</span><h4>Fourier Series Applications to PDEs</h4><p>Classification of linear second-order PDEs; separation of variables (Fourier method); Fourier series solution of one-dimensional heat and wave equations; Laplace's equation.</p></div>
+    </div>
+
+    <div class="bme-note">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l2-7 4 14 2-7h6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <p><b>Why it matters for BME —</b> This is the mathematical heart of biosignals. Fourier series is the gateway to spectral analysis of ECG/EEG, and the heat and wave equations model diffusion, thermal therapy and ultrasound propagation.</p>
+    </div>
+
+    <div class="books">
+      <h4>Suggested reading</h4>
+      <ol>
+        <li>R. K. Jain &amp; S. R. K. Iyengar, <i>Advanced Engineering Mathematics</i>, Narosa, 4th ed., 2014.</li>
+        <li>B. S. Grewal, <i>Higher Engineering Mathematics</i>, Khanna, 43rd ed., 2014.</li>
+        <li>Gupta &amp; Kapoor, <i>Fundamentals of Mathematical Statistics</i>, Sultan Chand, 2014.</li>
+        <li>Erwin Kreyszig, <i>Advanced Engineering Mathematics</i>, Wiley, 9th ed., 2012.</li>
+        <li>Brown &amp; Churchill, <i>Complex Variables and Applications</i>, McGraw-Hill, 9th ed., 2013.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MATHS IV ============ -->
+<section id="m4" class="course">
+  <div class="wrap">
+    <div class="course-top">
+      <div>
+        <span class="course-tag">Semester 4 · Basic Sciences</span>
+        <h3>Mathematics – IV</h3>
+      </div>
+      <div class="meta-strip">
+        <span class="meta">Code <b>BS 401 MT</b></span>
+        <span class="meta">4 periods/wk <b>(3T + 1 Tut)</b></span>
+        <span class="meta">Credits <b>3</b> · SEE <b>70</b> · CIE <b>30</b></span>
+      </div>
+    </div>
+
+    <div class="goals">
+      <div class="goal-card">
+        <h4>Course objectives</h4>
+        <ul>
+          <li>Introduce Laplace, Fourier and Z-transforms and their properties.</li>
+          <li>Introduce numerical methods for standard problem types.</li>
+          <li>Cover curve fitting, correlation and regression.</li>
+        </ul>
+      </div>
+      <div class="goal-card">
+        <h4>Course outcomes</h4>
+        <ul>
+          <li>Solve differential equations using Laplace and Fourier transforms.</li>
+          <li>Solve difference equations using Z-transforms.</li>
+          <li>Find numerical solutions of algebraic, transcendental and ordinary differential equations.</li>
+          <li>Perform regression analysis and interpret the coefficient of correlation.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="units">
+      <div class="unit"><span class="u-no">UNIT I</span><h4>Laplace Transforms</h4><p>Introduction; sufficient condition for existence; Laplace transform of derivatives and integrals; translation theorems (first and second shifting); differentiation of the transform (multiplication by t); integration of the transform (division by t); convolution theorem; solving initial value problems.</p></div>
+      <div class="unit"><span class="u-no">UNIT II</span><h4>Fourier Transforms</h4><p>Introduction; Fourier integrals; Fourier sine and cosine integrals; complex form of the Fourier integral; Fourier transform; Fourier sine and cosine transforms; finite Fourier sine and cosine transforms; properties; convolution theorem for Fourier transforms.</p></div>
+      <div class="unit"><span class="u-no">UNIT III</span><h4>Z-Transforms</h4><p>Introduction; basic theory; Z-transforms of standard sequences; existence; linearity, translation, scaling; initial and final value theorems; differentiation of the Z-transform; convolution theorem; solution of difference equations using Z-transforms.</p></div>
+      <div class="unit"><span class="u-no">UNIT IV</span><h4>Numerical Methods</h4><p>Algebraic and transcendental equations — bisection, Newton–Raphson; linear systems — Gauss elimination, Gauss–Seidel iteration; interpolation — Lagrange, Newton's divided difference, Newton's forward and backward; numerical differentiation; numerical solution of ODEs — Taylor's series, Euler, Runge–Kutta 4th order.</p></div>
+      <div class="unit"><span class="u-no">UNIT V</span><h4>Curve Fitting</h4><p>Curve fitting by least squares; correlation and regression; types of correlation; Karl Pearson's coefficient of correlation; Spearman's rank correlation coefficient; equal ranks; equations to the lines of regression.</p></div>
+    </div>
+
+    <div class="bme-note">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l2-7 4 14 2-7h6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <p><b>Why it matters for BME —</b> Transforms are the backbone of biomedical signal and image processing; Z-transforms drive digital filter design; numerical methods and regression power everything from device calibration to data analysis in clinical studies.</p>
+    </div>
+
+    <div class="books">
+      <h4>Suggested reading</h4>
+      <ol>
+        <li>R. K. Jain &amp; S. R. K. Iyengar, <i>Advanced Engineering Mathematics</i>, Narosa, 4th ed., 2014.</li>
+        <li>B. S. Grewal, <i>Higher Engineering Mathematics</i>, Khanna, 43rd ed., 2014.</li>
+        <li>Vasishtha &amp; Gupta, <i>Integral Transforms</i>, Krishna Prakashan, 2014.</li>
+        <li>Erwin Kreyszig, <i>Advanced Engineering Mathematics</i>, Wiley, 9th ed., 2012.</li>
+        <li>S. C. Gupta &amp; V. K. Kapoor, <i>Fundamentals of Mathematical Statistics</i>, Sultan Chand, 2014.</li>
+      </ol>
+    </div>
+
+    <p style="font-size:14px;color:var(--ink-soft);margin-top:16px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 18px">
+      <b style="font-family:'Space Grotesk';color:var(--teal)">Verify:</b> The UCE Mathematics department publishes a single Mathematics-IV paper (BS 401 MT). BME follows this standard fourth mathematics course, but confirm the exact paper against your printed <span class="mono" style="font-size:12.5px">B.E. (BME) IV-Semester Scheme &amp; Syllabus</span> in case the department has issued a branch-specific revision.
+    </p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ============ STUDY PLAN ============ -->
+<section id="plan">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">02</span><h2>A comprehensive study plan</h2></div>
+    <p class="sec-sub">Four papers, two years, one habit: steady work beats last-minute cramming. Here's how to pace it — semester by semester, week by week, and unit by unit.</p>
+
+    <div class="plan-intro">
+      <p>Each paper has <b>five units</b> and runs on a <b>70-mark end exam + 30-mark internal</b> pattern. A working rule that fits the OU calendar: <b>plan roughly two-and-a-half weeks per unit</b>, keep the last three weeks for full revision and past papers, and never let the tutorial hour go to waste — that's where problem-solving speed is built.</p>
+    </div>
+
+    <div class="timeline">
+      <div class="tl">
+        <span class="tl-sem">SEMESTER 1 — MATHS I</span>
+        <h4>Build the calculus core</h4>
+        <ul>
+          <li><b>Weeks 1–3:</b> Sequences &amp; series — master the convergence tests until you can pick the right one on sight.</li>
+          <li><b>Weeks 4–6:</b> Differential calculus &amp; curve sketching — mean value theorems, curvature, envelopes.</li>
+          <li><b>Weeks 7–9:</b> Functions of several variables — partial derivatives, Jacobians, Lagrange multipliers.</li>
+          <li><b>Weeks 10–12:</b> Multiple integrals &amp; vector calculus — Green's, Gauss's, Stoke's theorems.</li>
+          <li><b>Final weeks:</b> Mixed problem sets + previous question papers.</li>
+        </ul>
+      </div>
+      <div class="tl">
+        <span class="tl-sem">SEMESTER 2 — MATHS II</span>
+        <h4>Master matrices &amp; ODEs</h4>
+        <ul>
+          <li><b>Weeks 1–3:</b> Matrices — rank, eigenvalues, Cayley–Hamilton, quadratic forms.</li>
+          <li><b>Weeks 4–6:</b> First-order ODEs — exact equations, integrating factors, Bernoulli/Riccati/Clairaut.</li>
+          <li><b>Weeks 7–9:</b> Higher-order linear ODEs — variation of parameters, Euler–Cauchy.</li>
+          <li><b>Weeks 10–12:</b> Series solutions + special functions — Frobenius, Legendre, Bessel.</li>
+          <li><b>Final weeks:</b> Drill eigenvalue and ODE problems under timed conditions.</li>
+        </ul>
+      </div>
+      <div class="tl">
+        <span class="tl-sem">SEMESTER 3 — MATHS III</span>
+        <h4>Enter complex analysis &amp; PDEs</h4>
+        <ul>
+          <li><b>Weeks 1–3:</b> Complex variables — analyticity, Cauchy–Riemann, Cauchy's theorems.</li>
+          <li><b>Weeks 4–6:</b> Residue calculus — Taylor/Laurent, residue theorem, conformal mapping.</li>
+          <li><b>Weeks 7–8:</b> Fourier series — even/odd functions, half-range series.</li>
+          <li><b>Weeks 9–11:</b> PDEs — Lagrange's equation, Charpit's method.</li>
+          <li><b>Weeks 12+:</b> Heat &amp; wave equations by separation of variables — the BME-critical unit.</li>
+        </ul>
+      </div>
+      <div class="tl">
+        <span class="tl-sem">SEMESTER 4 — MATHS IV</span>
+        <h4>Transforms &amp; computation</h4>
+        <ul>
+          <li><b>Weeks 1–3:</b> Laplace transforms — shifting theorems, convolution, IVPs.</li>
+          <li><b>Weeks 4–5:</b> Fourier transforms — sine/cosine, convolution.</li>
+          <li><b>Weeks 6–7:</b> Z-transforms — difference equations.</li>
+          <li><b>Weeks 8–10:</b> Numerical methods — Newton–Raphson, Gauss–Seidel, interpolation, RK4.</li>
+          <li><b>Weeks 11+:</b> Curve fitting, correlation &amp; regression — tie it back to real data.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 class="disp" style="font-size:22px;color:var(--teal);margin:0 0 16px">The weekly rhythm</h3>
+    <div class="rhythm">
+      <div class="beat">
+        <div class="n">3×</div>
+        <h4>Theory first, then hands</h4>
+        <p>Read the concept, then work 8–10 problems the same day. Maths is not a spectator subject — the pen has to move.</p>
+      </div>
+      <div class="beat">
+        <div class="n">1×</div>
+        <h4>Own the tutorial hour</h4>
+        <p>The weekly tutorial is where marks are made. Arrive with attempted problems and leave with the doubts cleared.</p>
+      </div>
+      <div class="beat">
+        <div class="n">∞</div>
+        <h4>Weekly recap sheet</h4>
+        <p>Keep one A4 formula-and-method sheet per unit. By exam time you revise from your own five sheets, not the whole book.</p>
+      </div>
+    </div>
+
+    <div class="strategy">
+      <h4>Exam &amp; internals strategy</h4>
+      <p>The 30 internal marks are the easiest to secure — attend, submit assignments, and take the mid-terms seriously. That leaves a comfortable cushion for the 70-mark end exam.</p>
+      <div class="strat-grid">
+        <div>
+          <h5>Scoring the 70-mark SEE</h5>
+          <ul>
+            <li>Every unit is examinable — no unit can be safely skipped.</li>
+            <li>Solve the last 5 years of OU question papers; problem <i>patterns</i> repeat even when numbers change.</li>
+            <li>Write full steps — method marks add up even when a final answer slips.</li>
+            <li>Time-box: roughly one mark per minute, and move on when stuck.</li>
+          </ul>
+        </div>
+        <div>
+          <h5>Working smart</h5>
+          <ul>
+            <li>Keep a running "mistakes log" — the same slip repeats until you name it.</li>
+            <li>Group similar problems; learn the <i>type</i>, not the one-off.</li>
+            <li>Use Grewal for worked examples, Kreyszig for depth when a topic won't click.</li>
+            <li>For Maths IV numerical methods, practise the arithmetic by hand — the exam is not open-calculator-heavy.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ============ BOOKS ============ -->
+<section id="books">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">03</span><h2>Reference library</h2></div>
+    <p class="sec-sub">Two books cover almost everything across all four papers; the rest are topic specialists worth borrowing when a unit needs more depth.</p>
+    <div class="ref-grid">
+      <div class="ref"><p class="r-title">Higher Engineering Mathematics</p><p class="r-auth">B. S. Grewal · Khanna, 43rd ed.</p><p class="r-use">CORE · all four papers · best for worked examples</p></div>
+      <div class="ref"><p class="r-title">Advanced Engineering Mathematics</p><p class="r-auth">R. K. Jain &amp; S. R. K. Iyengar · Narosa, 4th ed.</p><p class="r-use">CORE · all four papers · prescribed text</p></div>
+      <div class="ref"><p class="r-title">Advanced Engineering Mathematics</p><p class="r-auth">Erwin Kreyszig · Wiley, 9th ed.</p><p class="r-use">DEPTH · all papers · rigorous explanations</p></div>
+      <div class="ref"><p class="r-title">Thomas' Calculus</p><p class="r-auth">Thomas, Weir &amp; Hass · Pearson, 12th ed.</p><p class="r-use">MATHS I · calculus foundations</p></div>
+      <div class="ref"><p class="r-title">Ordinary &amp; Partial Differential Equations</p><p class="r-auth">M. D. Raisinghania · S. Chand, 17th ed.</p><p class="r-use">MATHS II &amp; III · ODEs and PDEs</p></div>
+      <div class="ref"><p class="r-title">Complex Variables and Applications</p><p class="r-auth">Brown &amp; Churchill · McGraw-Hill, 9th ed.</p><p class="r-use">MATHS III · complex analysis</p></div>
+      <div class="ref"><p class="r-title">Integral Transforms</p><p class="r-auth">Vasishtha &amp; Gupta · Krishna Prakashan</p><p class="r-use">MATHS IV · Laplace / Fourier / Z</p></div>
+      <div class="ref"><p class="r-title">Fundamentals of Mathematical Statistics</p><p class="r-auth">S. C. Gupta &amp; V. K. Kapoor · Sultan Chand</p><p class="r-use">MATHS III &amp; IV · statistics, correlation</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="src">
+      <div>
+        <h4>Sources</h4>
+        <p>Every syllabus on this page is transcribed from the official Osmania University / University College of Engineering PDFs:</p>
+        <ul>
+          <li>Mathematics-I &amp; II — Department of Mathematics, UCE(A), OU (common to all branches)</li>
+          <li>Mathematics-III (BME) — <span class="mono" style="font-size:12px">BS 901 MT</span>, Department of Mathematics, UCE(A), OU</li>
+          <li>Mathematics-IV — <span class="mono" style="font-size:12px">BS 401 MT</span>, Department of Mathematics, UCE(A), OU</li>
+          <li>Course listing — <a href="https://www.uceou.edu/dept-maths.php">uceou.edu/dept-maths.php</a> · <a href="https://www.uceou.edu/dept-bme.php">Dept. of Biomedical Engineering</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>How to use this page</h4>
+        <p>Built as a single self-contained file for hosting on tiiny.host — just upload <span class="mono" style="font-size:12px">index.html</span>. It works offline, prints cleanly for a revision handout, and needs no internet except for the web fonts.</p>
+        <p>Always cross-check unit weightage and any recent revisions against your current printed scheme of instruction, since the department revises the syllabus roughly every four years.</p>
+      </div>
+    </div>
+    <div class="fine">
+      Engineering Mathematics I–IV · BE Biomedical Engineering · Osmania University (UCE-A). &nbsp;Compiled study reference — not an official university publication. &nbsp;Prepared <span class="mono">04 July 2026</span>.
+    </div>
+  </div>
+</footer>
+
+<script>
+  // active nav highlight on scroll
+  (function(){
+    var links = Array.prototype.slice.call(document.querySelectorAll('#navlinks a'));
+    var map = {};
+    links.forEach(function(a){ var id=a.getAttribute('href').slice(1); var el=document.getElementById(id); if(el) map[id]=a; });
+    var ids = Object.keys(map);
+    function onScroll(){
+      var pos = window.scrollY + 120, current=null;
+      ids.forEach(function(id){ var el=document.getElementById(id); if(el && el.offsetTop<=pos) current=id; });
+      links.forEach(function(a){a.classList.remove('active');});
+      if(current && map[current]) map[current].classList.add('active');
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+    onScroll();
+  })();
+</script>
+</body>
+</html>
