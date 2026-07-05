@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Engineering Mathematics · BE Biomedical Engineering · Osmania University</title>
+<meta name="description" content="Study hub for Engineering Mathematics I–IV, BE Biomedical Engineering, University College of Engineering (Autonomous), Osmania University — syllabus, study plan, quick tutorial and full learn-and-practice modules." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#eef3f1;--paper-2:#e4ebe8;--card:#ffffff;--ink:#132420;--ink-soft:#3f524d;
+    --teal:#0e4e4a;--teal-bright:#178a7e;--rose:#e23e6b;--rose-deep:#b62a53;--amber:#c9821a;
+    --line:#cdd8d3;--line-soft:#dde6e2;--shadow:0 1px 2px rgba(19,36,32,.05),0 8px 30px rgba(19,36,32,.06);
+    --radius:16px;--maxw:960px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:"Newsreader",Georgia,serif;font-size:19px;line-height:1.7;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  h1,h2,h3,h4,.disp{font-family:"Space Grotesk",system-ui,sans-serif;line-height:1.14;letter-spacing:-.01em}
+  code,.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+  a{color:var(--teal-bright);text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+
+  header.nav{position:sticky;top:0;z-index:50;background:rgba(238,243,241,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav-inner{max-width:var(--maxw);margin:0 auto;padding:12px 22px;display:flex;align-items:center;gap:16px}
+  .brand{display:flex;align-items:center;gap:10px;font-family:"Space Grotesk";font-weight:600;font-size:15px;letter-spacing:.02em;color:var(--teal);white-space:nowrap}
+  .brand svg{width:26px;height:26px;color:var(--rose)}
+  .nav-links{margin-left:auto;display:flex;gap:4px;flex-wrap:wrap}
+  .nav-links a{font-family:"Space Grotesk";font-size:13.5px;font-weight:500;color:var(--ink-soft);padding:7px 11px;border-radius:8px;transition:.18s}
+  .nav-links a:hover{background:var(--paper-2);color:var(--teal)}
+
+  .hero{padding:64px 0 24px}
+  .eyebrow{font-family:"JetBrains Mono";font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--rose-deep);font-weight:500;margin-bottom:18px}
+  .hero h1{font-size:clamp(38px,7vw,68px);font-weight:700;margin:0 0 8px;color:var(--ink)}
+  .hero h1 .g{color:var(--teal)}
+  .hero .lede{font-size:clamp(19px,2.4vw,23px);max-width:660px;color:var(--ink-soft);margin:16px 0 0}
+  .who{margin-top:26px;display:inline-flex;flex-wrap:wrap;gap:8px}
+  .chip{font-family:"JetBrains Mono";font-size:12.5px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 13px;color:var(--teal)}
+  .chip b{color:var(--rose-deep);font-weight:600}
+  .pulse{display:block;width:100%;height:32px;color:var(--rose);margin-top:30px}
+  .pulse path{fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1400;stroke-dashoffset:1400;animation:trace 3.2s ease forwards}
+  @keyframes trace{to{stroke-dashoffset:0}}
+
+  section{padding:44px 0}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:6px}
+  .sec-num{font-family:"JetBrains Mono";font-size:14px;color:var(--rose);font-weight:600}
+  .sec-head h2{font-size:clamp(24px,4vw,34px);font-weight:600;margin:0;color:var(--ink)}
+  .sec-sub{color:var(--ink-soft);max-width:680px;margin:2px 0 28px}
+
+  /* recommended path */
+  .path{background:var(--teal);color:#d5e6e2;border-radius:var(--radius);padding:26px 28px;margin-bottom:14px}
+  .path h3{color:#fff;font-size:20px;margin:0 0 14px}
+  .path ol{margin:0;padding-left:20px}
+  .path li{margin:9px 0;font-size:16px;color:#cfe4df}
+  .path li b{color:#fff;font-family:"Space Grotesk";font-weight:600}
+  .path a{color:#8fd3c7;font-weight:600}
+
+  /* cards */
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:720px){.grid{grid-template-columns:1fr}}
+  .card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;box-shadow:var(--shadow);transition:.18s;position:relative;overflow:hidden}
+  .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--rose)}
+  .card:hover{transform:translateY(-2px);box-shadow:0 10px 34px rgba(19,36,32,.11);text-decoration:none}
+  .card .kicker{font-family:"JetBrains Mono";font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--rose);font-weight:500}
+  .card h3{font-size:21px;font-weight:700;margin:8px 0 0;color:var(--teal)}
+  .card p{margin:10px 0 0;font-size:15.5px;color:var(--ink-soft);flex:1}
+  .card .go{margin-top:16px;font-family:"Space Grotesk";font-weight:600;font-size:14px;color:var(--ink);display:inline-flex;align-items:center;gap:6px}
+  .card .go svg{width:16px;height:16px;color:var(--rose)}
+  .card.wide{grid-column:1 / -1}
+  .card.wide::before{background:var(--teal-bright)}
+  .card.wide h3{color:var(--teal)}
+
+  .meta-row{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
+  .meta{font-family:"JetBrains Mono";font-size:11px;background:var(--paper-2);border:1px solid var(--line);padding:4px 9px;border-radius:6px;color:var(--ink-soft)}
+
+  .note{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--amber);border-radius:12px;padding:16px 20px;margin-top:14px}
+  .note b{font-family:"Space Grotesk";color:var(--rose-deep)}
+  .note p{margin:6px 0;font-size:15px;color:var(--ink-soft)}
+
+  footer{background:var(--ink);color:#c4d2cd;padding:46px 0 40px;margin-top:24px}
+  footer h4{font-family:"Space Grotesk";color:#fff;font-size:15px;margin:0 0 14px}
+  footer p,footer li{font-size:14px;color:#9fb3ad;line-height:1.6}
+  footer a{color:#5fc0b2}
+  footer ul{margin:0;padding-left:18px}
+  footer li{margin:5px 0}
+  footer .fine{border-top:1px solid #2a3d38;padding-top:20px;margin-top:24px;font-size:12.5px;color:#7f938d}
+  footer .fine .mono{color:#5fc0b2}
+
+  @media(max-width:720px){.nav-links{display:none}body{font-size:18px}}
+  @media(prefers-reduced-motion:reduce){.pulse path{animation:none;stroke-dashoffset:0}html{scroll-behavior:auto}.card:hover{transform:none}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <span class="brand">
+      <svg viewBox="0 0 40 24" aria-hidden="true"><path d="M1 12h8l3-9 5 18 4-13 3 6 3-2h9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      OU · BME MATHS
+    </span>
+    <nav class="nav-links">
+      <a href="#start">Start here</a>
+      <a href="#reference">Reference</a>
+      <a href="#learn">Learn &amp; practice</a>
+      <a href="#bme">BME &amp; code</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="eyebrow">University College of Engineering (A) · Osmania University</div>
+    <h1>Engineering <span class="g">Mathematics</span><br>Study Hub</h1>
+    <p class="lede">Everything for the four mathematics papers of BE Biomedical Engineering, in one place — the official syllabus, a semester study plan, a quick tutorial, and four slow, worked learn-and-practice modules.</p>
+    <div class="who">
+      <span class="chip">Programme: <b>BE Biomedical Engineering</b></span>
+      <span class="chip">Papers: <b>Maths I – IV · Sem 1–4</b></span>
+    </div>
+    <svg class="pulse" viewBox="0 0 1200 32" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 16 H180 l14 -14 l22 28 l18 -24 l16 20 H420 l14 -12 l20 24 l16 -18 H720 l12 -14 l22 28 l16 -20 H980 l14 12 l18 -10 H1200"/>
+    </svg>
+  </div>
+</div>
+
+<section id="start">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">01</span><h2>Where to start</h2></div>
+    <p class="sec-sub">Not sure what to open first? Follow this order — it works whether you're beginning Semester 1 or revising for an exam.</p>
+    <div class="path">
+      <h3>A simple study path</h3>
+      <ol>
+        <li><b>See the map.</b> Skim the <a href="syllabus.html">Syllabus &amp; Study Plan</a> so you know what each paper covers and when it's taught.</li>
+        <li><b>Learn slowly.</b> Open the <a href="maths1-learn.html">Learn &amp; Practice module</a> for your current paper. Read a lesson, work its example by hand, then do the practice with solutions hidden.</li>
+        <li><b>Revise fast.</b> Before a test, use the condensed <a href="tutorial.html">Quick Tutorial</a> to review every unit's key results and traps in one sitting.</li>
+        <li><b>Then practise for real.</b> Finish with Osmania University past papers — this site teaches the method; past papers teach the exam.</li>
+        <li><b>See the bigger picture.</b> The full <a href="bme-syllabus.html">BME course syllabus</a> maps all eight semesters, and the <a href="programming.html">C, Python &amp; data structures guide</a> covers the programming coursework alongside the maths.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section id="reference">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">02</span><h2>Reference</h2></div>
+    <p class="sec-sub">The overview documents — the full picture across all four papers.</p>
+    <div class="grid">
+      <a class="card wide" href="syllabus.html">
+        <span class="kicker">Syllabus &amp; Study Plan</span>
+        <h3>The complete syllabus, unit by unit — plus a semester-by-semester plan</h3>
+        <p>Every unit of all four papers transcribed from the official OU / UCE PDFs, with course objectives, outcomes, textbooks, and a "why it matters for biomedical engineering" note. Includes a week-by-week study plan and exam strategy.</p>
+        <div class="meta-row"><span class="meta">BS 101 · 201 · 901 · 401 MT</span><span class="meta">syllabus + plan</span><span class="meta">works offline</span></div>
+        <span class="go">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+      <a class="card wide" href="tutorial.html">
+        <span class="kicker">Quick Tutorial</span>
+        <h3>A condensed one-page tutorial across all 20 units</h3>
+        <p>For fast revision: each unit's core idea, the key results to memorise, one worked example, and the mistakes that cost marks — tabbed by paper. Best used close to an exam, once you already know the material.</p>
+        <div class="meta-row"><span class="meta">all 4 papers</span><span class="meta">tabbed</span><span class="meta">needs internet for equations</span></div>
+        <span class="go">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="learn">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">03</span><h2>Learn &amp; practice</h2></div>
+    <p class="sec-sub">The main study resource — one module per paper. Slow, plain-English lessons, worked examples that build from easy to exam-level, and practice questions with tap-to-reveal solutions.</p>
+    <div class="grid">
+      <a class="card" href="maths1-learn.html">
+        <span class="kicker">BS 101 MT · Semester 1</span>
+        <h3>Mathematics I</h3>
+        <p>Sequences &amp; series, differential calculus, functions of several variables, multiple integrals, vector calculus.</p>
+        <span class="go">Learn &amp; practise <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+      <a class="card" href="maths2-learn.html">
+        <span class="kicker">BS 201 MT · Semester 2</span>
+        <h3>Mathematics II</h3>
+        <p>Matrices &amp; eigenvalues, first-order ODEs, higher-order linear ODEs, series solutions, Legendre &amp; Bessel.</p>
+        <span class="go">Learn &amp; practise <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+      <a class="card" href="maths3-learn.html">
+        <span class="kicker">BS 901 MT · Semester 3 · BME</span>
+        <h3>Mathematics III</h3>
+        <p>Complex variables, residue calculus, Fourier series, partial differential equations, heat &amp; wave equations.</p>
+        <span class="go">Learn &amp; practise <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+      <a class="card" href="maths4-learn.html">
+        <span class="kicker">BS 401 MT · Semester 4</span>
+        <h3>Mathematics IV</h3>
+        <p>Laplace, Fourier &amp; Z transforms, numerical methods, curve fitting, correlation &amp; regression.</p>
+        <span class="go">Learn &amp; practise <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+    </div>
+    <div class="note">
+      <p><b>Good to know.</b> The pages that render equations (the Quick Tutorial and the four Learn &amp; Practice modules) load a maths renderer and web fonts from the internet, so keep a connection for those. The Syllabus &amp; Study Plan works fully offline.</p>
+    </div>
+  </div>
+</section>
+
+<section id="bme">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">04</span><h2>Biomedical engineering &amp; programming</h2></div>
+    <p class="sec-sub">Beyond mathematics — the full BME course map, and the programming coursework (C, Python and data structures) that runs alongside it.</p>
+    <div class="grid">
+      <a class="card wide" href="bme-syllabus.html">
+        <span class="kicker">BE Biomedical Engineering</span>
+        <h3>The complete course syllabus — all eight semesters</h3>
+        <p>The full scheme of instruction for the BME programme, sourced from the official UCE Osmania department page: every semester's subjects, labs, credits, and the programme's vision, mission and outcomes. Your map for the whole four years, not just the maths papers.</p>
+        <div class="meta-row"><span class="meta">8 semesters · 4 years</span><span class="meta">NBA accredited</span><span class="meta">works offline</span></div>
+        <span class="go">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+      <a class="card wide" href="programming.html">
+        <span class="kicker">Programming · C · Python · Data Structures</span>
+        <h3>The programming &amp; data structures guide</h3>
+        <p>A source-checked map of the C coursework in the BME scheme, a genuine zero-to-hero Python course you can follow with no background, and a data-structures guide broken into the smallest possible steps. Includes a study plan and textbook list.</p>
+        <div class="meta-row"><span class="meta">C · Python · DS</span><span class="meta">zero to hero</span><span class="meta">with study plan</span></div>
+        <span class="go">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <h4>About this hub</h4>
+    <p>A compiled study resource for Engineering Mathematics I–IV, BE Biomedical Engineering, University College of Engineering (Autonomous), Osmania University. Syllabus content is transcribed from the official OU / UCE department PDFs; explanations, worked examples and practice are standard treatments aligned to the prescribed texts (Grewal; Jain &amp; Iyengar; Kreyszig; Raisinghania; Brown &amp; Churchill; Vasishtha &amp; Gupta; Gupta &amp; Kapoor).</p>
+    <p style="margin-top:12px"><b style="color:#fff;font-family:'Space Grotesk'">Pages in this site:</b></p>
+    <ul>
+      <li><a href="syllabus.html">syllabus.html</a> — syllabus &amp; study plan</li>
+      <li><a href="tutorial.html">tutorial.html</a> — quick tutorial (all units)</li>
+      <li><a href="maths1-learn.html">maths1-learn.html</a> — Mathematics I</li>
+      <li><a href="maths2-learn.html">maths2-learn.html</a> — Mathematics II</li>
+      <li><a href="maths3-learn.html">maths3-learn.html</a> — Mathematics III</li>
+      <li><a href="maths4-learn.html">maths4-learn.html</a> — Mathematics IV</li>
+      <li><a href="bme-syllabus.html">bme-syllabus.html</a> — full BE Biomedical Engineering syllabus (8 semesters)</li>
+      <li><a href="programming.html">programming.html</a> — C, Python &amp; data structures guide</li>
+    </ul>
+    <div class="fine">
+      Worked examples and practice are illustrative — always pair them with your prescribed textbooks and past Osmania University question papers. Compiled study reference, not an official university publication. &nbsp;Prepared <span class="mono">05 July 2026</span>.
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
