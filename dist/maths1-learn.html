@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mathematics-I · Learn &amp; Practice · BE Biomedical · Osmania University</title>
+<meta name="description" content="A slow, granular, beginner-friendly tutorial for Engineering Mathematics-I (BS 101 MT), BE Biomedical Engineering, Osmania University — with plain-English explanations, graded worked examples, and practice questions with full solutions." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+    svg: { fontCache: 'global' },
+    startup: { typeset: true }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+  :root{
+    --paper:#eef3f1;--paper-2:#e4ebe8;--card:#ffffff;
+    --ink:#132420;--ink-soft:#3f524d;
+    --teal:#0e4e4a;--teal-bright:#178a7e;
+    --rose:#e23e6b;--rose-deep:#b62a53;--amber:#c9821a;
+    --line:#cdd8d3;--line-soft:#dde6e2;
+    --shadow:0 1px 2px rgba(19,36,32,.05),0 8px 30px rgba(19,36,32,.06);
+    --radius:14px;--maxw:820px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:74px}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Newsreader",Georgia,serif;font-size:19px;line-height:1.72;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  h1,h2,h3,h4,.disp{font-family:"Space Grotesk",system-ui,sans-serif;line-height:1.18;letter-spacing:-.01em}
+  code,.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+  a{color:var(--teal-bright);text-decoration:none}a:hover{text-decoration:underline}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+  mjx-container{overflow-x:auto;overflow-y:hidden;max-width:100%}
+  p{margin:14px 0}
+
+  /* nav */
+  header.nav{position:sticky;top:0;z-index:60;background:rgba(238,243,241,.92);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav-inner{max-width:var(--maxw);margin:0 auto;padding:11px 22px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .brand{display:flex;align-items:center;gap:9px;font-family:"Space Grotesk";font-weight:600;
+    font-size:14px;letter-spacing:.02em;color:var(--teal);white-space:nowrap}
+  .brand svg{width:24px;height:24px;color:var(--rose)}
+  .unit-nav{margin-left:auto;display:flex;gap:5px;flex-wrap:wrap}
+  .unit-nav a{font-family:"JetBrains Mono";font-size:12px;color:var(--ink-soft);padding:6px 10px;border-radius:7px;border:1px solid var(--line);background:var(--card)}
+  .unit-nav a:hover{background:var(--teal);color:#fff;border-color:var(--teal);text-decoration:none}
+
+  /* hero */
+  .hero{padding:50px 0 26px}
+  .eyebrow{font-family:"JetBrains Mono";font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--rose-deep);font-weight:500;margin-bottom:14px}
+  .hero h1{font-size:clamp(32px,6vw,52px);font-weight:700;margin:0;color:var(--ink)}
+  .hero h1 .g{color:var(--teal)}
+  .hero .lede{font-size:clamp(18px,2.2vw,21px);color:var(--ink-soft);margin:16px 0 0}
+  .startbox{margin-top:26px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 22px;box-shadow:var(--shadow)}
+  .startbox b{font-family:"Space Grotesk";color:var(--teal)}
+  .pulse{display:block;width:100%;height:28px;color:var(--rose);margin-top:26px}
+  .pulse path{fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1400;stroke-dashoffset:1400;animation:trace 3s ease forwards}
+  @keyframes trace{to{stroke-dashoffset:0}}
+
+  /* unit header */
+  .unit{padding:26px 0 8px;scroll-margin-top:76px}
+  .unit-band{background:var(--teal);color:#eef3f1;border-radius:var(--radius);padding:22px 26px;margin-top:24px}
+  .unit-band .u-tag{font-family:"JetBrains Mono";font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#8fd3c7}
+  .unit-band h2{color:#fff;font-size:clamp(24px,4vw,34px);margin:8px 0 6px}
+  .unit-band p{margin:6px 0 0;color:#cfe4df;font-size:16px}
+  .unit-band .map{margin-top:14px;display:flex;flex-wrap:wrap;gap:7px}
+  .unit-band .map a{font-family:"JetBrains Mono";font-size:11.5px;background:rgba(255,255,255,.1);color:#eafffb;padding:5px 10px;border-radius:7px}
+  .unit-band .map a:hover{background:rgba(255,255,255,.22);text-decoration:none}
+
+  /* lesson */
+  .lesson{scroll-margin-top:76px;padding:26px 0;border-bottom:1px solid var(--line-soft)}
+  .lesson-no{font-family:"JetBrains Mono";font-size:13px;color:var(--rose);font-weight:600}
+  .lesson h3{font-size:clamp(20px,3vw,26px);font-weight:600;margin:6px 0 0;color:var(--ink)}
+
+  /* callouts */
+  .plain{background:#e7f1ee;border:1px solid #c4ded6;border-left:4px solid var(--teal-bright);border-radius:10px;padding:14px 18px;margin:18px 0}
+  .plain .lab{font-family:"Space Grotesk";font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--teal);font-weight:600;display:block;margin-bottom:4px}
+  .plain p{margin:4px 0}
+
+  .method{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:6px 20px 14px;margin:18px 0;box-shadow:var(--shadow)}
+  .method h4{font-family:"Space Grotesk";font-size:12.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--rose-deep);margin:16px 0 6px;font-weight:600}
+  .method ol{margin:6px 0;padding-left:22px}
+  .method ol li{margin:8px 0}
+
+  .formula{background:#fbfdfc;border:1px dashed var(--line);border-radius:10px;padding:6px 18px;margin:16px 0}
+  .formula .lab{font-family:"Space Grotesk";font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--rose);font-weight:600}
+
+  /* worked example */
+  .eg{background:#fffdf7;border:1px solid #ecdcb8;border-left:4px solid var(--amber);border-radius:10px;padding:8px 20px 16px;margin:20px 0}
+  .eg h4{font-family:"Space Grotesk";font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--amber);margin:14px 0 4px;font-weight:600;display:flex;align-items:center;gap:8px}
+  .eg .diff{font-family:"JetBrains Mono";font-size:10.5px;padding:2px 8px;border-radius:999px;border:1px solid currentColor;letter-spacing:.03em}
+  .eg .q{font-weight:600;color:var(--ink)}
+  .step{margin:10px 0}
+  .step .s{font-family:"JetBrains Mono";font-size:11.5px;color:var(--amber);font-weight:600;display:block;margin-bottom:1px;letter-spacing:.03em}
+
+  /* practice */
+  .practice{background:#fff5f7;border:1px solid #f2cdd7;border-radius:12px;padding:8px 20px 18px;margin:22px 0}
+  .practice > h4{font-family:"Space Grotesk";font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--rose-deep);margin:14px 0 4px;font-weight:600}
+  .practice .hint{font-size:14.5px;color:var(--ink-soft);margin:0 0 10px}
+  .pq{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:12px 0}
+  .pq .qh{display:flex;align-items:baseline;gap:10px}
+  .pq .qn{font-family:"Space Grotesk";font-weight:700;color:var(--rose);font-size:16px}
+  .pq .qbody{margin:2px 0 0}
+  .reveal{margin-top:10px;font-family:"Space Grotesk";font-size:13px;font-weight:600;color:#fff;background:var(--teal);
+    border:none;border-radius:8px;padding:8px 15px;cursor:pointer;transition:.16s}
+  .reveal:hover{background:var(--teal-bright)}
+  .sol{display:none;margin-top:12px;padding-top:12px;border-top:1px dashed var(--line);font-size:16.5px}
+  .sol.open{display:block}
+  .sol .lab{font-family:"JetBrains Mono";font-size:11px;color:var(--teal);font-weight:600;letter-spacing:.04em}
+  .sol .ans{margin-top:8px;font-weight:600;color:var(--teal)}
+
+  .checkpoint{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--rose);border-radius:10px;padding:14px 18px;margin:22px 0;box-shadow:var(--shadow)}
+  .checkpoint .lab{font-family:"Space Grotesk";font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--rose-deep);font-weight:600;display:block;margin-bottom:6px}
+  .checkpoint ul{margin:6px 0;padding-left:20px}
+
+  footer{background:var(--ink);color:#c4d2cd;padding:42px 0 36px;margin-top:26px}
+  footer h4{font-family:"Space Grotesk";color:#fff;font-size:15px;margin:0 0 12px}
+  footer p{font-size:14px;color:#9fb3ad;line-height:1.6}
+  footer a{color:#5fc0b2}
+  footer .fine{border-top:1px solid #2a3d38;padding-top:18px;margin-top:20px;font-size:12.5px;color:#7f938d}
+  footer .mono{color:#5fc0b2}
+
+  @media(max-width:720px){body{font-size:18px}.unit-nav{width:100%;margin-left:0}}
+  @media(prefers-reduced-motion:reduce){.pulse path{animation:none;stroke-dashoffset:0}html{scroll-behavior:auto}}
+  @media print{.reveal{display:none}.sol{display:block!important}header.nav{position:static}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="index.html" style="font-family:'Space Grotesk',system-ui,sans-serif;font-size:13px;font-weight:600;color:#0e4e4a;background:#fff;border:1px solid #cdd8d3;border-radius:8px;padding:6px 11px;text-decoration:none;white-space:nowrap;margin-right:4px">&#8962; Hub</a>
+    <span class="brand">
+      <svg viewBox="0 0 40 24" aria-hidden="true"><path d="M1 12h8l3-9 5 18 4-13 3 6 3-2h9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      MATHS-I · LEARN &amp; PRACTICE
+    </span>
+    <nav class="unit-nav">
+      <a href="#unit1">U1</a>
+      <a href="#unit2">U2</a>
+      <a href="#unit3">U3</a>
+      <a href="#unit4">U4</a>
+      <a href="#unit5">U5</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="eyebrow">BS 101 MT · Semester 1 · a slow, step-by-step guide</div>
+    <h1>Mathematics&nbsp;–&nbsp;I<br><span class="g">learn it, then practise it</span></h1>
+    <p class="lede">This version takes its time. Each unit is broken into small lessons. Every idea is explained in plain words first, then shown with examples that start easy and build up — and each unit ends with practice questions you can solve yourself and check.</p>
+    <div class="startbox">
+      <p style="margin:0"><b>How to use this page.</b> Don't rush. Read one lesson, follow its worked example with a pen in hand, then do the practice questions <em>before</em> clicking "Show solution". Getting a question wrong and understanding why is worth more than reading ten correct solutions.</p>
+    </div>
+    <svg class="pulse" viewBox="0 0 1200 28" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 14 H220 l14 -11 l20 22 l16 -18 H500 l12 -9 l22 20 l14 -15 H820 l14 11 l18 -9 H1200"/>
+    </svg>
+  </div>
+</div>
+
+<main class="wrap">
+
+<!-- ==================== UNIT 1 ==================== -->
+<div class="unit" id="unit1">
+  <div class="unit-band">
+    <div class="u-tag">Unit I</div>
+    <h2>Sequences &amp; Series</h2>
+    <p>Infinite sums, and the one question that matters about them: do they add up to a finite number, or not?</p>
+    <div class="map">
+      <a href="#l1-1">1.1 Sequence vs series</a>
+      <a href="#l1-2">1.2 What "converge" means</a>
+      <a href="#l1-3">1.3 Comparison test</a>
+      <a href="#l1-4">1.4 Ratio test</a>
+      <a href="#l1-5">1.5 Root &amp; Raabe's tests</a>
+      <a href="#l1-6">1.6 Alternating series</a>
+      <a href="#l1-7">1.7 Practice</a>
+    </div>
+  </div>
+
+  <div class="lesson" id="l1-1">
+    <div class="lesson-no">Lesson 1.1</div>
+    <h3>A sequence versus a series</h3>
+    <p>These two words sound similar and get mixed up constantly, so let's pin them down before anything else.</p>
+    <div class="plain"><span class="lab">In plain words</span>
+      <p>A <strong>sequence</strong> is just a list of numbers in order: \(1,\ \tfrac12,\ \tfrac13,\ \tfrac14,\dots\). Each entry is called a <em>term</em>.</p>
+      <p>A <strong>series</strong> is what you get when you <em>add</em> the terms of a sequence: \(1+\tfrac12+\tfrac13+\tfrac14+\cdots\). It's a running total that never stops.</p>
+    </div>
+    <p>We write a general series using the sigma symbol \(\sum\) (meaning "add them all up"):</p>
+    <div class="formula"><span class="lab">Notation</span>
+      \[\sum_{n=1}^{\infty} a_n = a_1 + a_2 + a_3 + \cdots\]
+    </div>
+    <p>Here \(a_n\) is a formula for the \(n\)-th term. For the example above, \(a_n=\tfrac1n\), so \(a_1=1,\ a_2=\tfrac12,\ a_3=\tfrac13\), and so on. That's all the notation means — don't let the symbol scare you.</p>
+  </div>
+
+  <div class="lesson" id="l1-2">
+    <div class="lesson-no">Lesson 1.2</div>
+    <h3>What "converges" and "diverges" mean</h3>
+    <p>When you keep adding infinitely many terms, one of two things happens.</p>
+    <div class="plain"><span class="lab">In plain words</span>
+      <p>If the running total gets closer and closer to one fixed number and settles there, we say the series <strong>converges</strong> (it "adds up").</p>
+      <p>If the running total keeps growing without limit (or never settles), the series <strong>diverges</strong> (it "doesn't add up").</p>
+    </div>
+    <p>Here's the surprising part that trips everyone up. Look at \(1+\tfrac12+\tfrac14+\tfrac18+\cdots\) — each term is half the last. If you keep adding, the total creeps up towards \(2\) and never passes it. That <em>converges</em> to \(2\).</p>
+    <p>But \(1+\tfrac12+\tfrac13+\tfrac14+\cdots\) (the "harmonic series") <em>diverges</em> — even though its terms also shrink to zero, the total slowly climbs forever. So <strong>terms shrinking to zero is not enough</strong> to guarantee convergence. That single fact is the heart of this whole unit.</p>
+    <p>Because we can't literally add infinitely many numbers, we use <strong>tests</strong> — quick checks that tell us "converges" or "diverges" without doing the impossible sum. The rest of this unit is a small toolbox of tests, and the real skill is choosing the right tool.</p>
+    <div class="checkpoint"><span class="lab">Before you go on</span>
+      <ul>
+        <li>Sequence = list; series = running total of that list.</li>
+        <li>Converges = the total settles on a finite number. Diverges = it doesn't.</li>
+        <li>Terms → 0 is <em>necessary but not sufficient</em>. (Remember the harmonic series.)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="lesson" id="l1-3">
+    <div class="lesson-no">Lesson 1.3</div>
+    <h3>Two facts to compare against, and the comparison test</h3>
+    <p>Before the tests, memorise two "reference" series whose behaviour is known. You'll compare mystery series against these.</p>
+    <div class="formula"><span class="lab">Reference 1 — the p-series</span>
+      \[\sum \frac{1}{n^p}\quad\text{converges if } p>1,\quad\text{diverges if } p\le 1\]
+      <p style="font-size:15px;color:var(--ink-soft)">So \(\sum\tfrac1{n^2}\) converges (\(p=2\)), but \(\sum\tfrac1n\) diverges (\(p=1\)).</p>
+    </div>
+    <div class="formula"><span class="lab">Reference 2 — the geometric series</span>
+      \[\sum r^{\,n}\quad\text{converges if } |r|<1,\quad\text{diverges if } |r|\ge 1\]
+    </div>
+    <div class="plain"><span class="lab">The comparison test — in plain words</span>
+      <p>If every term of your series is <em>smaller</em> than the matching term of a series you know converges, then yours converges too (it can't be bigger than something finite).</p>
+      <p>If every term is <em>bigger</em> than one you know diverges, then yours diverges too.</p>
+    </div>
+    <div class="eg">
+      <h4>Worked example 1.3a <span class="diff">warm-up</span></h4>
+      <p class="q">Does \(\displaystyle\sum \frac{1}{n^2+1}\) converge?</p>
+      <p class="step"><span class="s">Compare</span> For every \(n\), \(\dfrac{1}{n^2+1} < \dfrac{1}{n^2}\), because the denominator is larger.</p>
+      <p class="step"><span class="s">Use what we know</span> We know \(\sum\dfrac{1}{n^2}\) converges (p-series, \(p=2>1\)).</p>
+      <p class="step"><span class="s">Conclude</span> Our terms are smaller than a converging series' terms, so \(\sum\dfrac{1}{n^2+1}\) <strong>converges</strong>.</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l1-4">
+    <div class="lesson-no">Lesson 1.4</div>
+    <h3>The ratio test (D'Alembert's test) — your everyday tool</h3>
+    <p>Comparison is nice but needs a clever choice. The <strong>ratio test</strong> is more mechanical, and it's the one you'll use most, especially when the terms contain factorials (\(n!\)) or powers (\(2^n,\ 3^n\)).</p>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>Look at how each term compares to the one before it, by forming the ratio \(\dfrac{a_{n+1}}{a_n}\). If the terms are shrinking fast enough (ratio ends up below 1), the sum converges.</p>
+    </div>
+    <div class="method">
+      <h4>Method — ratio test</h4>
+      <ol>
+        <li>Write down \(a_n\) and \(a_{n+1}\) (replace every \(n\) with \(n+1\)).</li>
+        <li>Form the ratio \(\left|\dfrac{a_{n+1}}{a_n}\right|\) and simplify it.</li>
+        <li>Take the limit as \(n\to\infty\); call it \(L\).</li>
+        <li>Decide: \(L<1\Rightarrow\) <strong>converges</strong>; \(L>1\Rightarrow\) <strong>diverges</strong>; \(L=1\Rightarrow\) test fails, try another test.</li>
+      </ol>
+    </div>
+    <div class="eg">
+      <h4>Worked example 1.4a <span class="diff">standard</span></h4>
+      <p class="q">Test \(\displaystyle\sum \frac{n}{2^n}\).</p>
+      <p class="step"><span class="s">Terms</span> \(a_n=\dfrac{n}{2^n}\), so \(a_{n+1}=\dfrac{n+1}{2^{n+1}}\).</p>
+      <p class="step"><span class="s">Ratio</span>\[\frac{a_{n+1}}{a_n}=\frac{n+1}{2^{n+1}}\cdot\frac{2^n}{n}=\frac{n+1}{2n}\]</p>
+      <p class="step"><span class="s">Limit</span>\[L=\lim_{n\to\infty}\frac{n+1}{2n}=\frac12\]</p>
+      <p class="step"><span class="s">Conclude</span> \(L=\tfrac12<1\), so the series <strong>converges</strong>.</p>
+    </div>
+    <div class="eg">
+      <h4>Worked example 1.4b <span class="diff">with factorials</span></h4>
+      <p class="q">Test \(\displaystyle\sum \frac{1}{n!}\). (Factorials are the ratio test's favourite food.)</p>
+      <p class="step"><span class="s">Terms</span> \(a_n=\dfrac{1}{n!}\), \(a_{n+1}=\dfrac{1}{(n+1)!}\).</p>
+      <p class="step"><span class="s">Ratio</span> Since \((n+1)! = (n+1)\cdot n!\),\[\frac{a_{n+1}}{a_n}=\frac{n!}{(n+1)!}=\frac{1}{n+1}\]</p>
+      <p class="step"><span class="s">Limit</span> \(L=\lim\limits_{n\to\infty}\dfrac{1}{n+1}=0\).</p>
+      <p class="step"><span class="s">Conclude</span> \(L=0<1\), so it <strong>converges</strong>. (In fact this sum equals \(e-1\).)</p>
+    </div>
+    <div class="checkpoint"><span class="lab">Key habit</span>
+      <ul>
+        <li>See a factorial or a power like \(3^n\)? Reach for the ratio test first.</li>
+        <li>The trick with factorials: \((n+1)! = (n+1)\times n!\) — this makes almost everything cancel.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="lesson" id="l1-5">
+    <div class="lesson-no">Lesson 1.5</div>
+    <h3>The root test, and Raabe's test for the "\(L=1\)" dead end</h3>
+    <p>Two more tools for special situations.</p>
+    <div class="formula"><span class="lab">Cauchy's root test</span>
+      <p>Best when the <em>whole term</em> is raised to the power \(n\). Compute \(L=\lim\limits_{n\to\infty}(a_n)^{1/n}\). Then the same rule applies: \(L<1\) converges, \(L>1\) diverges, \(L=1\) inconclusive.</p>
+    </div>
+    <div class="eg">
+      <h4>Worked example 1.5a <span class="diff">root test</span></h4>
+      <p class="q">Test \(\displaystyle\sum \left(\frac{n}{2n+1}\right)^{n}\).</p>
+      <p class="step"><span class="s">Take the n-th root</span> \((a_n)^{1/n}=\dfrac{n}{2n+1}\).</p>
+      <p class="step"><span class="s">Limit</span> \(L=\lim\limits_{n\to\infty}\dfrac{n}{2n+1}=\dfrac12\).</p>
+      <p class="step"><span class="s">Conclude</span> \(L=\tfrac12<1\Rightarrow\) <strong>converges</strong>.</p>
+    </div>
+    <div class="plain"><span class="lab">When the ratio test gives \(L=1\)</span>
+      <p>A result of \(L=1\) means "I don't know" — the ratio test has failed. Don't guess. Switch to <strong>Raabe's test</strong>, which is more sensitive.</p>
+    </div>
+    <div class="formula"><span class="lab">Raabe's test</span>
+      \[L=\lim_{n\to\infty} n\!\left(\frac{a_n}{a_{n+1}}-1\right)\]
+      <p style="font-size:15px;color:var(--ink-soft)">If \(L>1\) it converges; if \(L<1\) it diverges; if \(L=1\), Raabe's also fails (rare in exams).</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l1-6">
+    <div class="lesson-no">Lesson 1.6</div>
+    <h3>Alternating series and Leibnitz's test</h3>
+    <p>An <strong>alternating series</strong> flips sign every term, like \(1-\tfrac12+\tfrac13-\tfrac14+\cdots\). These have their own, very simple test.</p>
+    <div class="formula"><span class="lab">Leibnitz's test</span>
+      <p>The alternating series \(\displaystyle\sum (-1)^{n-1} a_n\) (with all \(a_n>0\)) <strong>converges</strong> if two things hold:</p>
+      <p>(1) the terms decrease: \(a_{n+1}\le a_n\); &nbsp;and&nbsp; (2) the terms go to zero: \(\lim\limits_{n\to\infty} a_n=0\).</p>
+    </div>
+    <div class="eg">
+      <h4>Worked example 1.6a <span class="diff">standard</span></h4>
+      <p class="q">Does \(\displaystyle 1-\frac12+\frac13-\frac14+\cdots=\sum \frac{(-1)^{n-1}}{n}\) converge?</p>
+      <p class="step"><span class="s">Check condition 1</span> \(a_n=\tfrac1n\), and \(\tfrac{1}{n+1}<\tfrac1n\) — yes, terms decrease.</p>
+      <p class="step"><span class="s">Check condition 2</span> \(\lim\limits_{n\to\infty}\tfrac1n=0\) — yes.</p>
+      <p class="step"><span class="s">Conclude</span> Both hold, so it <strong>converges</strong> (to \(\ln 2\), in fact). Note: the non-alternating version \(\sum\tfrac1n\) diverges — the alternating signs are what save it.</p>
+    </div>
+    <div class="plain"><span class="lab">One more word: absolute convergence</span>
+      <p>If \(\sum |a_n|\) (all terms made positive) converges, we say the series is <strong>absolutely convergent</strong>, and it definitely converges. If \(\sum a_n\) converges but \(\sum|a_n|\) does not (like the example above), it's <strong>conditionally convergent</strong>.</p>
+    </div>
+  </div>
+
+  <div class="practice" id="l1-7">
+    <h4>Practice — Unit I</h4>
+    <p class="hint">Try each with pen and paper first. Name the test you'd use before computing. Then reveal.</p>
+
+    <div class="pq">
+      <div class="qh"><span class="qn">Q1</span><p class="qbody">Test \(\displaystyle\sum \frac{n}{3^n}\) for convergence.</p></div>
+      <button class="reveal">Show solution</button>
+      <div class="sol">
+        <p><span class="lab">SOLUTION</span> Powers of 3 → ratio test. \(\dfrac{a_{n+1}}{a_n}=\dfrac{n+1}{3^{n+1}}\cdot\dfrac{3^n}{n}=\dfrac{n+1}{3n}\). Limit \(L=\tfrac13<1\).</p>
+        <p class="ans">Converges.</p>
+      </div>
+    </div>
+
+    <div class="pq">
+      <div class="qh"><span class="qn">Q2</span><p class="qbody">Test \(\displaystyle\sum \frac{2^n}{n!}\).</p></div>
+      <button class="reveal">Show solution</button>
+      <div class="sol">
+        <p><span class="lab">SOLUTION</span> Factorial → ratio test. \(\dfrac{a_{n+1}}{a_n}=\dfrac{2^{n+1}}{(n+1)!}\cdot\dfrac{n!}{2^n}=\dfrac{2}{n+1}\). Limit \(L=0<1\).</p>
+        <p class="ans">Converges.</p>
+      </div>
+    </div>
+
+    <div class="pq">
+      <div class="qh"><span class="qn">Q3</span><p class="qbody">Does \(\displaystyle\sum \frac{1}{\sqrt{n}}\) converge?</p></div>
+      <button class="reveal">Show solution</button>
+      <div class="sol">
+        <p><span class="lab">SOLUTION</span> This is a p-series with \(p=\tfrac12\), since \(\tfrac{1}{\sqrt n}=\tfrac{1}{n^{1/2}}\). Because \(p=\tfrac12\le 1\)…</p>
+        <p class="ans">Diverges.</p>
+      </div>
+    </div>
+
+    <div class="pq">
+      <div class="qh"><span class="qn">Q4</span><p class="qbody">Does \(\displaystyle\sum \frac{(-1)^{n-1}}{\sqrt{n}}\) converge?</p></div>
+      <button class="reveal">Show solution</button>
+      <div class="sol">
+        <p><span class="lab">SOLUTION</span> Alternating → Leibnitz. Terms \(a_n=\tfrac{1}{\sqrt n}\) decrease, and \(\to 0\). Both conditions hold.</p>
+        <p class="ans">Converges (conditionally — its absolute version, Q3, diverges).</p>
+      </div>
+    </div>
+
+    <div class="pq">
+      <div class="qh"><span class="qn">Q5</span><p class="qbody">Test \(\displaystyle\sum \left(\frac{2n+1}{3n+2}\right)^{n}\).</p></div>
+      <button class="reveal">Show solution</button>
+      <div class="sol">
+        <p><span class="lab">SOLUTION</span> Whole term to the power \(n\) → root test. \((a_n)^{1/n}=\dfrac{2n+1}{3n+2}\to\dfrac23\). Since \(L=\tfrac23<1\).</p>
+        <p class="ans">Converges.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== UNIT 2 ==================== -->
+<div class="unit" id="unit2">
+  <div class="unit-band">
+    <div class="u-tag">Unit II</div>
+    <h2>Differential Calculus</h2>
+    <p>What a derivative tells you about the <em>shape</em> of a curve — where it's flat, how its average slope works, and how sharply it bends.</p>
+    <div class="map">
+      <a href="#l2-1">2.1 Derivative recap</a>
+      <a href="#l2-2">2.2 Rolle's theorem</a>
+      <a href="#l2-3">2.3 Lagrange's MVT</a>
+      <a href="#l2-4">2.4 Taylor's series</a>
+      <a href="#l2-5">2.5 Radius of curvature</a>
+      <a href="#l2-6">2.6 Practice</a>
+    </div>
+  </div>
+
+  <div class="lesson" id="l2-1">
+    <div class="lesson-no">Lesson 2.1</div>
+    <h3>A quick recap: what a derivative is</h3>
+    <div class="plain"><span class="lab">In plain words</span>
+      <p>The derivative \(f'(x)\) is the <strong>slope</strong> of the curve \(y=f(x)\) at each point — how steeply it's going up or down right there. Where \(f'(x)=0\), the curve is momentarily flat (a peak, a valley, or a level spot).</p>
+    </div>
+    <p>Everything in this unit is a consequence of that one idea. Keep "derivative = slope" in your head and the theorems below stop feeling abstract.</p>
+  </div>
+
+  <div class="lesson" id="l2-2">
+    <div class="lesson-no">Lesson 2.2</div>
+    <h3>Rolle's theorem</h3>
+    <div class="plain"><span class="lab">The idea (a picture in words)</span>
+      <p>Imagine a smooth hill path that starts and ends at exactly the same height. Common sense says: somewhere in between, you must have been momentarily level — at the top of a rise, or the bottom of a dip. Rolle's theorem is exactly that statement in maths.</p>
+    </div>
+    <div class="formula"><span class="lab">Rolle's theorem</span>
+      <p>If \(f\) is continuous on \([a,b]\), differentiable on \((a,b)\), and \(f(a)=f(b)\), then there is at least one point \(c\) in \((a,b)\) with</p>
+      \[f'(c)=0.\]
+    </div>
+    <div class="eg">
+      <h4>Worked example 2.2a <span class="diff">verify a theorem</span></h4>
+      <p class="q">Verify Rolle's theorem for \(f(x)=x^2-4x+3\) on \([1,3]\).</p>
+      <p class="step"><span class="s">Check the endpoints</span> \(f(1)=1-4+3=0\) and \(f(3)=9-12+3=0\). Equal ✓.</p>
+      <p class="step"><span class="s">It's continuous &amp; differentiable</span> A polynomial, so both hold everywhere ✓.</p>
+      <p class="step"><span class="s">Find c</span> \(f'(x)=2x-4=0\Rightarrow x=2\), which lies in \((1,3)\) ✓.</p>
+      <p class="step"><span class="s">Conclusion</span> The theorem holds, with \(c=2\).</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l2-3">
+    <div class="lesson-no">Lesson 2.3</div>
+    <h3>Lagrange's mean value theorem (MVT)</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>Drive from town A to town B. Your <em>average</em> speed is total distance over total time. The MVT says: at some instant during the trip, your <em>actual</em> speedometer reading exactly equalled that average. Replace "speed" with "slope" and that's the theorem.</p>
+    </div>
+    <div class="formula"><span class="lab">Lagrange's MVT</span>
+      <p>If \(f\) is continuous on \([a,b]\) and differentiable on \((a,b)\), there is a \(c\) in \((a,b)\) with</p>
+      \[f'(c)=\frac{f(b)-f(a)}{b-a}.\]
+      <p style="font-size:15px;color:var(--ink-soft)">The right side is the average slope between the endpoints; \(f'(c)\) is the instantaneous slope at \(c\). Rolle's is just the special case where \(f(a)=f(b)\), making the right side \(0\).</p>
+    </div>
+    <div class="eg">
+      <h4>Worked example 2.3a <span class="diff">standard</span></h4>
+      <p class="q">Find \(c\) for \(f(x)=x^2\) on \([1,3]\).</p>
+      <p class="step"><span class="s">Average slope</span> \(\dfrac{f(3)-f(1)}{3-1}=\dfrac{9-1}{2}=4\).</p>
+      <p class="step"><span class="s">Instantaneous slope</span> \(f'(x)=2x\). Set equal: \(2c=4\Rightarrow c=2\).</p>
+      <p class="step"><span class="s">Conclusion</span> \(c=2\) is in \((1,3)\) ✓ — the average slope of 4 is actually achieved at \(x=2\).</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l2-4">
+    <div class="lesson-no">Lesson 2.4</div>
+    <h3>Taylor's and Maclaurin's series</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>A complicated function can be rewritten as an endless polynomial \(c_0+c_1x+c_2x^2+\cdots\). The coefficients are built from the function's derivatives at a single point. This lets us <em>approximate</em> hard functions (like \(\sin x\) or \(e^x\)) with easy polynomials.</p>
+    </div>
+    <div class="formula"><span class="lab">Taylor's series about \(x=a\)</span>
+      \[f(x)=f(a)+f'(a)(x-a)+\frac{f''(a)}{2!}(x-a)^2+\frac{f'''(a)}{3!}(x-a)^3+\cdots\]
+      <p style="font-size:15px;color:var(--ink-soft)">When \(a=0\) this is called the <strong>Maclaurin series</strong>.</p>
+    </div>
+    <div class="eg">
+      <h4>Worked example 2.4a <span class="diff">build a series</span></h4>
+      <p class="q">Find the Maclaurin series of \(f(x)=e^x\).</p>
+      <p class="step"><span class="s">Derivatives</span> Every derivative of \(e^x\) is \(e^x\), and \(e^0=1\). So \(f(0)=f'(0)=f''(0)=\cdots=1\).</p>
+      <p class="step"><span class="s">Plug into the formula</span> (with \(a=0\))\[e^x=1+x+\frac{x^2}{2!}+\frac{x^3}{3!}+\cdots\]</p>
+      <p class="step"><span class="s">Meaning</span> Keep the first few terms and you have a polynomial that hugs \(e^x\) closely near \(x=0\).</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l2-5">
+    <div class="lesson-no">Lesson 2.5</div>
+    <h3>Curvature and radius of curvature</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>At any point on a curve, imagine the circle that best matches the curve's bend there. A gentle bend matches a big circle; a sharp bend matches a small one. The <strong>radius of curvature</strong> \(\rho\) is that circle's radius — a number for "how sharply it turns".</p>
+    </div>
+    <div class="formula"><span class="lab">Radius of curvature</span>
+      \[\rho=\frac{\left(1+y'^{\,2}\right)^{3/2}}{|y''|}\]
+      <p style="font-size:15px;color:var(--ink-soft)">Note the power on top is \(3/2\) (cube it, then square-root) — the single most common slip in this formula.</p>
+    </div>
+    <div class="eg">
+      <h4>Worked example 2.5a <span class="diff">standard</span></h4>
+      <p class="q">Find the radius of curvature of \(y=x^2\) at the point \((1,1)\).</p>
+      <p class="step"><span class="s">Derivatives</span> \(y'=2x,\ y''=2\).</p>
+      <p class="step"><span class="s">Evaluate at \(x=1\)</span> \(y'=2,\ y''=2\).</p>
+      <p class="step"><span class="s">Substitute</span>\[\rho=\frac{(1+2^2)^{3/2}}{|2|}=\frac{(5)^{3/2}}{2}=\frac{5\sqrt5}{2}\approx 5.59\]</p>
+      <p class="step"><span class="s">Meaning</span> At \((1,1)\) the parabola bends as if it were part of a circle of radius about \(5.6\).</p>
+    </div>
+    <div class="checkpoint"><span class="lab">Don't-lose-marks list for Unit II</span>
+      <ul>
+        <li>Rolle's needs \(f(a)=f(b)\); always check the endpoints first.</li>
+        <li>State continuity and differentiability — examiners award marks for the hypotheses, not just the answer.</li>
+        <li>Curvature: the top power is \(3/2\). Write it carefully.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="practice" id="l2-6">
+    <h4>Practice — Unit II</h4>
+    <p class="hint">Show all steps — these are usually "prove/verify/find" questions where working earns the marks.</p>
+
+    <div class="pq">
+      <div class="qh"><span class="qn">Q1</span><p class="qbody">Verify Rolle's theorem for \(f(x)=x^2-6x+8\) on \([2,4]\), and find \(c\).</p></div>
+      <button class="reveal">Show solution</button>
+      <div class="sol">
+        <p><span class="lab">SOLUTION</span> \(f(2)=4-12+8=0\), \(f(4)=16-24+8=0\) — equal ✓. \(f'(x)=2x-6=0\Rightarrow x=3\in(2,4)\).</p>
+        <p class="ans">Rolle's holds; \(c=3\).</p>
+      </div>
+    </div>
+
+    <div class="pq">
+      <div class="qh"><span class="qn">Q2</span><p class="qbody">Find \(c\) in Lagrange's MVT for \(f(x)=x^3\) on \([0,2]\).</p></div>
+      <button class="reveal">Show solution</button>
+      <div class="sol">
+        <p><span class="lab">SOLUTION</span> Average slope \(=\dfrac{f(2)-f(0)}{2-0}=\dfrac{8-0}{2}=4\). \(f'(x)=3x^2=4\Rightarrow x^2=\tfrac43\Rightarrow c=\sqrt{4/3}\approx 1.15\), which is in \((0,2)\).</p>
+        <p class="ans">\(c=\sqrt{4/3}\approx 1.15\).</p>
+      </div>
+    </div>
+
+    <div class="pq">
+      <div class="qh"><span class="qn">Q3</span><p class="qbody">Write the first four terms of the Maclaurin series of \(\sin x\). (Hint: derivatives cycle \(\cos,\,-\sin,\,-\cos,\,\sin\).)</p></div>
+      <button class="reveal">Show solution</button>
+      <div class="sol">
+        <p><span class="lab">SOLUTION</span> At \(0\): \(\sin 0=0,\ \cos 0=1,\ -\sin 0=0,\ -\cos 0=-1,\dots\) Plugging in gives only odd powers.</p>
+        <p class="ans">\(\sin x = x-\dfrac{x^3}{3!}+\dfrac{x^5}{5!}-\dfrac{x^7}{7!}+\cdots\)</p>
+      </div>
+    </div>
+
+    <div class="pq">
+      <div class="qh"><span class="qn">Q4</span><p class="qbody">Find the radius of curvature of \(y=x^2\) at the origin \((0,0)\).</p></div>
+      <button class="reveal">Show solution</button>
+      <div class="sol">
+        <p><span class="lab">SOLUTION</span> \(y'=2x=0\) and \(y''=2\) at the origin. \(\rho=\dfrac{(1+0)^{3/2}}{2}=\dfrac12\).</p>
+        <p class="ans">\(\rho=\tfrac12\).</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== UNIT 3 ==================== -->
+<div class="unit" id="unit3">
+  <div class="unit-band">
+    <div class="u-tag">Unit III</div>
+    <h2>Functions of Several Variables</h2>
+    <p>Calculus when the input is a point \((x,y)\) instead of a single number — differentiating a surface, and finding its peaks and valleys.</p>
+    <div class="map">
+      <a href="#l3-1">3.1 A function of two variables</a>
+      <a href="#l3-2">3.2 Partial derivatives</a>
+      <a href="#l3-3">3.3 Maxima &amp; minima</a>
+      <a href="#l3-4">3.4 Lagrange multipliers</a>
+      <a href="#l3-5">3.5 Practice</a>
+    </div>
+  </div>
+
+  <div class="lesson" id="l3-1">
+    <div class="lesson-no">Lesson 3.1</div>
+    <h3>What a function of two variables looks like</h3>
+    <div class="plain"><span class="lab">In plain words</span>
+      <p>\(z=f(x,y)\) takes two inputs and gives one output. Picture a landscape: \(x\) and \(y\) are your position on the ground (east and north), and \(z\) is the height of the land there. The whole function is a <strong>surface</strong> — hills and valleys.</p>
+    </div>
+    <p>Everything from single-variable calculus now has to answer: "slope in <em>which</em> direction?" That's what partial derivatives handle.</p>
+  </div>
+
+  <div class="lesson" id="l3-2">
+    <div class="lesson-no">Lesson 3.2</div>
+    <h3>Partial derivatives</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>To find how the height changes as you walk <em>east</em>, you differentiate with respect to \(x\) while pretending \(y\) is a frozen constant. That's the partial derivative \(f_x\) (also written \(\partial z/\partial x\)). Similarly \(f_y\) is the slope walking north.</p>
+    </div>
+    <div class="method">
+      <h4>Method — partial derivative with respect to \(x\)</h4>
+      <ol>
+        <li>Treat \(y\) as if it were an ordinary number (a constant).</li>
+        <li>Differentiate the expression with respect to \(x\) using normal rules.</li>
+        <li>For \(f_y\), do the reverse: freeze \(x\), differentiate in \(y\).</li>
+      </ol>
+    </div>
+    <div class="eg">
+      <h4>Worked example 3.2a <span class="diff">warm-up</span></h4>
+      <p class="q">Find \(f_x\) and \(f_y\) for \(f(x,y)=x^3y^2+4x\).</p>
+      <p class="step"><span class="s">\(f_x\) — freeze \(y\)</span> \(y^2\) is a constant multiplier. \(\dfrac{\partial}{\partial x}(x^3y^2)=3x^2y^2\), and \(\dfrac{\partial}{\partial x}(4x)=4\). So \(f_x=3x^2y^2+4\).</p>
+      <p class="step"><span class="s">\(f_y\) — freeze \(x\)</span> \(x^3\) is constant, \(\dfrac{\partial}{\partial y}(x^3y^2)=2x^3y\), and \(4x\) has no \(y\) so its derivative is \(0\). So \(f_y=2x^3y\).</p>
+    </div>
+    <div class="plain"><span class="lab">Second-order partials (you'll need these next)</span>
+      <p>\(f_{xx}\) = differentiate \(f_x\) again in \(x\). \(f_{yy}\) = differentiate \(f_y\) again in \(y\). \(f_{xy}\) = differentiate \(f_x\) in \(y\) (equals \(f_{yx}\) for nice functions).</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l3-3">
+    <div class="lesson-no">Lesson 3.3</div>
+    <h3>Finding maxima and minima of a surface</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>On a landscape, the tops of hills and bottoms of valleys are flat in <em>every</em> direction — so both \(f_x=0\) and \(f_y=0\) there. But a mountain pass (a "saddle") is also flat and is neither a peak nor a valley. A second test sorts out which is which.</p>
+    </div>
+    <div class="method">
+      <h4>Method — max/min of \(f(x,y)\)</h4>
+      <ol>
+        <li>Solve \(f_x=0\) and \(f_y=0\) together to find the flat points (stationary points).</li>
+        <li>Compute \(r=f_{xx}\), \(s=f_{xy}\), \(t=f_{yy}\) at each stationary point.</li>
+        <li>Look at \(D=rt-s^2\):
+          <ul style="margin-top:6px">
+            <li>\(D>0\) and \(r<0\) → <strong>maximum</strong> (hilltop)</li>
+            <li>\(D>0\) and \(r>0\) → <strong>minimum</strong> (valley)</li>
+            <li>\(D<0\) → <strong>saddle point</strong> (neither)</li>
+            <li>\(D=0\) → test fails (say so; don't force an answer)</li>
+          </ul>
+        </li>
+      </ol>
+    </div>
+    <div class="eg">
+      <h4>Worked example 3.3a <span class="diff">full problem</span></h4>
+      <p class="q">Find and classify the stationary point of \(f=x^2+xy+y^2-3x\).</p>
+      <p class="step"><span class="s">Step 1 — flat points</span> \(f_x=2x+y-3=0\) and \(f_y=x+2y=0\). From the second, \(x=-2y\); sub into the first: \(2(-2y)+y-3=0\Rightarrow -3y=3\Rightarrow y=-1\), then \(x=2\).</p>
+      <p class="step"><span class="s">Step 2 — second derivatives</span> \(r=f_{xx}=2,\quad s=f_{xy}=1,\quad t=f_{yy}=2\).</p>
+      <p class="step"><span class="s">Step 3 — the test</span> \(D=rt-s^2=(2)(2)-1^2=3>0\), and \(r=2>0\).</p>
+      <p class="step"><span class="s">Conclusion</span> A <strong>minimum</strong> at \((2,-1)\).</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l3-4">
+    <div class="lesson-no">Lesson 3.4</div>
+    <h3>Lagrange multipliers — max/min with a constraint</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>Sometimes you must optimise while staying on a fixed path — like finding the highest point on a hill <em>along a marked trail</em>. The trail is a constraint \(g(x,y)=0\). Lagrange's trick introduces one extra unknown \(\lambda\) that lets you handle the constraint cleanly.</p>
+    </div>
+    <div class="method">
+      <h4>Method — Lagrange multipliers</h4>
+      <ol>
+        <li>Write the constraint as \(g(x,y)=0\).</li>
+        <li>Solve the equations \(f_x=\lambda g_x\), \(\ f_y=\lambda g_y\), together with \(g=0\).</li>
+        <li>The solutions \((x,y)\) are your candidate max/min points.</li>
+      </ol>
+    </div>
+    <div class="eg">
+      <h4>Worked example 3.4a <span class="diff">classic</span></h4>
+      <p class="q">Find the extreme values of \(f=xy\) subject to \(x+y=10\).</p>
+      <p class="step"><span class="s">Constraint</span> \(g=x+y-10=0\), so \(g_x=1,\ g_y=1\).</p>
+      <p class="step"><span class="s">Lagrange equations</span> \(f_x=y=\lambda\cdot1\) and \(f_y=x=\lambda\cdot1\). So \(x=y=\lambda\).</p>
+      <p class="step"><span class="s">Use the constraint</span> \(x+y=10\) with \(x=y\) gives \(2x=10\Rightarrow x=y=5\).</p>
+      <p class="step"><span class="s">Conclusion</span> The extreme value is \(f=5\times5=25\) at \((5,5)\). (It's the maximum — the product of two numbers with a fixed sum is largest when they're equal.)</p>
+    </div>
+  </div>
+
+  <div class="practice" id="l3-5">
+    <h4>Practice — Unit III</h4>
+    <p class="hint">For max/min, always finish by naming the type (max, min, or saddle).</p>
+
+    <div class="pq">
+      <div class="qh"><span class="qn">Q1</span><p class="qbody">Find \(f_x\) and \(f_y\) for \(f=x^2y+\sin(xy)\).</p></div>
+      <button class="reveal">Show solution</button>
+      <div class="sol">
+        <p><span class="lab">SOLUTION</span> \(f_x=2xy+y\cos(xy)\) (chain rule brings out a \(y\)). \(f_y=x^2+x\cos(xy)\).</p>
+      </div>
+    </div>
+
+    <div class="pq">
+      <div class="qh"><span class="qn">Q2</span><p class="qbody">Classify the stationary point of \(f=x^2+y^2-4x-6y+13\).</p></div>
+      <button class="reveal">Show solution</button>
+      <div class="sol">
+        <p><span class="lab">SOLUTION</span> \(f_x=2x-4=0\Rightarrow x=2\); \(f_y=2y-6=0\Rightarrow y=3\). \(r=2,\ s=0,\ t=2\), \(D=4>0\), \(r>0\).</p>
+        <p class="ans">Minimum at \((2,3)\).</p>
+      </div>
+    </div>
+
+    <div class="pq">
+      <div class="qh"><span class="qn">Q3</span><p class="qbody">Use Lagrange multipliers to find the extreme value of \(f=x^2+y^2\) subject to \(x+y=1\).</p></div>
+      <button class="reveal">Show solution</button>
+      <div class="sol">
+        <p><span class="lab">SOLUTION</span> \(g=x+y-1\). Equations: \(2x=\lambda,\ 2y=\lambda\Rightarrow x=y\). Constraint: \(2x=1\Rightarrow x=y=\tfrac12\). Then \(f=\tfrac14+\tfrac14=\tfrac12\).</p>
+        <p class="ans">Minimum value \(\tfrac12\) at \((\tfrac12,\tfrac12)\).</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== UNIT 4 ==================== -->
+<div class="unit" id="unit4">
+  <div class="unit-band">
+    <div class="u-tag">Unit IV</div>
+    <h2>Multiple Integrals</h2>
+    <p>Integration over a 2-D region or a 3-D solid — a way to measure area, volume, and total quantity.</p>
+    <div class="map">
+      <a href="#l4-1">4.1 From single to double</a>
+      <a href="#l4-2">4.2 Evaluating a double integral</a>
+      <a href="#l4-3">4.3 Change of order</a>
+      <a href="#l4-4">4.4 Area &amp; volume</a>
+      <a href="#l4-5">4.5 Practice</a>
+    </div>
+  </div>
+
+  <div class="lesson" id="l4-1">
+    <div class="lesson-no">Lesson 4.1</div>
+    <h3>From a single integral to a double integral</h3>
+    <div class="plain"><span class="lab">In plain words</span>
+      <p>A single integral \(\int f\,dx\) adds up strips to find an area under a curve. A <strong>double integral</strong> \(\iint f\,dA\) adds up tiny tiles across a 2-D region — think of totalling something spread over a floor, like total rainfall over a field.</p>
+    </div>
+    <p>You evaluate it as two ordinary integrals, one inside the other. Do the inside one first.</p>
+  </div>
+
+  <div class="lesson" id="l4-2">
+    <div class="lesson-no">Lesson 4.2</div>
+    <h3>Evaluating a double integral: inside first</h3>
+    <div class="method">
+      <h4>Method</h4>
+      <ol>
+        <li>Do the <strong>inner</strong> integral first, treating the outer variable as a constant. Use the inner limits.</li>
+        <li>You now have an expression in the outer variable only.</li>
+        <li>Do the <strong>outer</strong> integral using the outer limits to get a number.</li>
+      </ol>
+    </div>
+    <div class="eg">
+      <h4>Worked example 4.2a <span class="diff">step by step</span></h4>
+      <p class="q">Evaluate \(\displaystyle\int_{0}^{2}\!\int_{0}^{3}(x+y)\,dx\,dy\).</p>
+      <p class="step"><span class="s">Inner integral (in \(x\), \(y\) frozen)</span>\[\int_0^3 (x+y)\,dx=\left[\frac{x^2}{2}+xy\right]_0^3=\frac{9}{2}+3y\]</p>
+      <p class="step"><span class="s">Outer integral (in \(y\))</span>\[\int_0^2\!\left(\frac92+3y\right)dy=\left[\frac{9}{2}y+\frac{3y^2}{2}\right]_0^2=9+6=15\]</p>
+      <p class="step"><span class="s">Answer</span> \(15\).</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l4-3">
+    <div class="lesson-no">Lesson 4.3</div>
+    <h3>Changing the order of integration</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>Sometimes the inner integral is impossible in the given order but easy the other way round. The region you're integrating over doesn't change — only the way you describe its boundaries does. The must-do step is to <strong>sketch the region</strong> and re-read the limits.</p>
+    </div>
+    <div class="method">
+      <h4>Method — change of order</h4>
+      <ol>
+        <li>Read off the four boundary curves from the current limits.</li>
+        <li>Sketch the region they enclose.</li>
+        <li>Re-describe the same region with the roles of the variables swapped, reading off new inner/outer limits from your sketch.</li>
+      </ol>
+    </div>
+    <div class="eg">
+      <h4>Worked example 4.3a <span class="diff">standard</span></h4>
+      <p class="q">Change the order of integration in \(\displaystyle\int_{0}^{1}\!\int_{x}^{1} f(x,y)\,dy\,dx\).</p>
+      <p class="step"><span class="s">Read the region</span> \(x\) runs \(0\to1\); for each \(x\), \(y\) runs from \(y=x\) up to \(y=1\). So the region is the triangle with \(0\le x\le y\le 1\).</p>
+      <p class="step"><span class="s">Swap</span> Now let \(y\) be outer: \(y\) runs \(0\to1\); for each \(y\), \(x\) runs from \(0\) to \(x=y\).</p>
+      <p class="step"><span class="s">Rewrite</span>\[\int_{0}^{1}\!\int_{0}^{y} f(x,y)\,dx\,dy\]</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l4-4">
+    <div class="lesson-no">Lesson 4.4</div>
+    <h3>Using integrals for area and volume</h3>
+    <div class="formula"><span class="lab">Two formulas</span>
+      <p><strong>Area</strong> of a region \(R\): \(\displaystyle A=\iint_R dx\,dy\) (integrate the constant \(1\)).</p>
+      <p><strong>Volume</strong> under the surface \(z=f(x,y)\): \(\displaystyle V=\iint_R f(x,y)\,dx\,dy\).</p>
+    </div>
+    <div class="eg">
+      <h4>Worked example 4.4a <span class="diff">area</span></h4>
+      <p class="q">Find the area of the region bounded by \(y=x^2\) and \(y=x\) (between \(x=0\) and \(x=1\)).</p>
+      <p class="step"><span class="s">Which is on top?</span> Between 0 and 1, \(y=x\) is above \(y=x^2\).</p>
+      <p class="step"><span class="s">Set up &amp; integrate</span>\[A=\int_0^1\!\int_{x^2}^{x} dy\,dx=\int_0^1 (x-x^2)\,dx=\left[\frac{x^2}{2}-\frac{x^3}{3}\right]_0^1=\frac12-\frac13=\frac16\]</p>
+      <p class="step"><span class="s">Answer</span> \(\tfrac16\) square units.</p>
+    </div>
+    <div class="plain"><span class="lab">Tip — polar coordinates</span>
+      <p>If the region is a circle or disc, switching to polar makes life much easier. Replace \(dx\,dy\) with \(r\,dr\,d\theta\) — and don't forget that extra factor of \(r\).</p>
+    </div>
+  </div>
+
+  <div class="practice" id="l4-5">
+    <h4>Practice — Unit IV</h4>
+    <p class="hint">For "change of order", sketch first — every time.</p>
+
+    <div class="pq">
+      <div class="qh"><span class="qn">Q1</span><p class="qbody">Evaluate \(\displaystyle\int_0^1\!\int_0^2 xy\,dx\,dy\).</p></div>
+      <button class="reveal">Show solution</button>
+      <div class="sol">
+        <p><span class="lab">SOLUTION</span> Inner: \(\int_0^2 xy\,dx = y\big[\tfrac{x^2}{2}\big]_0^2 = 2y\). Outer: \(\int_0^1 2y\,dy=[y^2]_0^1=1\).</p>
+        <p class="ans">\(1\).</p>
+      </div>
+    </div>
+
+    <div class="pq">
+      <div class="qh"><span class="qn">Q2</span><p class="qbody">Evaluate \(\displaystyle\int_0^1\!\int_0^x (x+y)\,dy\,dx\).</p></div>
+      <button class="reveal">Show solution</button>
+      <div class="sol">
+        <p><span class="lab">SOLUTION</span> Inner: \(\int_0^x(x+y)\,dy=\big[xy+\tfrac{y^2}{2}\big]_0^x=x^2+\tfrac{x^2}{2}=\tfrac{3x^2}{2}\). Outer: \(\int_0^1\tfrac{3x^2}{2}\,dx=\tfrac12\).</p>
+        <p class="ans">\(\tfrac12\).</p>
+      </div>
+    </div>
+
+    <div class="pq">
+      <div class="qh"><span class="qn">Q3</span><p class="qbody">Change the order of integration in \(\displaystyle\int_0^1\!\int_0^{x} f\,dy\,dx\).</p></div>
+      <button class="reveal">Show solution</button>
+      <div class="sol">
+        <p><span class="lab">SOLUTION</span> Region: \(0\le y\le x\le 1\) (triangle). Swapping: \(y\) outer from \(0\to1\), \(x\) inner from \(y\to1\).</p>
+        <p class="ans">\(\displaystyle\int_0^1\!\int_{y}^{1} f\,dx\,dy\).</p>
+      </div>
+    </div>
+
+    <div class="pq">
+      <div class="qh"><span class="qn">Q4</span><p class="qbody">Find the area between \(y=x^2\) and \(y=2x\).</p></div>
+      <button class="reveal">Show solution</button>
+      <div class="sol">
+        <p><span class="lab">SOLUTION</span> They meet where \(x^2=2x\Rightarrow x=0,2\). Between them \(2x\) is on top. \(A=\int_0^2(2x-x^2)\,dx=\big[x^2-\tfrac{x^3}{3}\big]_0^2=4-\tfrac83=\tfrac43\).</p>
+        <p class="ans">\(\tfrac43\) square units.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== UNIT 5 ==================== -->
+<div class="unit" id="unit5">
+  <div class="unit-band">
+    <div class="u-tag">Unit V</div>
+    <h2>Vector Calculus</h2>
+    <p>Calculus for fields — arrows spread through space. Three operators (gradient, divergence, curl) and three theorems that trade a hard integral for an easier one.</p>
+    <div class="map">
+      <a href="#l5-1">5.1 Scalar &amp; vector fields</a>
+      <a href="#l5-2">5.2 Gradient</a>
+      <a href="#l5-3">5.3 Divergence &amp; curl</a>
+      <a href="#l5-4">5.4 The three theorems</a>
+      <a href="#l5-5">5.5 Practice</a>
+    </div>
+  </div>
+
+  <div class="lesson" id="l5-1">
+    <div class="lesson-no">Lesson 5.1</div>
+    <h3>Scalar fields and vector fields</h3>
+    <div class="plain"><span class="lab">In plain words</span>
+      <p>A <strong>scalar field</strong> assigns a single number to every point — like temperature in a room: each spot has one temperature.</p>
+      <p>A <strong>vector field</strong> assigns an arrow (direction + size) to every point — like wind: each spot has a wind blowing some way at some speed.</p>
+    </div>
+    <p>We use the symbol \(\nabla\) ("del") — a derivative-operator that acts on fields. It appears in all three operators below.</p>
+  </div>
+
+  <div class="lesson" id="l5-2">
+    <div class="lesson-no">Lesson 5.2</div>
+    <h3>Gradient — steepest uphill</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>Take a scalar field \(\varphi\) (say, height of terrain). Its <strong>gradient</strong> \(\nabla\varphi\) is a vector that points in the direction of <em>steepest increase</em>, and whose length is how steep that is. Standing on a hillside, the gradient points straight uphill.</p>
+    </div>
+    <div class="formula"><span class="lab">Gradient</span>
+      \[\nabla\varphi=\frac{\partial\varphi}{\partial x}\mathbf{i}+\frac{\partial\varphi}{\partial y}\mathbf{j}+\frac{\partial\varphi}{\partial z}\mathbf{k}\]
+      <p style="font-size:15px;color:var(--ink-soft)">In: a scalar. Out: a vector. Just take the three partial derivatives and attach \(\mathbf i,\mathbf j,\mathbf k\).</p>
+    </div>
+    <div class="eg">
+      <h4>Worked example 5.2a <span class="diff">warm-up</span></h4>
+      <p class="q">Find \(\nabla\varphi\) for \(\varphi=x^2y+z\).</p>
+      <p class="step"><span class="s">Partials</span> \(\varphi_x=2xy,\quad \varphi_y=x^2,\quad \varphi_z=1\).</p>
+      <p class="step"><span class="s">Assemble</span> \(\nabla\varphi=2xy\,\mathbf i+x^2\,\mathbf j+\mathbf k\).</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l5-3">
+    <div class="lesson-no">Lesson 5.3</div>
+    <h3>Divergence and curl</h3>
+    <div class="plain"><span class="lab">Two ideas, side by side</span>
+      <p><strong>Divergence</strong> \(\nabla\cdot\mathbf F\) measures how much a vector field <em>spreads out</em> from a point — like water gushing out of a source. It's a single number (a scalar) at each point.</p>
+      <p><strong>Curl</strong> \(\nabla\times\mathbf F\) measures how much the field <em>swirls</em> around a point — like a whirlpool. It's itself a vector (pointing along the axis of the swirl).</p>
+    </div>
+    <div class="formula"><span class="lab">Divergence (gives a scalar)</span>
+      \[\nabla\cdot\mathbf F=\frac{\partial F_1}{\partial x}+\frac{\partial F_2}{\partial y}+\frac{\partial F_3}{\partial z}\]
+    </div>
+    <div class="formula"><span class="lab">Curl (gives a vector)</span>
+      \[\nabla\times\mathbf F=\left(\frac{\partial F_3}{\partial y}-\frac{\partial F_2}{\partial z}\right)\mathbf i-\left(\frac{\partial F_3}{\partial x}-\frac{\partial F_1}{\partial z}\right)\mathbf j+\left(\frac{\partial F_2}{\partial x}-\frac{\partial F_1}{\partial y}\right)\mathbf k\]
+      <p style="font-size:15px;color:var(--ink-soft)">Note the minus sign on the middle (\(\mathbf j\)) component — it's built into the determinant. This is the classic place to lose a mark.</p>
+    </div>
+    <div class="eg">
+      <h4>Worked example 5.3a <span class="diff">standard</span></h4>
+      <p class="q">For \(\mathbf F=x^2y\,\mathbf i+yz\,\mathbf j+xz\,\mathbf k\), find \(\nabla\cdot\mathbf F\) and \(\nabla\times\mathbf F\).</p>
+      <p class="step"><span class="s">Divergence</span> \(\dfrac{\partial}{\partial x}(x^2y)+\dfrac{\partial}{\partial y}(yz)+\dfrac{\partial}{\partial z}(xz)=2xy+z+x\).</p>
+      <p class="step"><span class="s">Curl — i component</span> \(\dfrac{\partial}{\partial y}(xz)-\dfrac{\partial}{\partial z}(yz)=0-y=-y\).</p>
+      <p class="step"><span class="s">Curl — j component</span> \(-\left[\dfrac{\partial}{\partial x}(xz)-\dfrac{\partial}{\partial z}(x^2y)\right]=-[z-0]=-z\).</p>
+      <p class="step"><span class="s">Curl — k component</span> \(\dfrac{\partial}{\partial x}(yz)-\dfrac{\partial}{\partial y}(x^2y)=0-x^2=-x^2\).</p>
+      <p class="step"><span class="s">Assemble</span> \(\nabla\times\mathbf F=-y\,\mathbf i-z\,\mathbf j-x^2\,\mathbf k\).</p>
+    </div>
+    <div class="checkpoint"><span class="lab">Remember</span>
+      <ul>
+        <li>Gradient: scalar → vector. Divergence: vector → scalar. Curl: vector → vector.</li>
+        <li>Mixing up "divergence is a scalar" and "curl is a vector" is an instant giveaway of a mistake.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="lesson" id="l5-4">
+    <div class="lesson-no">Lesson 5.4</div>
+    <h3>Green's, Gauss's and Stokes' theorems</h3>
+    <div class="plain"><span class="lab">What they all do</span>
+      <p>Each theorem says: an integral around a <em>boundary</em> equals an integral over the <em>region inside</em>. That's useful because one side is often far easier to compute than the other.</p>
+    </div>
+    <div class="formula"><span class="lab">Green's theorem (flat 2-D region)</span>
+      \[\oint_C (P\,dx+Q\,dy)=\iint_R\!\left(\frac{\partial Q}{\partial x}-\frac{\partial P}{\partial y}\right)dx\,dy\]
+    </div>
+    <div class="formula"><span class="lab">Gauss's divergence theorem (a solid)</span>
+      \[\iint_S \mathbf F\cdot\mathbf n\,dS=\iiint_V (\nabla\cdot\mathbf F)\,dV\]
+      <p style="font-size:15px;color:var(--ink-soft)">Total outward flow through a closed surface = total "spreading out" inside it.</p>
+    </div>
+    <div class="formula"><span class="lab">Stokes' theorem (a surface in 3-D)</span>
+      \[\oint_C \mathbf F\cdot d\mathbf r=\iint_S (\nabla\times\mathbf F)\cdot\mathbf n\,dS\]
+      <p style="font-size:15px;color:var(--ink-soft)">Circulation around the edge = total swirl across the surface. Green's theorem is just the flat special case of this.</p>
+    </div>
+    <div class="eg">
+      <h4>Worked example 5.4a <span class="diff">using a theorem</span></h4>
+      <p class="q">Use Green's theorem to evaluate \(\displaystyle\oint_C (x\,dx + xy\,dy)\) around the unit square \(0\le x\le1,\ 0\le y\le1\).</p>
+      <p class="step"><span class="s">Identify P and Q</span> \(P=x,\ Q=xy\).</p>
+      <p class="step"><span class="s">Compute the integrand</span> \(\dfrac{\partial Q}{\partial x}-\dfrac{\partial P}{\partial y}=y-0=y\).</p>
+      <p class="step"><span class="s">Integrate over the square</span>\[\int_0^1\!\int_0^1 y\,dx\,dy=\int_0^1 y\,dy=\frac12\]</p>
+      <p class="step"><span class="s">Answer</span> \(\tfrac12\) — and we never had to walk the four edges separately.</p>
+    </div>
+  </div>
+
+  <div class="practice" id="l5-5">
+    <h4>Practice — Unit V</h4>
+    <p class="hint">Keep track of what each answer <em>should</em> be (scalar or vector) as a built-in error check.</p>
+
+    <div class="pq">
+      <div class="qh"><span class="qn">Q1</span><p class="qbody">Find \(\nabla\varphi\) for \(\varphi=xyz\).</p></div>
+      <button class="reveal">Show solution</button>
+      <div class="sol">
+        <p><span class="lab">SOLUTION</span> \(\varphi_x=yz,\ \varphi_y=xz,\ \varphi_z=xy\).</p>
+        <p class="ans">\(\nabla\varphi=yz\,\mathbf i+xz\,\mathbf j+xy\,\mathbf k\).</p>
+      </div>
+    </div>
+
+    <div class="pq">
+      <div class="qh"><span class="qn">Q2</span><p class="qbody">Find \(\nabla\cdot\mathbf F\) for \(\mathbf F=x\,\mathbf i+y\,\mathbf j+z\,\mathbf k\).</p></div>
+      <button class="reveal">Show solution</button>
+      <div class="sol">
+        <p><span class="lab">SOLUTION</span> \(\dfrac{\partial x}{\partial x}+\dfrac{\partial y}{\partial y}+\dfrac{\partial z}{\partial z}=1+1+1\).</p>
+        <p class="ans">\(3\) (a scalar, as divergence should be).</p>
+      </div>
+    </div>
+
+    <div class="pq">
+      <div class="qh"><span class="qn">Q3</span><p class="qbody">Find \(\nabla\times\mathbf F\) for \(\mathbf F=y\,\mathbf i - x\,\mathbf j\).</p></div>
+      <button class="reveal">Show solution</button>
+      <div class="sol">
+        <p><span class="lab">SOLUTION</span> \(F_1=y,\ F_2=-x,\ F_3=0\). The \(\mathbf i\) and \(\mathbf j\) components vanish (no \(z\)). \(\mathbf k\) component: \(\dfrac{\partial}{\partial x}(-x)-\dfrac{\partial}{\partial y}(y)=-1-1=-2\).</p>
+        <p class="ans">\(\nabla\times\mathbf F=-2\,\mathbf k\) (a vector — this field swirls clockwise).</p>
+      </div>
+    </div>
+
+    <div class="pq">
+      <div class="qh"><span class="qn">Q4</span><p class="qbody">Use Green's theorem for \(\displaystyle\oint_C (y\,dx + x\,dy)\) around any closed curve. What do you get, and why?</p></div>
+      <button class="reveal">Show solution</button>
+      <div class="sol">
+        <p><span class="lab">SOLUTION</span> \(P=y,\ Q=x\). Integrand \(=\dfrac{\partial Q}{\partial x}-\dfrac{\partial P}{\partial y}=1-1=0\), so the double integral is \(0\).</p>
+        <p class="ans">\(0\) — for any closed curve. (This field is "conservative", so its circulation vanishes.)</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="checkpoint" style="margin-top:30px">
+  <span class="lab">Your weekly routine with this page</span>
+  <ul>
+    <li><strong>Monday–Tuesday:</strong> read one unit's lessons, working every example by hand.</li>
+    <li><strong>Wednesday:</strong> do that unit's practice questions with the solutions hidden.</li>
+    <li><strong>Thursday:</strong> re-do only the ones you got wrong, and add their key formula to your one-page unit sheet.</li>
+    <li><strong>Friday:</strong> attempt the matching questions from an Osmania University past paper.</li>
+  </ul>
+</div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <h4>About this page</h4>
+    <p>A beginner-friendly, worked tutorial for Engineering Mathematics-I (BS 101 MT), BE Biomedical Engineering, University College of Engineering (Autonomous), Osmania University. Explanations, examples and practice are standard treatments aligned to the prescribed texts (Grewal; Jain &amp; Iyengar; Kreyszig; Thomas). Equations render with MathJax; tap "Show solution" to check your practice answers.</p>
+    <p style="margin-top:12px">This is the first of four papers built in this slower, more granular style. Mathematics II, III and IV can be produced the same way. Worked examples are illustrative — pair them with the full exercises in your prescribed textbooks and past Osmania University question papers.</p>
+    <div class="fine">
+      Self-contained single file — upload <span class="mono">index.html</span> to tiiny.host to publish. Needs an internet connection to load web fonts and the MathJax renderer. &nbsp;Compiled study reference, not an official university publication. &nbsp;Prepared <span class="mono">04 July 2026</span>.
+    </div>
+  </div>
+</footer>
+
+<script>
+  // reveal-solution buttons (event delegation, no storage)
+  document.addEventListener('click', function(e){
+    if(e.target && e.target.classList.contains('reveal')){
+      var sol = e.target.nextElementSibling;
+      if(sol && sol.classList.contains('sol')){
+        var open = sol.classList.toggle('open');
+        e.target.textContent = open ? 'Hide solution' : 'Show solution';
+      }
+    }
+  });
+</script>
+</body>
+</html>

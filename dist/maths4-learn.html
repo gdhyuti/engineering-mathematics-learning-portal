@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mathematics-IV · Learn &amp; Practice · BE Biomedical · Osmania University</title>
+<meta name="description" content="A slow, granular, beginner-friendly tutorial for Engineering Mathematics-IV (BS 401 MT), BE Biomedical Engineering, Osmania University — Laplace, Fourier and Z transforms, numerical methods, and curve fitting, with worked examples and practice." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script>
+  window.MathJax = { tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]}, svg:{fontCache:'global'}, startup:{typeset:true} };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+  :root{--paper:#eef3f1;--paper-2:#e4ebe8;--card:#ffffff;--ink:#132420;--ink-soft:#3f524d;--teal:#0e4e4a;--teal-bright:#178a7e;--rose:#e23e6b;--rose-deep:#b62a53;--amber:#c9821a;--line:#cdd8d3;--line-soft:#dde6e2;--shadow:0 1px 2px rgba(19,36,32,.05),0 8px 30px rgba(19,36,32,.06);--radius:14px;--maxw:820px;}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:74px}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:"Newsreader",Georgia,serif;font-size:19px;line-height:1.72;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  h1,h2,h3,h4,.disp{font-family:"Space Grotesk",system-ui,sans-serif;line-height:1.18;letter-spacing:-.01em}
+  code,.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+  a{color:var(--teal-bright);text-decoration:none}a:hover{text-decoration:underline}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+  mjx-container{overflow-x:auto;overflow-y:hidden;max-width:100%}
+  p{margin:14px 0}
+  header.nav{position:sticky;top:0;z-index:60;background:rgba(238,243,241,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav-inner{max-width:var(--maxw);margin:0 auto;padding:11px 22px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .brand{display:flex;align-items:center;gap:9px;font-family:"Space Grotesk";font-weight:600;font-size:14px;letter-spacing:.02em;color:var(--teal);white-space:nowrap}
+  .brand svg{width:24px;height:24px;color:var(--rose)}
+  .unit-nav{margin-left:auto;display:flex;gap:5px;flex-wrap:wrap}
+  .unit-nav a{font-family:"JetBrains Mono";font-size:12px;color:var(--ink-soft);padding:6px 10px;border-radius:7px;border:1px solid var(--line);background:var(--card)}
+  .unit-nav a:hover{background:var(--teal);color:#fff;border-color:var(--teal);text-decoration:none}
+  .hero{padding:50px 0 26px}
+  .eyebrow{font-family:"JetBrains Mono";font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--rose-deep);font-weight:500;margin-bottom:14px}
+  .hero h1{font-size:clamp(32px,6vw,52px);font-weight:700;margin:0;color:var(--ink)}
+  .hero h1 .g{color:var(--teal)}
+  .hero .lede{font-size:clamp(18px,2.2vw,21px);color:var(--ink-soft);margin:16px 0 0}
+  .startbox{margin-top:26px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 22px;box-shadow:var(--shadow)}
+  .startbox b{font-family:"Space Grotesk";color:var(--teal)}
+  .pulse{display:block;width:100%;height:28px;color:var(--rose);margin-top:26px}
+  .pulse path{fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1400;stroke-dashoffset:1400;animation:trace 3s ease forwards}
+  @keyframes trace{to{stroke-dashoffset:0}}
+  .unit{padding:26px 0 8px;scroll-margin-top:76px}
+  .unit-band{background:var(--teal);color:#eef3f1;border-radius:var(--radius);padding:22px 26px;margin-top:24px}
+  .unit-band .u-tag{font-family:"JetBrains Mono";font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#8fd3c7}
+  .unit-band h2{color:#fff;font-size:clamp(24px,4vw,34px);margin:8px 0 6px}
+  .unit-band p{margin:6px 0 0;color:#cfe4df;font-size:16px}
+  .unit-band .map{margin-top:14px;display:flex;flex-wrap:wrap;gap:7px}
+  .unit-band .map a{font-family:"JetBrains Mono";font-size:11.5px;background:rgba(255,255,255,.1);color:#eafffb;padding:5px 10px;border-radius:7px}
+  .unit-band .map a:hover{background:rgba(255,255,255,.22);text-decoration:none}
+  .lesson{scroll-margin-top:76px;padding:26px 0;border-bottom:1px solid var(--line-soft)}
+  .lesson-no{font-family:"JetBrains Mono";font-size:13px;color:var(--rose);font-weight:600}
+  .lesson h3{font-size:clamp(20px,3vw,26px);font-weight:600;margin:6px 0 0;color:var(--ink)}
+  .plain{background:#e7f1ee;border:1px solid #c4ded6;border-left:4px solid var(--teal-bright);border-radius:10px;padding:14px 18px;margin:18px 0}
+  .plain .lab{font-family:"Space Grotesk";font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--teal);font-weight:600;display:block;margin-bottom:4px}
+  .plain p{margin:4px 0}
+  .method{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:6px 20px 14px;margin:18px 0;box-shadow:var(--shadow)}
+  .method h4{font-family:"Space Grotesk";font-size:12.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--rose-deep);margin:16px 0 6px;font-weight:600}
+  .method ol{margin:6px 0;padding-left:22px}.method ol li{margin:8px 0}
+  .formula{background:#fbfdfc;border:1px dashed var(--line);border-radius:10px;padding:6px 18px;margin:16px 0}
+  .formula .lab{font-family:"Space Grotesk";font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--rose);font-weight:600}
+  .eg{background:#fffdf7;border:1px solid #ecdcb8;border-left:4px solid var(--amber);border-radius:10px;padding:8px 20px 16px;margin:20px 0}
+  .eg h4{font-family:"Space Grotesk";font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--amber);margin:14px 0 4px;font-weight:600;display:flex;align-items:center;gap:8px}
+  .eg .diff{font-family:"JetBrains Mono";font-size:10.5px;padding:2px 8px;border-radius:999px;border:1px solid currentColor;letter-spacing:.03em}
+  .eg .q{font-weight:600;color:var(--ink)}
+  .step{margin:10px 0}
+  .step .s{font-family:"JetBrains Mono";font-size:11.5px;color:var(--amber);font-weight:600;display:block;margin-bottom:1px;letter-spacing:.03em}
+  .practice{background:#fff5f7;border:1px solid #f2cdd7;border-radius:12px;padding:8px 20px 18px;margin:22px 0}
+  .practice > h4{font-family:"Space Grotesk";font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--rose-deep);margin:14px 0 4px;font-weight:600}
+  .practice .hint{font-size:14.5px;color:var(--ink-soft);margin:0 0 10px}
+  .pq{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:12px 0}
+  .pq .qh{display:flex;align-items:baseline;gap:10px}
+  .pq .qn{font-family:"Space Grotesk";font-weight:700;color:var(--rose);font-size:16px}
+  .pq .qbody{margin:2px 0 0}
+  .reveal{margin-top:10px;font-family:"Space Grotesk";font-size:13px;font-weight:600;color:#fff;background:var(--teal);border:none;border-radius:8px;padding:8px 15px;cursor:pointer;transition:.16s}
+  .reveal:hover{background:var(--teal-bright)}
+  .sol{display:none;margin-top:12px;padding-top:12px;border-top:1px dashed var(--line);font-size:16.5px}
+  .sol.open{display:block}
+  .sol .lab{font-family:"JetBrains Mono";font-size:11px;color:var(--teal);font-weight:600;letter-spacing:.04em}
+  .sol .ans{margin-top:8px;font-weight:600;color:var(--teal)}
+  .checkpoint{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--rose);border-radius:10px;padding:14px 18px;margin:22px 0;box-shadow:var(--shadow)}
+  .checkpoint .lab{font-family:"Space Grotesk";font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--rose-deep);font-weight:600;display:block;margin-bottom:6px}
+  .checkpoint ul{margin:6px 0;padding-left:20px}
+  footer{background:var(--ink);color:#c4d2cd;padding:42px 0 36px;margin-top:26px}
+  footer h4{font-family:"Space Grotesk";color:#fff;font-size:15px;margin:0 0 12px}
+  footer p{font-size:14px;color:#9fb3ad;line-height:1.6}
+  footer a{color:#5fc0b2}
+  footer .fine{border-top:1px solid #2a3d38;padding-top:18px;margin-top:20px;font-size:12.5px;color:#7f938d}
+  footer .mono{color:#5fc0b2}
+  @media(max-width:720px){body{font-size:18px}.unit-nav{width:100%;margin-left:0}}
+  @media(prefers-reduced-motion:reduce){.pulse path{animation:none;stroke-dashoffset:0}html{scroll-behavior:auto}}
+  @media print{.reveal{display:none}.sol{display:block!important}header.nav{position:static}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="index.html" style="font-family:'Space Grotesk',system-ui,sans-serif;font-size:13px;font-weight:600;color:#0e4e4a;background:#fff;border:1px solid #cdd8d3;border-radius:8px;padding:6px 11px;text-decoration:none;white-space:nowrap;margin-right:4px">&#8962; Hub</a>
+    <span class="brand"><svg viewBox="0 0 40 24" aria-hidden="true"><path d="M1 12h8l3-9 5 18 4-13 3 6 3-2h9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> MATHS-IV · LEARN &amp; PRACTICE</span>
+    <nav class="unit-nav"><a href="#unit1">U1</a><a href="#unit2">U2</a><a href="#unit3">U3</a><a href="#unit4">U4</a><a href="#unit5">U5</a></nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="eyebrow">BS 401 MT · Semester 4 · a slow, step-by-step guide</div>
+    <h1>Mathematics&nbsp;–&nbsp;IV<br><span class="g">learn it, then practise it</span></h1>
+    <p class="lede">The working mathematics of engineering: transforms that turn calculus into algebra, numerical methods that compute answers when formulas run out, and the statistics of fitting models to real data.</p>
+    <div class="startbox"><p style="margin:0"><b>How to use this page.</b> Transforms are all about <em>tables</em>: learn the standard transforms cold, and most problems become "look up, rearrange, look back up". Numerical methods reward neat, patient arithmetic — set out your steps in a table.</p></div>
+    <svg class="pulse" viewBox="0 0 1200 28" preserveAspectRatio="none" aria-hidden="true"><path d="M0 14 H220 l14 -11 l20 22 l16 -18 H500 l12 -9 l22 20 l14 -15 H820 l14 11 l18 -9 H1200"/></svg>
+  </div>
+</div>
+
+<main class="wrap">
+
+<div class="unit" id="unit1">
+  <div class="unit-band">
+    <div class="u-tag">Unit I</div>
+    <h2>Laplace Transforms</h2>
+    <p>A machine that turns a differential equation into an ordinary algebra problem — solve the algebra, then transform back.</p>
+    <div class="map"><a href="#l1-1">1.1 The big idea</a><a href="#l1-2">1.2 The transform table</a><a href="#l1-3">1.3 Derivatives &amp; shifting</a><a href="#l1-4">1.4 Inverse transform</a><a href="#l1-5">1.5 Solving equations</a><a href="#l1-6">1.6 Practice</a></div>
+  </div>
+
+  <div class="lesson" id="l1-1">
+    <div class="lesson-no">Lesson 1.1</div>
+    <h3>The big idea</h3>
+    <div class="plain"><span class="lab">In plain words</span>
+      <p>The <strong>Laplace transform</strong> takes a function of time \(f(t)\) and turns it into a function of a new variable \(s\), written \(F(s)\). The point: hard operations like differentiation become easy algebra in the \(s\)-world. Solve there, then transform back.</p>
+    </div>
+    <div class="plain"><span class="lab">The three-step strategy</span>
+      <p>(1) Transform the whole differential equation into the \(s\)-world. (2) Solve the resulting algebraic equation for \(F(s)\). (3) Transform back ("inverse Laplace") to get \(f(t)\).</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l1-2">
+    <div class="lesson-no">Lesson 1.2</div>
+    <h3>The transform table — memorise these</h3>
+    <div class="formula"><span class="lab">Standard Laplace transforms</span>
+      <p>\(\mathcal L\{1\}=\dfrac1s\) &nbsp;&nbsp; \(\mathcal L\{t^n\}=\dfrac{n!}{s^{n+1}}\) &nbsp;&nbsp; \(\mathcal L\{e^{at}\}=\dfrac{1}{s-a}\)</p>
+      <p>\(\mathcal L\{\sin at\}=\dfrac{a}{s^2+a^2}\) &nbsp;&nbsp; \(\mathcal L\{\cos at\}=\dfrac{s}{s^2+a^2}\)</p>
+    </div>
+    <div class="eg">
+      <h4>Worked example 1.2a <span class="diff">warm-up</span></h4>
+      <p class="q">Find \(\mathcal L\{3t^2+e^{4t}\}\).</p>
+      <p class="step"><span class="s">Term by term</span> \(\mathcal L\{t^2\}=\dfrac{2!}{s^3}=\dfrac{2}{s^3}\), so \(\mathcal L\{3t^2\}=\dfrac{6}{s^3}\). And \(\mathcal L\{e^{4t}\}=\dfrac{1}{s-4}\).</p>
+      <p class="step"><span class="s">Add</span> \(\dfrac{6}{s^3}+\dfrac{1}{s-4}\).</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l1-3">
+    <div class="lesson-no">Lesson 1.3</div>
+    <h3>Transform of a derivative, and shifting</h3>
+    <div class="formula"><span class="lab">Two essential rules</span>
+      <p><strong>Derivative rule:</strong> \(\mathcal L\{f'(t)\}=sF(s)-f(0)\). This is what brings the initial condition into play.</p>
+      <p><strong>First shifting theorem:</strong> \(\mathcal L\{e^{at}f(t)\}=F(s-a)\) — multiply by \(e^{at}\) in time, shift \(s\to s-a\).</p>
+    </div>
+    <div class="plain"><span class="lab">Why the derivative rule matters</span>
+      <p>Each derivative becomes a multiplication by \(s\), minus a starting value. That's precisely how a differential equation collapses into algebra. Forgetting the \(-f(0)\) term is the most common error — it drops the initial condition.</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l1-4">
+    <div class="lesson-no">Lesson 1.4</div>
+    <h3>The inverse transform (with partial fractions)</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>Going back from \(F(s)\) to \(f(t)\) means recognising \(F(s)\) as one of the standard table shapes. If it doesn't match, break it into simpler pieces with <strong>partial fractions</strong> first.</p>
+    </div>
+    <div class="eg">
+      <h4>Worked example 1.4a <span class="diff">partial fractions</span></h4>
+      <p class="q">Find \(\mathcal L^{-1}\!\left\{\dfrac{1}{(s-1)(s-2)}\right\}\).</p>
+      <p class="step"><span class="s">Partial fractions</span> \(\dfrac{1}{(s-1)(s-2)}=\dfrac{-1}{s-1}+\dfrac{1}{s-2}\).</p>
+      <p class="step"><span class="s">Invert each piece</span> \(\mathcal L^{-1}\{\tfrac{1}{s-a}\}=e^{at}\). So this is \(-e^{t}+e^{2t}\).</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l1-5">
+    <div class="lesson-no">Lesson 1.5</div>
+    <h3>Solving a differential equation with Laplace</h3>
+    <div class="eg">
+      <h4>Worked example 1.5a <span class="diff">full problem</span></h4>
+      <p class="q">Solve \(y'+y=1\) with \(y(0)=0\).</p>
+      <p class="step"><span class="s">Transform both sides</span> \(\mathcal L\{y'\}+\mathcal L\{y\}=\mathcal L\{1\}\Rightarrow \big(sY-y(0)\big)+Y=\dfrac1s\).</p>
+      <p class="step"><span class="s">Insert the initial condition</span> \(y(0)=0\), so \((s+1)Y=\dfrac1s\).</p>
+      <p class="step"><span class="s">Solve for Y</span> \(Y=\dfrac{1}{s(s+1)}=\dfrac1s-\dfrac{1}{s+1}\) (partial fractions).</p>
+      <p class="step"><span class="s">Invert</span> \(y(t)=1-e^{-t}\).</p>
+    </div>
+    <div class="checkpoint"><span class="lab">Unit I don't-lose-marks list</span>
+      <ul>
+        <li>Derivative rule: never drop the \(-f(0)\) term.</li>
+        <li>Do partial fractions <em>before</em> inverting; the table only knows standard shapes.</li>
+        <li>The convolution theorem \(\mathcal L\{f*g\}=F(s)G(s)\) helps invert awkward products.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="practice" id="l1-6">
+    <h4>Practice — Unit I</h4>
+    <p class="hint">Keep the transform table beside you; most steps are look-ups.</p>
+    <div class="pq"><div class="qh"><span class="qn">Q1</span><p class="qbody">Find \(\mathcal L\{5+2t\}\).</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> \(\mathcal L\{5\}=\dfrac5s\), \(\mathcal L\{2t\}=\dfrac{2}{s^2}\).</p><p class="ans">\(\dfrac5s+\dfrac{2}{s^2}\).</p></div></div>
+    <div class="pq"><div class="qh"><span class="qn">Q2</span><p class="qbody">Find \(\mathcal L\{\sin 3t\}\).</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> \(\dfrac{a}{s^2+a^2}\) with \(a=3\).</p><p class="ans">\(\dfrac{3}{s^2+9}\).</p></div></div>
+    <div class="pq"><div class="qh"><span class="qn">Q3</span><p class="qbody">Find \(\mathcal L^{-1}\!\left\{\dfrac{1}{s^2+4}\right\}\).</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> Match \(\dfrac{a}{s^2+a^2}\) with \(a=2\); we have \(\dfrac{1}{s^2+4}=\dfrac12\cdot\dfrac{2}{s^2+4}\).</p><p class="ans">\(\tfrac12\sin 2t\).</p></div></div>
+    <div class="pq"><div class="qh"><span class="qn">Q4</span><p class="qbody">Solve \(y'+2y=0\), \(y(0)=3\).</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> \((sY-3)+2Y=0\Rightarrow(s+2)Y=3\Rightarrow Y=\dfrac{3}{s+2}\).</p><p class="ans">\(y=3e^{-2t}\).</p></div></div>
+  </div>
+</div>
+
+<div class="unit" id="unit2">
+  <div class="unit-band">
+    <div class="u-tag">Unit II</div>
+    <h2>Fourier Transforms</h2>
+    <p>Like the Fourier series, but for one-off (non-repeating) signals over the whole line — the basis of frequency analysis.</p>
+    <div class="map"><a href="#l2-1">2.1 Series vs transform</a><a href="#l2-2">2.2 The transforms</a><a href="#l2-3">2.3 Worked examples</a><a href="#l2-4">2.4 Practice</a></div>
+  </div>
+
+  <div class="lesson" id="l2-1">
+    <div class="lesson-no">Lesson 2.1</div>
+    <h3>Series versus transform</h3>
+    <div class="plain"><span class="lab">In plain words</span>
+      <p>A Fourier <em>series</em> (from Maths III) breaks up a <strong>repeating</strong> signal into discrete frequencies. A Fourier <em>transform</em> does the same job for a <strong>non-repeating</strong> signal spread over the whole line — it gives a continuous spread of frequencies.</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l2-2">
+    <div class="lesson-no">Lesson 2.2</div>
+    <h3>The Fourier transform and its sine/cosine versions</h3>
+    <div class="formula"><span class="lab">The definitions</span>
+      <p><strong>Fourier transform:</strong> \(F(s)=\displaystyle\int_{-\infty}^{\infty}f(x)\,e^{isx}\,dx\).</p>
+      <p><strong>Sine transform:</strong> \(F_s(s)=\displaystyle\int_0^{\infty}f(x)\sin sx\,dx\). &nbsp; <strong>Cosine transform:</strong> \(F_c(s)=\displaystyle\int_0^{\infty}f(x)\cos sx\,dx\).</p>
+      <p style="font-size:15px;color:var(--ink-soft)">Use the cosine transform for even functions, the sine transform for odd — matched to the boundary condition you're given.</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l2-3">
+    <div class="lesson-no">Lesson 2.3</div>
+    <h3>Worked examples</h3>
+    <div class="eg">
+      <h4>Worked example 2.3a <span class="diff">standard</span></h4>
+      <p class="q">Find the Fourier cosine transform of \(f(x)=e^{-ax}\) (with \(a>0\)).</p>
+      <p class="step"><span class="s">Set up</span> \(F_c(s)=\displaystyle\int_0^{\infty}e^{-ax}\cos sx\,dx\).</p>
+      <p class="step"><span class="s">Use the standard integral</span> \(\displaystyle\int_0^{\infty}e^{-ax}\cos sx\,dx=\dfrac{a}{a^2+s^2}\).</p>
+      <p class="step"><span class="s">Answer</span> \(F_c(s)=\dfrac{a}{a^2+s^2}\).</p>
+    </div>
+    <div class="eg">
+      <h4>Worked example 2.3b <span class="diff">the sine partner</span></h4>
+      <p class="q">Find the Fourier sine transform of \(f(x)=e^{-ax}\).</p>
+      <p class="step"><span class="s">Standard integral</span> \(\displaystyle\int_0^{\infty}e^{-ax}\sin sx\,dx=\dfrac{s}{a^2+s^2}\).</p>
+      <p class="step"><span class="s">Answer</span> \(F_s(s)=\dfrac{s}{a^2+s^2}\).</p>
+    </div>
+    <div class="checkpoint"><span class="lab">Unit II don't-lose-marks list</span>
+      <ul>
+        <li>Textbooks differ by a constant (the \(\tfrac{1}{\sqrt{2\pi}}\) factor) — use your course's convention consistently.</li>
+        <li>Choose sine vs cosine transform based on the given condition, not by guessing.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="practice" id="l2-4">
+    <h4>Practice — Unit II</h4>
+    <p class="hint">The two standard exponential integrals above cover most exam questions.</p>
+    <div class="pq"><div class="qh"><span class="qn">Q1</span><p class="qbody">Find the cosine transform of \(e^{-2x}\).</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> \(a=2\): \(F_c=\dfrac{2}{4+s^2}\).</p><p class="ans">\(\dfrac{2}{s^2+4}\).</p></div></div>
+    <div class="pq"><div class="qh"><span class="qn">Q2</span><p class="qbody">Find the sine transform of \(e^{-3x}\).</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> \(a=3\): \(F_s=\dfrac{s}{9+s^2}\).</p><p class="ans">\(\dfrac{s}{s^2+9}\).</p></div></div>
+    <div class="pq"><div class="qh"><span class="qn">Q3</span><p class="qbody">Which transform (sine or cosine) suits an even function, and why?</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> Cosine is even; pairing an even function with the cosine transform keeps the integrand even and the algebra clean.</p><p class="ans">Cosine transform.</p></div></div>
+  </div>
+</div>
+
+<div class="unit" id="unit3">
+  <div class="unit-band">
+    <div class="u-tag">Unit III</div>
+    <h2>Z-Transforms</h2>
+    <p>The Laplace transform's discrete cousin — for sequences and difference equations, the maths of digital signals.</p>
+    <div class="map"><a href="#l3-1">3.1 The discrete cousin</a><a href="#l3-2">3.2 Standard Z-transforms</a><a href="#l3-3">3.3 Difference equations</a><a href="#l3-4">3.4 Practice</a></div>
+  </div>
+
+  <div class="lesson" id="l3-1">
+    <div class="lesson-no">Lesson 3.1</div>
+    <h3>The discrete cousin</h3>
+    <div class="plain"><span class="lab">In plain words</span>
+      <p>Where Laplace handles continuous functions \(f(t)\), the <strong>Z-transform</strong> handles <em>sequences</em> \(y_0,y_1,y_2,\dots\) — numbers sampled at steps, exactly like a digital signal. It turns a <strong>difference equation</strong> (a recurrence) into algebra in a variable \(z\).</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l3-2">
+    <div class="lesson-no">Lesson 3.2</div>
+    <h3>Standard Z-transforms</h3>
+    <div class="formula"><span class="lab">The table</span>
+      <p>\(Z\{1\}=\dfrac{z}{z-1}\) &nbsp;&nbsp; \(Z\{a^n\}=\dfrac{z}{z-a}\) &nbsp;&nbsp; \(Z\{n\}=\dfrac{z}{(z-1)^2}\)</p>
+      <p><strong>Shift rule:</strong> \(Z\{y_{n+1}\}=zY(z)-z\,y_0\) — the discrete version of the Laplace derivative rule.</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l3-3">
+    <div class="lesson-no">Lesson 3.3</div>
+    <h3>Solving a difference equation</h3>
+    <div class="eg">
+      <h4>Worked example 3.3a <span class="diff">full problem</span></h4>
+      <p class="q">Solve \(y_{n+1}-2y_n=0\) with \(y_0=3\).</p>
+      <p class="step"><span class="s">Transform</span> Using the shift rule: \(\big(zY-z\,y_0\big)-2Y=0\Rightarrow (z-2)Y=z\,y_0=3z\).</p>
+      <p class="step"><span class="s">Solve for Y</span> \(Y(z)=\dfrac{3z}{z-2}\).</p>
+      <p class="step"><span class="s">Invert</span> Compare with \(Z\{a^n\}=\dfrac{z}{z-a}\): here \(a=2\), and there's a factor 3. So \(y_n=3\cdot 2^n\).</p>
+      <p class="step"><span class="s">Check</span> \(y_0=3\) ✓; \(y_1=6=2y_0\) ✓.</p>
+    </div>
+    <div class="checkpoint"><span class="lab">Unit III don't-lose-marks list</span>
+      <ul>
+        <li>The shift rule introduces the initial term \(y_0\) — the discrete analogue of \(-f(0)\).</li>
+        <li>Keep the \(z\) in the numerator when inverting: \(\tfrac{z}{z-a}\) and \(\tfrac{1}{z-a}\) invert differently.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="practice" id="l3-4">
+    <h4>Practice — Unit III</h4>
+    <p class="hint">Transform, solve for \(Y(z)\), match the table, invert.</p>
+    <div class="pq"><div class="qh"><span class="qn">Q1</span><p class="qbody">Find \(Z\{3^n\}\).</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> \(a=3\).</p><p class="ans">\(\dfrac{z}{z-3}\).</p></div></div>
+    <div class="pq"><div class="qh"><span class="qn">Q2</span><p class="qbody">Solve \(y_{n+1}-3y_n=0\), \(y_0=1\).</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> \((z-3)Y=z\Rightarrow Y=\dfrac{z}{z-3}\).</p><p class="ans">\(y_n=3^n\).</p></div></div>
+    <div class="pq"><div class="qh"><span class="qn">Q3</span><p class="qbody">Solve \(y_{n+1}-y_n=0\), \(y_0=5\).</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> \((z-1)Y=5z\Rightarrow Y=\dfrac{5z}{z-1}\), so \(y_n=5\cdot 1^n\).</p><p class="ans">\(y_n=5\) (constant).</p></div></div>
+  </div>
+</div>
+
+<div class="unit" id="unit4">
+  <div class="unit-band">
+    <div class="u-tag">Unit IV</div>
+    <h2>Numerical Methods</h2>
+    <p>When no clean formula exists, you compute the answer by patient iteration. A toolbox of reliable recipes.</p>
+    <div class="map"><a href="#l4-1">4.1 Why numerical methods</a><a href="#l4-2">4.2 Newton–Raphson</a><a href="#l4-3">4.3 Gauss–Seidel</a><a href="#l4-4">4.4 Interpolation</a><a href="#l4-5">4.5 ODEs: Euler &amp; RK4</a><a href="#l4-6">4.6 Practice</a></div>
+  </div>
+
+  <div class="lesson" id="l4-1">
+    <div class="lesson-no">Lesson 4.1</div>
+    <h3>Why numerical methods</h3>
+    <div class="plain"><span class="lab">In plain words</span>
+      <p>Many equations can't be solved by a neat formula — for example, \(\cos x = x\). Numerical methods find an answer to any desired accuracy by <strong>starting with a guess and improving it step by step</strong>.</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l4-2">
+    <div class="lesson-no">Lesson 4.2</div>
+    <h3>Newton–Raphson (finding roots)</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>Start near a root of \(f(x)=0\). Follow the tangent line down to where it crosses the \(x\)-axis — that's a much better guess. Repeat, and it homes in fast.</p>
+    </div>
+    <div class="formula"><span class="lab">Newton–Raphson formula</span>
+      \[x_{n+1}=x_n-\frac{f(x_n)}{f'(x_n)}\]
+    </div>
+    <div class="eg">
+      <h4>Worked example 4.2a <span class="diff">find a root</span></h4>
+      <p class="q">Find \(\sqrt2\) by solving \(f(x)=x^2-2=0\), starting at \(x_0=1.5\).</p>
+      <p class="step"><span class="s">Simplify the formula</span> \(f'(x)=2x\), so \(x_{n+1}=x_n-\dfrac{x_n^2-2}{2x_n}=\dfrac{x_n}{2}+\dfrac{1}{x_n}\).</p>
+      <p class="step"><span class="s">Step 1</span> \(x_1=\dfrac{1.5}{2}+\dfrac{1}{1.5}=0.75+0.6667=1.4167\).</p>
+      <p class="step"><span class="s">Step 2</span> \(x_2=\dfrac{1.4167}{2}+\dfrac{1}{1.4167}=0.7083+0.7059=1.4142\).</p>
+      <p class="step"><span class="s">Conclusion</span> Converged to \(\sqrt2\approx1.4142\) in just two steps.</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l4-3">
+    <div class="lesson-no">Lesson 4.3</div>
+    <h3>Gauss–Seidel (solving linear systems)</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>To solve several equations in several unknowns, rearrange each equation to isolate one variable, then loop through them repeatedly, always using the <em>newest</em> values you have. It converges when the system is "diagonally dominant" (the diagonal coefficient is the biggest in its row).</p>
+    </div>
+    <div class="eg">
+      <h4>Worked example 4.3a <span class="diff">one round</span></h4>
+      <p class="q">Solve \(10x+y=12,\ x+10y=21\) by Gauss–Seidel, starting \(y=0\).</p>
+      <p class="step"><span class="s">Rearrange</span> \(x=\dfrac{12-y}{10}\), \(y=\dfrac{21-x}{10}\).</p>
+      <p class="step"><span class="s">Iteration 1</span> \(x=\dfrac{12-0}{10}=1.2\); then \(y=\dfrac{21-1.2}{10}=1.98\).</p>
+      <p class="step"><span class="s">Iteration 2</span> \(x=\dfrac{12-1.98}{10}=1.002\); then \(y=\dfrac{21-1.002}{10}=1.9998\).</p>
+      <p class="step"><span class="s">Conclusion</span> Converging to \(x=1,\ y=2\).</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l4-4">
+    <div class="lesson-no">Lesson 4.4</div>
+    <h3>Interpolation (Newton's forward formula)</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>Given a table of \((x,y)\) values, <strong>interpolation</strong> estimates \(y\) at an \(x\) between the tabulated points. Newton's forward formula uses "differences" between successive \(y\)-values.</p>
+    </div>
+    <div class="formula"><span class="lab">Newton's forward formula</span>
+      \[y=y_0+p\,\Delta y_0+\frac{p(p-1)}{2!}\Delta^2 y_0+\cdots,\qquad p=\frac{x-x_0}{h}\]
+    </div>
+    <div class="eg">
+      <h4>Worked example 4.4a <span class="diff">estimate a value</span></h4>
+      <p class="q">From the table \(x:1,2,3,4\) with \(y=x^2:1,4,9,16\), estimate \(y\) at \(x=1.5\).</p>
+      <p class="step"><span class="s">Differences</span> \(\Delta y:\ 3,5,7\); \(\Delta^2 y:\ 2,2\); \(\Delta^3 y:\ 0\).</p>
+      <p class="step"><span class="s">Compute p</span> \(h=1,\ p=\dfrac{1.5-1}{1}=0.5\).</p>
+      <p class="step"><span class="s">Apply</span> \(y=1+0.5(3)+\dfrac{0.5(0.5-1)}{2}(2)=1+1.5+(-0.125)(2)=1+1.5-0.25=2.25\).</p>
+      <p class="step"><span class="s">Check</span> \(1.5^2=2.25\) ✓.</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l4-5">
+    <div class="lesson-no">Lesson 4.5</div>
+    <h3>Solving ODEs numerically: Euler and Runge–Kutta</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>To step a differential equation \(y'=f(x,y)\) forward from a known start, <strong>Euler's method</strong> takes small straight-line steps using the current slope. <strong>Runge–Kutta (RK4)</strong> is a more accurate version that averages four slope estimates per step — it's the standard workhorse.</p>
+    </div>
+    <div class="formula"><span class="lab">Euler's method</span>
+      \[y_{n+1}=y_n+h\,f(x_n,y_n)\]
+    </div>
+    <div class="checkpoint"><span class="lab">Unit IV don't-lose-marks list</span>
+      <ul>
+        <li>Newton–Raphson can misbehave if \(f'(x)\approx0\) or the start is poor — pick a sensible \(x_0\).</li>
+        <li>Gauss–Seidel needs diagonal dominance; rearrange rows if necessary.</li>
+        <li>In interpolation, use <em>forward</em> differences near the top of the table, <em>backward</em> near the bottom.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="practice" id="l4-6">
+    <h4>Practice — Unit IV</h4>
+    <p class="hint">Set out iterations neatly in a small table — it prevents arithmetic slips.</p>
+    <div class="pq"><div class="qh"><span class="qn">Q1</span><p class="qbody">One Newton–Raphson step for \(f(x)=x^2-5\) from \(x_0=2\).</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> \(x_1=\dfrac{x_0}{2}+\dfrac{5}{2x_0}=1+1.25=2.25\).</p><p class="ans">\(x_1=2.25\) (true \(\sqrt5\approx2.236\)).</p></div></div>
+    <div class="pq"><div class="qh"><span class="qn">Q2</span><p class="qbody">One Euler step for \(y'=x+y\), \(y(0)=1\), with \(h=0.1\).</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> \(f(0,1)=0+1=1\). \(y_1=1+0.1(1)=1.1\).</p><p class="ans">\(y(0.1)\approx1.1\).</p></div></div>
+    <div class="pq"><div class="qh"><span class="qn">Q3</span><p class="qbody">From \(x:0,1,2\), \(y:1,3,7\), find the first and second forward differences.</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> \(\Delta y:\ 2,4\); \(\Delta^2 y:\ 2\).</p><p class="ans">\(\Delta y=2,4\); \(\Delta^2 y=2\).</p></div></div>
+  </div>
+</div>
+
+<div class="unit" id="unit5">
+  <div class="unit-band">
+    <div class="u-tag">Unit V</div>
+    <h2>Curve Fitting, Correlation &amp; Regression</h2>
+    <p>Turning scattered data into a line and a number: the everyday statistics of analysing experimental results.</p>
+    <div class="map"><a href="#l5-1">5.1 Least-squares line</a><a href="#l5-2">5.2 Correlation</a><a href="#l5-3">5.3 Regression &amp; Spearman</a><a href="#l5-4">5.4 Practice</a></div>
+  </div>
+
+  <div class="lesson" id="l5-1">
+    <div class="lesson-no">Lesson 5.1</div>
+    <h3>Fitting a straight line by least squares</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>Given data points that roughly follow a line, <strong>least squares</strong> finds the single line \(y=a+bx\) that sits closest to all of them (minimising the total squared gap). You get \(a\) and \(b\) by solving two "normal equations".</p>
+    </div>
+    <div class="formula"><span class="lab">Normal equations for \(y=a+bx\)</span>
+      \[\sum y=na+b\sum x,\qquad \sum xy=a\sum x+b\sum x^2\]
+    </div>
+    <div class="eg">
+      <h4>Worked example 5.1a <span class="diff">fit a line</span></h4>
+      <p class="q">Fit a line to \((1,1),(2,2),(3,2),(4,3)\).</p>
+      <p class="step"><span class="s">Sums</span> \(n=4,\ \sum x=10,\ \sum y=8,\ \sum xy=1+4+6+12=23,\ \sum x^2=30\).</p>
+      <p class="step"><span class="s">Normal equations</span> \(8=4a+10b\) and \(23=10a+30b\).</p>
+      <p class="step"><span class="s">Solve</span> From the first, \(a=2-2.5b\). Substitute: \(23=10(2-2.5b)+30b=20+5b\Rightarrow b=0.6\), then \(a=0.5\).</p>
+      <p class="step"><span class="s">Line</span> \(y=0.5+0.6x\).</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l5-2">
+    <div class="lesson-no">Lesson 5.2</div>
+    <h3>Correlation — how tightly linked are two variables?</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p><strong>Correlation</strong> measures how closely two variables move together, as a number \(r\) between \(-1\) and \(+1\). Near \(+1\): they rise together. Near \(-1\): one rises as the other falls. Near \(0\): little linear link.</p>
+    </div>
+    <div class="formula"><span class="lab">Karl Pearson's coefficient</span>
+      \[r=\frac{\sum(x-\bar x)(y-\bar y)}{\sqrt{\sum(x-\bar x)^2\;\sum(y-\bar y)^2}},\qquad -1\le r\le 1\]
+    </div>
+  </div>
+
+  <div class="lesson" id="l5-3">
+    <div class="lesson-no">Lesson 5.3</div>
+    <h3>Regression lines and Spearman's rank correlation</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>There are <em>two</em> regression lines — one to predict \(y\) from \(x\), another to predict \(x\) from \(y\); use whichever matches the prediction asked. When data is ranked (1st, 2nd, 3rd…) rather than measured, use <strong>Spearman's rank correlation</strong>.</p>
+    </div>
+    <div class="formula"><span class="lab">Spearman's rank correlation</span>
+      \[\rho=1-\frac{6\sum d^2}{n(n^2-1)}\]
+      <p style="font-size:15px;color:var(--ink-soft)">where \(d\) is the difference between the two ranks of each item.</p>
+    </div>
+    <div class="eg">
+      <h4>Worked example 5.3a <span class="diff">rank correlation</span></h4>
+      <p class="q">Four items have rank-differences giving \(\sum d^2=2\), with \(n=4\). Find \(\rho\).</p>
+      <p class="step"><span class="s">Apply</span> \(\rho=1-\dfrac{6(2)}{4(16-1)}=1-\dfrac{12}{60}=1-0.2\).</p>
+      <p class="step"><span class="s">Interpret</span> \(\rho=0.8\) — a strong positive agreement between the two rankings.</p>
+    </div>
+    <div class="checkpoint"><span class="lab">Unit V don't-lose-marks list</span>
+      <ul>
+        <li>The two regression lines are different — use the correct one for the prediction direction.</li>
+        <li>\(r\) must lie in \([-1,1]\); a value outside means an arithmetic error.</li>
+        <li>Correlation is not causation — a high \(r\) doesn't prove one variable causes the other.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="practice" id="l5-4">
+    <h4>Practice — Unit V</h4>
+    <p class="hint">Build the sums table (\(\sum x,\sum y,\sum xy,\sum x^2\)) first; everything flows from it.</p>
+    <div class="pq"><div class="qh"><span class="qn">Q1</span><p class="qbody">For \((1,2),(2,4),(3,6)\), what line fits perfectly?</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> The points lie exactly on \(y=2x\) (so \(a=0,\ b=2\)).</p><p class="ans">\(y=2x\).</p></div></div>
+    <div class="pq"><div class="qh"><span class="qn">Q2</span><p class="qbody">Compute Spearman's \(\rho\) if \(\sum d^2=6\), \(n=5\).</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> \(\rho=1-\dfrac{6(6)}{5(25-1)}=1-\dfrac{36}{120}=1-0.3\).</p><p class="ans">\(\rho=0.7\).</p></div></div>
+    <div class="pq"><div class="qh"><span class="qn">Q3</span><p class="qbody">What is the range of any correlation coefficient, and what does \(r=0\) mean?</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> Always \(-1\le r\le1\). \(r=0\) means no <em>linear</em> relationship between the variables.</p><p class="ans">\([-1,1]\); \(r=0\Rightarrow\) no linear link.</p></div></div>
+  </div>
+</div>
+
+<div class="checkpoint" style="margin-top:30px">
+  <span class="lab">Your weekly routine</span>
+  <ul>
+    <li><strong>Read</strong> one unit's lessons, working every example by hand.</li>
+    <li><strong>Practise</strong> that unit with solutions hidden; re-do only the ones you missed.</li>
+    <li><strong>Build</strong> a one-page sheet per unit — the Laplace/Z tables, the Newton–Raphson formula, the normal equations.</li>
+    <li><strong>Finish</strong> with matching questions from an Osmania University past paper.</li>
+  </ul>
+</div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <h4>About this page</h4>
+    <p>A beginner-friendly, worked tutorial for Engineering Mathematics-IV (BS 401 MT), BE Biomedical Engineering, University College of Engineering (Autonomous), Osmania University. Explanations, examples and practice are standard treatments aligned to the prescribed texts (Grewal; Jain &amp; Iyengar; Vasishtha &amp; Gupta; Kreyszig; Gupta &amp; Kapoor). Equations render with MathJax; tap "Show solution" to check your practice answers.</p>
+    <p style="margin-top:12px">Note: the UCE Mathematics department publishes a single Mathematics-IV paper (BS 401 MT). BME follows this standard fourth mathematics course — confirm against your printed B.E. (BME) IV-semester scheme in case of a branch-specific revision.</p>
+    <div class="fine">Self-contained single file — upload <span class="mono">index.html</span> to tiiny.host to publish. Needs an internet connection to load web fonts and the MathJax renderer. &nbsp;Compiled study reference, not an official university publication. &nbsp;Prepared <span class="mono">04 July 2026</span>.</div>
+  </div>
+</footer>
+
+<script>
+  document.addEventListener('click', function(e){
+    if(e.target && e.target.classList.contains('reveal')){
+      var sol = e.target.nextElementSibling;
+      if(sol && sol.classList.contains('sol')){
+        var open = sol.classList.toggle('open');
+        e.target.textContent = open ? 'Hide solution' : 'Show solution';
+      }
+    }
+  });
+</script>
+</body>
+</html>

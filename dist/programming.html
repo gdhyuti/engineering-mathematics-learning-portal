@@ -1,0 +1,1935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BME · OU — Programming Chart &amp; Data Structures Ward</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:ital,wght@0,400;0,500;0,600;0,700;1,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#eef3f0;
+  --paper-line:#dde8e2;
+  --ink:#152226;
+  --ink-soft:#3d5057;
+  --pulse:#2f9e78;
+  --pulse-dark:#1f7a5c;
+  --amber:#e2932f;
+  --blood:#c94b3f;
+  --card:#ffffff;
+  --card-border:#cddcd4;
+  --code-bg:#0f1b1c;
+  --code-ink:#dff2ea;
+  --code-accent:#7fd9b6;
+  --code-string:#e8c07d;
+  --code-comment:#6f8a86;
+  --radius:10px;
+  --maxw:1180px;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  font-family:'IBM Plex Sans',sans-serif;
+  color:var(--ink);
+  background:
+    repeating-linear-gradient(0deg, transparent, transparent 27px, var(--paper-line) 28px),
+    repeating-linear-gradient(90deg, transparent, transparent 27px, var(--paper-line) 28px),
+    var(--paper);
+  line-height:1.65;
+  font-size:16px;
+}
+h1,h2,h3,h4{
+  font-family:'Zilla Slab',serif;
+  color:var(--ink);
+  line-height:1.15;
+  margin-top:0;
+}
+a{color:var(--pulse-dark);}
+code, pre, .mono{font-family:'IBM Plex Mono',monospace;}
+
+.ecg-strip{width:100%;height:64px;overflow:hidden;background:var(--ink);border-bottom:3px solid var(--pulse);}
+.ecg-strip svg{display:block;width:200%;height:64px;animation:scroll-ecg 9s linear infinite;}
+@keyframes scroll-ecg{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+@media (prefers-reduced-motion: reduce){ .ecg-strip svg{animation:none;} }
+
+header.hero{max-width:var(--maxw); margin:0 auto; padding:56px 28px 40px;}
+.eyebrow{display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--pulse-dark); background:#dff2ea; border:1px solid var(--pulse); padding:5px 12px; border-radius:999px; margin-bottom:18px;}
+.hero h1{font-size:clamp(2.1rem, 4.4vw, 3.4rem); font-weight:700; max-width:18ch; margin-bottom:14px;}
+.hero h1 em{font-style:italic; color:var(--pulse-dark);}
+.hero p.lede{max-width:64ch; font-size:1.12rem; color:var(--ink-soft);}
+.hero-meta{display:flex; flex-wrap:wrap; gap:10px; margin-top:26px;}
+.chip{background:var(--card); border:1px solid var(--card-border); border-radius:8px; padding:8px 14px; font-size:.86rem; color:var(--ink-soft); font-family:'IBM Plex Mono',monospace;}
+.chip b{color:var(--ink);}
+.chip.note{background:#fdf3e2;border-color:var(--amber);}
+
+.layout{max-width:var(--maxw); margin:0 auto; display:grid; grid-template-columns:260px 1fr; gap:36px; padding:0 28px 100px; align-items:start;}
+nav.toc{position:sticky; top:20px; background:var(--card); border:1px solid var(--card-border); border-radius:var(--radius); padding:18px 16px; max-height:calc(100vh - 40px); overflow-y:auto;}
+nav.toc .toc-title{font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-soft); border-bottom:1px dashed var(--card-border); padding-bottom:8px; margin-bottom:8px;}
+nav.toc ol{list-style:none; margin:0; padding:0; counter-reset:tocnum;}
+nav.toc li{counter-increment:tocnum; margin-bottom:2px;}
+nav.toc a{display:flex; gap:8px; text-decoration:none; color:var(--ink-soft); font-size:.87rem; padding:6px 6px; border-radius:6px;}
+nav.toc a::before{content:counter(tocnum, decimal-leading-zero); font-family:'IBM Plex Mono',monospace; color:var(--pulse-dark); font-size:.78rem; flex-shrink:0;}
+nav.toc a:hover{background:#eaf6f0; color:var(--ink);}
+nav.toc ul.sub{list-style:none;margin:2px 0 6px 20px;padding:0;}
+nav.toc ul.sub a::before{content:"–"; color:var(--card-border);}
+nav.toc ul.sub a{font-size:.8rem;}
+
+main{min-width:0;}
+section{margin-bottom:64px; scroll-margin-top:20px;}
+section > .section-head{display:flex; align-items:baseline; gap:14px; margin-bottom:22px; border-bottom:2px solid var(--ink); padding-bottom:10px; flex-wrap:wrap;}
+section > .section-head .num{font-family:'IBM Plex Mono',monospace; color:var(--pulse-dark); font-size:1.1rem; font-weight:600;}
+section > .section-head h2{font-size:1.7rem; margin:0;}
+section > .section-head .sub{margin-left:auto; font-family:'IBM Plex Mono',monospace; font-size:.78rem; color:var(--ink-soft); background:var(--paper); border:1px solid var(--card-border); padding:4px 10px; border-radius:6px;}
+
+h3.sub-head{font-size:1.3rem; margin:38px 0 6px; padding-top:16px; border-top:1px dashed var(--card-border);}
+h4.micro-head{font-family:'IBM Plex Mono',monospace; font-size:.8rem; text-transform:uppercase; letter-spacing:.06em; color:var(--pulse-dark); margin:20px 0 6px;}
+
+.card{background:var(--card); border:1px solid var(--card-border); border-radius:var(--radius); padding:22px 24px; margin-bottom:18px;}
+.card h3{font-size:1.15rem; margin-bottom:8px;}
+.card h4{font-size:1rem; margin-bottom:6px; color:var(--pulse-dark);}
+
+.two-col{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+@media (max-width:820px){.two-col{grid-template-columns:1fr;}}
+
+table{width:100%; border-collapse:collapse; font-size:.92rem; margin:10px 0;}
+th,td{border:1px solid var(--card-border); padding:8px 10px; text-align:left; vertical-align:top;}
+th{background:#e4f0ea; font-family:'IBM Plex Mono',monospace; font-size:.78rem; text-transform:uppercase; letter-spacing:.04em;}
+tr:nth-child(even) td{background:#f7fbf9;}
+
+pre{background:var(--code-bg); color:var(--code-ink); border-radius:8px; padding:16px 18px; overflow-x:auto; font-size:.86rem; line-height:1.55; position:relative; border:1px solid #223634;}
+pre .lbl{position:absolute; top:0; right:0; background:var(--pulse-dark); color:#fff; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.08em; text-transform:uppercase; padding:3px 10px; border-radius:0 8px 0 8px;}
+code.k{color:var(--code-accent);}
+code.s{color:var(--code-string);}
+code.c{color:var(--code-comment); font-style:italic;}
+.out{background:#101a1a; color:#b9e6d1; border-left:3px solid var(--pulse); padding:10px 14px; font-family:'IBM Plex Mono',monospace; font-size:.83rem; border-radius:0 6px 6px 0; margin-top:-6px;}
+
+.callout{border-left:4px solid var(--amber); background:#fdf3e2; padding:14px 18px; border-radius:0 8px 8px 0; margin:16px 0; font-size:.94rem;}
+.callout.red{border-color:var(--blood); background:#fbe9e6;}
+.callout.green{border-color:var(--pulse); background:#e6f6ee;}
+.callout b.tag{display:block; font-family:'IBM Plex Mono',monospace; font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; margin-bottom:4px; color:var(--ink-soft);}
+
+.analogy{display:flex; gap:16px; align-items:flex-start; background:#f2f8f5; border:1px dashed var(--pulse); border-radius:8px; padding:14px 16px; margin:14px 0;}
+.analogy .icon{font-size:1.7rem; line-height:1;}
+
+.diagram{display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin:14px 0; font-family:'IBM Plex Mono',monospace; font-size:.84rem;}
+.box{background:var(--card); border:2px solid var(--ink); border-radius:6px; padding:10px 14px; text-align:center; min-width:54px;}
+.box.filled{background:#dff2ea; border-color:var(--pulse-dark);}
+.box.ptr{background:#fdf3e2; border-color:var(--amber);}
+.box.fade{opacity:.35;}
+.box.hi{background:#fbe9e6;border-color:var(--blood);}
+.arrow{font-size:1.3rem; color:var(--pulse-dark);}
+
+.pulse-divider{display:flex; align-items:center; gap:14px; margin:40px 0; color:var(--ink-soft);}
+.pulse-divider svg{flex-shrink:0;}
+.pulse-divider span{font-family:'IBM Plex Mono',monospace; font-size:.75rem; text-transform:uppercase; letter-spacing:.1em; white-space:nowrap;}
+.pulse-divider .line{flex:1; height:1px; background:var(--card-border);}
+
+.timeline{position:relative; margin:30px 0; padding-left:34px; border-left:3px solid var(--pulse);}
+.tl-item{position:relative; margin-bottom:30px;}
+.tl-item::before{content:''; position:absolute; left:-42px; top:2px; width:16px; height:16px; border-radius:50%; background:var(--card); border:3px solid var(--pulse-dark);}
+.tl-item h4{margin-bottom:4px;}
+.tl-item .when{font-family:'IBM Plex Mono',monospace; font-size:.78rem; color:var(--pulse-dark); text-transform:uppercase; letter-spacing:.06em;}
+
+/* granular step-by-step walkthrough */
+.steps{margin:16px 0; padding:0; list-style:none; counter-reset:stepnum;}
+.steps li{counter-increment:stepnum; position:relative; padding:10px 0 10px 46px; border-bottom:1px dashed var(--card-border);}
+.steps li:last-child{border-bottom:none;}
+.steps li::before{
+  content:counter(stepnum);
+  position:absolute; left:0; top:8px;
+  width:30px; height:30px; border-radius:50%;
+  background:var(--pulse-dark); color:#fff;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:.9rem;
+}
+.steps li b{color:var(--ink);}
+
+.badge{display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:.72rem; text-transform:uppercase; letter-spacing:.06em; background:var(--ink); color:#fff; padding:3px 9px; border-radius:5px; margin-right:6px;}
+.badge.c{background:var(--pulse-dark);}
+.badge.py{background:var(--amber);}
+.badge.ds{background:var(--blood);}
+.badge.lvl1{background:#6fae91;}
+.badge.lvl2{background:var(--amber);}
+.badge.lvl3{background:var(--blood);}
+
+details{background:var(--card); border:1px solid var(--card-border); border-radius:8px; padding:12px 16px; margin:12px 0;}
+details summary{cursor:pointer; font-weight:600; font-family:'Zilla Slab',serif; font-size:1.05rem;}
+details[open] summary{margin-bottom:10px;}
+
+.checklist{list-style:none;margin:10px 0;padding:0;}
+.checklist li{padding:6px 0 6px 30px; position:relative;}
+.checklist li::before{content:"✓"; position:absolute; left:0; top:6px; color:var(--pulse-dark); font-weight:700;}
+
+footer{max-width:var(--maxw); margin:0 auto; padding:30px 28px 70px; color:var(--ink-soft); font-size:.85rem; border-top:1px solid var(--card-border);}
+
+@media (max-width:900px){
+  .layout{grid-template-columns:1fr;}
+  nav.toc{position:relative; top:0; max-height:none;}
+}
+</style>
+</head>
+<body>
+<div style="background:#132420;padding:9px 22px;text-align:left;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;"><a href="index.html" style="color:#8fd3c7;font-weight:600;font-size:13px;text-decoration:none;display:inline-flex;align-items:center;gap:6px;">&#8962;&nbsp; Back to Study Hub</a></div>
+
+<div class="ecg-strip" aria-hidden="true">
+<svg viewBox="0 0 800 64" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+  <polyline fill="none" stroke="#2f9e78" stroke-width="2.5"
+   points="0,32 60,32 75,32 85,10 95,55 105,18 115,32 180,32 200,32 210,20 220,44 230,32 300,32
+           400,32 460,32 475,32 485,10 495,55 505,18 515,32 580,32 600,32 610,20 620,44 630,32 700,32 800,32"/>
+</svg>
+</div>
+
+<header class="hero">
+  <span class="eyebrow">Chart · B.E. Biomedical Engineering · Osmania University (UCE)</span>
+  <h1>The Programming &amp; Data Structures <em>Ward Round</em></h1>
+  <p class="lede">A complete, source-checked map of the C coursework inside the OU Biomedical Engineering scheme —
+  a genuine zero-to-hero Python course you can follow with no background at all — and a Data Structures guide
+  broken into the smallest steps possible, so nothing jumps ahead of you.</p>
+  <div class="hero-meta">
+    <span class="chip">Program: <b>B.E. (Biomedical Engineering)</b></span>
+    <span class="chip">College: <b>University College of Engineering (A), OU</b></span>
+    <span class="chip">Scheme: <b>AY 2022–24 (current)</b></span>
+    <span class="chip note">Updated: <b>more granular Data Structures + full Python course</b></span>
+  </div>
+</header>
+
+<div class="layout">
+<nav class="toc" aria-label="Table of contents">
+  <div class="toc-title">On this chart</div>
+  <ol>
+    <li><a href="#overview">Programme snapshot</a></li>
+    <li><a href="#c-syllabus">Official C syllabus (Sem II)</a></li>
+    <li><a href="#python-note">Where Python actually fits</a></li>
+    <li><a href="#c-tutorial">C: zero to hero</a>
+      <ul class="sub">
+        <li><a href="#c-setup">0. Setup — compiling on Linux</a></li>
+        <li><a href="#c-anatomy">1. Anatomy of a C program</a></li>
+        <li><a href="#c-vars">2. Variables &amp; data types</a></li>
+        <li><a href="#c-operators">3. Operators, all of them</a></li>
+        <li><a href="#c-io">4. Input &amp; output, in depth</a></li>
+        <li><a href="#c-decisions">5. Decisions</a></li>
+        <li><a href="#c-loops">6. Loops</a></li>
+        <li><a href="#c-functions">7. Functions</a></li>
+        <li><a href="#c-recursion">8. Recursion</a></li>
+        <li><a href="#c-arrays">9. Arrays, the C way</a></li>
+        <li><a href="#c-strings">10. Strings, in depth</a></li>
+        <li><a href="#c-pointers">11. Pointers, step by step</a></li>
+        <li><a href="#c-structs">12. Structures &amp; unions</a></li>
+        <li><a href="#c-files">13. File handling, in depth</a></li>
+        <li><a href="#c-preprocessor">14. The preprocessor</a></li>
+        <li><a href="#c-capstone">15. Capstone project</a></li>
+      </ul>
+    </li>
+    <li><a href="#python-tutorial">Python: zero to hero</a>
+      <ul class="sub">
+        <li><a href="#py-setup">0. Setup — where code runs</a></li>
+        <li><a href="#py-vars">1. Variables &amp; types</a></li>
+        <li><a href="#py-ops">2. Operators</a></li>
+        <li><a href="#py-strings">3. Strings, in depth</a></li>
+        <li><a href="#py-io">4. Input &amp; output</a></li>
+        <li><a href="#py-control">5. If / elif / else</a></li>
+        <li><a href="#py-loops">6. Loops</a></li>
+        <li><a href="#py-lists">7. Lists</a></li>
+        <li><a href="#py-tuplesets">8. Tuples &amp; sets</a></li>
+        <li><a href="#py-dicts">9. Dictionaries</a></li>
+        <li><a href="#py-functions">10. Functions</a></li>
+        <li><a href="#py-modules">11. Modules &amp; the standard library</a></li>
+        <li><a href="#py-errors">12. Handling errors</a></li>
+        <li><a href="#py-files">13. Files</a></li>
+        <li><a href="#py-oop">14. Classes &amp; objects (OOP)</a></li>
+        <li><a href="#py-comprehension">15. Comprehensions &amp; lambda</a></li>
+        <li><a href="#py-libs">16. NumPy / Matplotlib / Pandas, a taste</a></li>
+        <li><a href="#py-capstone">17. Capstone project</a></li>
+      </ul>
+    </li>
+    <li><a href="#data-structures">Data Structures, one small step at a time</a>
+      <ul class="sub">
+        <li><a href="#ds-zero">0. What is memory, really?</a></li>
+        <li><a href="#ds-array">1. Arrays</a></li>
+        <li><a href="#ds-linkedlist">2. Linked lists</a></li>
+        <li><a href="#ds-stack">3. Stacks</a></li>
+        <li><a href="#ds-queue">4. Queues</a></li>
+        <li><a href="#ds-tree">5. Trees</a></li>
+        <li><a href="#ds-graph">6. Graphs</a></li>
+        <li><a href="#ds-sort">7. Sorting</a></li>
+        <li><a href="#ds-search">8. Searching</a></li>
+        <li><a href="#ds-cheatsheet">9. Cheat sheet</a></li>
+      </ul>
+    </li>
+    <li><a href="#study-plan">Study plan (semester map)</a></li>
+    <li><a href="#resources">Resources &amp; textbooks</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<!-- ================= 1. OVERVIEW ================= -->
+<section id="overview">
+  <div class="section-head"><span class="num">§1</span><h2>Programme snapshot</h2><span class="sub">where programming sits in the 8 semesters</span></div>
+
+  <p>This is the current (2022–2024 revision) B.E. (Biomedical Engineering) scheme at the University College of
+  Engineering, Osmania University — an <b>autonomous</b> college, so its syllabus is self-designed and updated by
+  its own Board of Studies rather than copied from the general OU syllabus. Programming appears as a dedicated
+  subject in <b>Semester II</b>, and its ideas (arrays, structures, files) resurface later inside Signals &amp;
+  Systems, Biomedical Instrumentation, and the MATLAB/LabVIEW-based Virtual Instrumentation Lab.</p>
+
+  <table>
+    <tr><th>Sem</th><th>Programming-relevant course</th><th>Language / Tool</th><th>Credits</th><th>Type</th></tr>
+    <tr><td>I</td><td>Basic Mathematics I &amp; II (bridge course, Bi.P.C. entrants)</td><td>—</td><td>0 (bridge)</td><td>Foundational only</td></tr>
+    <tr><td><b>II</b></td><td><b>Programming for Problem Solving</b> + Lab</td><td><b>C (on Linux)</b></td><td>3 + 1</td><td>Core</td></tr>
+    <tr><td>II</td><td>Computer Aided Engineering Lab</td><td>CAD software</td><td>1</td><td>Core (not language programming)</td></tr>
+    <tr><td>IV</td><td>Bioinformatics (Professional Elective I)</td><td>Algorithms, no fixed language mandated</td><td>3</td><td>Elective</td></tr>
+    <tr><td>IV</td><td>Signals &amp; Systems for BME</td><td>Concepts implementable in MATLAB/Python</td><td>3</td><td>Core</td></tr>
+    <tr><td>IV</td><td>Virtual Instrumentation &amp; Simulation Lab</td><td>MATLAB, LabVIEW</td><td>1</td><td>Core</td></tr>
+    <tr><td>IV</td><td>Biostatistics (Professional Elective I)</td><td>"Open source software" (commonly R/Python)</td><td>3</td><td>Elective</td></tr>
+  </table>
+
+  <div class="callout">
+    <b class="tag">Reading this table</b>
+    C is the <b>one formally-timetabled programming language</b> in the BME scheme, taught end-to-end in a single
+    semester (Semester II) as <i>ES 201 CS — Programming for Problem Solving</i>, backed by a 2-hour weekly lab
+    (<i>ES 251 CS</i>). Everything else — MATLAB, LabVIEW, "open source software" for statistics — is tool-level,
+    not a taught programming course. Section §3 explains exactly what this means for Python.
+  </div>
+</section>
+
+<!-- ================= 2. C SYLLABUS ================= -->
+<section id="c-syllabus">
+  <div class="section-head"><span class="num">§2</span><h2>Official C syllabus — Semester II</h2><span class="sub">ES 201 CS · verbatim structure from uceou.edu</span></div>
+
+  <div class="card">
+    <h3>ES 201 CS — Programming for Problem Solving</h3>
+    <p><b>Contact hours:</b> 3 lecture/week &nbsp;|&nbsp; <b>Evaluation:</b> CIE 40 + SEE 60 = 100 marks &nbsp;|&nbsp; <b>Credits:</b> 3</p>
+    <table>
+      <tr><th>Unit</th><th>Topics (as published)</th></tr>
+      <tr><td>I</td><td>Computer systems &amp; computing environments; computer languages; creating &amp; running programs; software development; flowcharts. Number systems: binary, octal, decimal, hexadecimal. Intro to C — background, structure of a C program, identifiers, data types, variables, constants, I/O statements. Arithmetic operators &amp; expressions — precedence, associativity, type conversions.</td></tr>
+      <tr><td>II</td><td>Conditional control: bitwise, relational &amp; logical operators; <code>if</code>, <code>if-else</code>, <code>switch</code>. Loops: <code>for</code>, <code>while</code>, <code>do-while</code>; <code>continue</code>, <code>break</code>, <code>goto</code>. Functions: user-defined functions, inter-function communication, standard functions, parameter passing, recursion. Storage classes: <code>auto</code>, <code>register</code>, <code>static</code>, <code>extern</code>, scope rules, type qualifiers.</td></tr>
+      <tr><td>III</td><td>Preprocessor commands. Arrays — concept, inter-function communication, 2-D &amp; multi-dimensional arrays, linear &amp; binary search, selection &amp; bubble sort.</td></tr>
+      <tr><td>IV</td><td>Pointers — inter-function communication, pointer-to-pointer, lvalue/rvalue, arrays &amp; pointers, pointer arithmetic, passing arrays to functions, dynamic memory allocation, array of pointers, pointer to void, pointer to function, command-line arguments. Strings — C strings, string I/O, arrays of strings, string manipulation functions.</td></tr>
+      <tr><td>V</td><td>Structures — definition, initialization, nested structures, arrays of structures, structures with functions, pointers to structures, self-referential structures, unions, <code>typedef</code>, enumerated types. File I/O — file modes, streams, standard library I/O functions, character I/O functions.</td></tr>
+    </table>
+    <p><b>Textbooks (as prescribed):</b> B.A. Forouzan &amp; R.F. Gilberg, <i>A Structured Programming Approach in C</i> (Cengage); Kernighan &amp; Ritchie, <i>The C Programming Language</i> (2nd ed., PHI); V. Rajaraman, <i>Fundamentals of Computers</i> (PHI); R.G. Dromey, <i>How to Solve it by Computer</i> (Pearson).</p>
+  </div>
+
+  <div class="card">
+    <h3>ES 251 CS — Programming for Problem Solving Lab</h3>
+    <p><b>Contact hours:</b> 2 practical/week &nbsp;|&nbsp; <b>Evaluation:</b> CIE 25 + SEE 50 &nbsp;|&nbsp; <b>Credits:</b> 1 &nbsp;|&nbsp; Done on <b>Linux</b>, using the <code>vi</code> editor and <code>gcc</code>.</p>
+    <p>Official list of lab programs, in order:</p>
+    <ol>
+      <li>Linux environment orientation: <code>vi</code> editor, compiling &amp; running a program.</li>
+      <li>Arithmetic, logical, bitwise and ternary operators.</li>
+      <li>Simple control statements: roots of a quadratic equation; extracting/reversing digits; digit sum; multiplication tables; Armstrong numbers; prime check; magic numbers.</li>
+      <li>sin(x) and cos(x) via series expansion.</li>
+      <li>Number-base conversion: binary ⇄ decimal ⇄ octal ⇄ hex.</li>
+      <li>Pascal's triangle and number pyramids.</li>
+      <li>Recursion: factorial, Fibonacci, GCD.</li>
+      <li>Max, min, average, standard deviation of an array.</li>
+      <li>Reversing an array; removing duplicates.</li>
+      <li>Matrix addition, multiplication, transpose using functions.</li>
+      <li>Bubble sort, selection sort.</li>
+      <li>Linear search and binary search — recursive and iterative.</li>
+      <li>String manipulation using library functions (<code>strlen</code>, <code>strcat</code>, <code>strcpy</code>...).</li>
+      <li>String manipulation <i>without</i> library functions.</li>
+      <li>Counting characters, words, lines in a text file.</li>
+      <li>File-handling: student memo/report printing.</li>
+      <li>Linked lists: create, traverse, insert a node, delete a node, reverse the list.</li>
+    </ol>
+    <p style="font-size:.85rem;color:var(--ink-soft)">The official syllabus PDF even points students to <a href="https://projecteuler.net" target="_blank" rel="noopener">projecteuler.net</a> for extra practice — that's a genuinely good habit to pick up early.</p>
+  </div>
+</section>
+
+<!-- ================= 3. PYTHON NOTE ================= -->
+<section id="python-note">
+  <div class="section-head"><span class="num">§3</span><h2>Where Python actually fits</h2><span class="sub">an honest note, not a marketing one</span></div>
+
+  <div class="callout red">
+    <b class="tag">Transparency check</b>
+    Having gone through the officially published OU/UCE Biomedical Engineering syllabi for Semesters I–IV
+    (the semesters where the college's own scheme places "programming" and "computing" subjects), there is
+    <b>no dedicated, credit-bearing "Python Programming" course</b> in the current BME scheme. The one taught,
+    examined programming language is <b>C</b> (Semester II). Python is not named anywhere in the BME core courses
+    I could verify — it shows up by language-name in the <i>CSE branch's</i> version of "Programming for Problem
+    Solving," not BME's.
+  </div>
+
+  <p>So why is Python still worth your time as a BME student? Two honest reasons:</p>
+  <div class="two-col">
+    <div class="card">
+      <h4>1. It's the natural next step after C</h4>
+      <p>Once you understand variables, loops, functions and arrays in C, Python teaches you nothing new
+      <i>conceptually</i> — it just removes the ceremony (no semicolons, no manual memory management, no
+      declaring types). Employers and research labs in biomedical signal processing, imaging, and bioinformatics
+      overwhelmingly use Python (NumPy, SciPy, Pandas) for exactly the kind of work your Semester IV subjects
+      (Signals &amp; Systems, Biomedical Instrumentation, Bioinformatics elective) describe conceptually.</p>
+    </div>
+    <div class="card">
+      <h4>2. It quietly supports three electives</h4>
+      <p>The <b>Biostatistics</b> elective syllabus explicitly says "Introduction of Open source software and its
+      applications" — in practice this is usually taught with Python or R. The <b>Bioinformatics</b> elective's
+      algorithms (sequence alignment, clustering, neural networks) are almost always prototyped in Python in
+      industry and research. MATLAB, used in the Virtual Instrumentation Lab, and Python are conceptually close
+      enough that Python fluency makes MATLAB easy to pick up too.</p>
+    </div>
+  </div>
+
+  <div class="callout green">
+    <b class="tag">What this site does about it</b>
+    Section §5 gives you a genuinely complete, standalone Python course — zero to hero, not just a translation
+    table — because it will make your Semester IV+ electives and your résumé stronger. Treat it as supplementary
+    self-study, and always confirm your own college's current handbook/almanac for the semester you are actually in.
+  </div>
+</section>
+
+<div class="pulse-divider"><span>Tutorial track begins</span><div class="line"></div><span>Zero to working programs</span></div>
+
+<!-- ================= 4. C ZERO TO HERO ================= -->
+<section id="c-tutorial">
+  <div class="section-head"><span class="num">§4</span><h2>C, zero to hero</h2><span class="sub"><span class="badge c">C</span>mapped to Unit I–V above, one small step at a time</span></div>
+
+  <p>This is the same "no step assumes anything you haven't just read" treatment as the Python and Data Structures
+  sections. Every stage follows the same pattern: a plain-English idea, a tiny working example, the real output,
+  and a numbered walkthrough of exactly what happened. Type every example yourself on your Linux lab machine —
+  reading code and writing code use different muscles.</p>
+
+  <h3 class="sub-head" id="c-setup">0 — Setup: how a C program actually gets from text to a running program</h3>
+  <div class="analogy"><div class="icon">🏗️</div><div><b>Plain-English idea:</b> Python runs your text almost
+  immediately, line by line. C is different — your typed text must first be fully translated into the computer's
+  native machine instructions before anything runs at all. This translation step is called <b>compiling</b>, and
+  it's the single biggest difference between the two languages you're learning on this site.</div></div>
+  <ul class="steps">
+    <li>You type your program into a plain text file and save it with a <code>.c</code> extension, e.g.
+    <code>hello.c</code>. In the lab you'll do this with the <code>vi</code> editor.</li>
+    <li>You run <code>gcc hello.c -o hello</code>. <code>gcc</code> is the compiler — the translator. It reads
+    your file, checks it for mistakes, and produces a new file.</li>
+    <li>If there's a mistake (a missing semicolon, a misspelt word), <code>gcc</code> refuses to produce anything
+    and instead prints an error, pointing at the line number.</li>
+    <li>If everything is correct, <code>gcc</code> produces a new file named <code>hello</code> — this is your
+    program, now translated into instructions the machine can execute directly.</li>
+    <li>You run <code>./hello</code> to actually execute it. The <code>./</code> means "look for this program in
+    the current folder."</li>
+  </ul>
+  <div class="callout"><b class="tag">Compiled vs. interpreted, in one line</b> C is <b>compiled</b> once, ahead of
+  time, into a standalone program you can then run any number of times. Python is <b>interpreted</b> — it's
+  translated and run in one single step, line by line, every time. This is exactly why C programs generally run
+  faster, but Python feels quicker to experiment in.</div>
+  <div class="callout green"><b class="tag">Try it — lab exercise 1</b> Type <code>hello.c</code> from stage 1
+  below, save it, then run exactly these two commands in order: <code>gcc hello.c -o hello</code> and then
+  <code>./hello</code>. If you see a compiler error instead, read the line number it mentions — it is almost
+  always telling you the truth about where the mistake is.</div>
+
+  <h3 class="sub-head" id="c-anatomy">1 — Anatomy of a C program</h3>
+  <div class="analogy">
+    <div class="icon">💡</div>
+    <div><b>Plain-English idea:</b> A computer is an extremely fast, extremely obedient, and extremely literal
+    assistant. It can only do very simple things — add two numbers, compare two numbers, move data from one place
+    to another — but it does billions of them per second, exactly in the order you write them. A C program is
+    nothing more than that exact order of instructions, written in a form <code>gcc</code> can translate.</div>
+  </div>
+  <pre><span class="lbl">C</span><code class="k">#include</code> <code class="s">&lt;stdio.h&gt;</code>
+
+<code class="k">int</code> main() {
+    printf(<code class="s">"Hello, Biomedical Engineer!\n"</code>);
+    <code class="k">return</code> 0;
+}</pre>
+  <div class="out">Hello, Biomedical Engineer!</div>
+  <p>Pull this apart piece by piece — every single character here has a job:</p>
+  <ul class="steps">
+    <li><code>#include &lt;stdio.h&gt;</code> — before compiling your own code, <code>gcc</code> pastes in the
+    contents of the Standard Input/Output header file, because that's where the <i>definition</i> of
+    <code>printf</code> lives. Leave this line out and <code>gcc</code> won't know what <code>printf</code> means.</li>
+    <li><code>int main() { ... }</code> — every C program must have exactly one function named <code>main</code>.
+    When you run your program, execution always begins at the first line inside <code>main</code>'s curly braces.</li>
+    <li><code>printf(...)</code> — a ready-made function (you didn't write it; <code>stdio.h</code> gave it to
+    you) that prints text to the screen.</li>
+    <li><code>"Hello, Biomedical Engineer!\n"</code> — text in C must always sit inside double quotes. The
+    <code>\n</code> inside it is not two characters, it's one special instruction meaning "move to a new line."</li>
+    <li>The semicolon <code>;</code> at the end of <code>printf(...)</code> tells the compiler "this instruction
+    is finished." Forgetting a semicolon is the single most common first-week C error.</li>
+    <li><code>return 0;</code> — hands control back to the operating system and reports "0 mistakes, finished
+    successfully." A non-zero return value is the traditional way a C program reports that something went wrong.</li>
+    <li>The curly braces <code>{ }</code> mark where a block of code starts and ends — everything belonging to
+    <code>main</code> sits between its own opening and closing brace.</li>
+  </ul>
+  <div class="callout"><b class="tag">Try it yourself</b> Delete the semicolon after the <code>printf</code> line
+  on purpose, save, and compile again. Read the exact wording of the error <code>gcc</code> gives you — learning
+  to read compiler errors calmly, instead of panicking, is half of learning C.</div>
+
+  <h3 class="sub-head" id="c-vars">2 — Variables &amp; data types</h3>
+  <div class="analogy"><div class="icon">📦</div><div><b>Plain-English idea:</b> A variable is a labelled box in
+  memory. The label is its name; the box's size and the kind of thing it can hold is its <i>data type</i>. Unlike
+  Python, C makes you state the box's type out loud before you use it — this is called <b>declaring</b> a
+  variable, and the compiler uses it to know exactly how much memory to reserve.</div></div>
+  <table>
+    <tr><th>Type</th><th>Holds</th><th>Typical size</th><th>Format specifier</th><th>Example</th></tr>
+    <tr><td><code>int</code></td><td>whole numbers</td><td>4 bytes</td><td><code>%d</code></td><td><code>int age = 20;</code></td></tr>
+    <tr><td><code>float</code></td><td>decimal numbers</td><td>4 bytes</td><td><code>%f</code></td><td><code>float heartRate = 72.5;</code></td></tr>
+    <tr><td><code>double</code></td><td>decimal numbers, more precision</td><td>8 bytes</td><td><code>%lf</code></td><td><code>double bp = 120.75;</code></td></tr>
+    <tr><td><code>char</code></td><td>a single character</td><td>1 byte</td><td><code>%c</code></td><td><code>char grade = 'A';</code></td></tr>
+    <tr><td>(a string is just <code>char[]</code>)</td><td>text</td><td>1 byte per character</td><td><code>%s</code></td><td><code>char name[20] = "Rao";</code></td></tr>
+  </table>
+  <pre><span class="lbl">C — a simple BMI calculator</span><code class="c">// A simple BMI calculator</code>
+<code class="k">#include</code> <code class="s">&lt;stdio.h&gt;</code>
+
+<code class="k">int</code> main() {
+    <code class="k">float</code> weightKg = 68.0;
+    <code class="k">float</code> heightM  = 1.72;
+    <code class="k">float</code> bmi = weightKg / (heightM * heightM);
+    printf(<code class="s">"BMI = %.2f\n"</code>, bmi);
+    <code class="k">return</code> 0;
+}</pre>
+  <div class="out">BMI = 22.99</div>
+  <ul class="steps">
+    <li><code>float weightKg = 68.0;</code> — this single line does two things at once: it <b>declares</b> a box
+    named <code>weightKg</code> big enough for a decimal number, and immediately <b>initialises</b> it with 68.0.</li>
+    <li>The computer reserves exactly 4 bytes for <code>weightKg</code>, another 4 for <code>heightM</code>, and
+    another 4 for <code>bmi</code> — nothing more, nothing less. This is very different from Python, which decides
+    sizes for you behind the scenes.</li>
+    <li>In <code>printf("BMI = %.2f\n", bmi)</code>, the <code>%.2f</code> is a <b>format specifier</b> — a
+    placeholder saying "a decimal number goes here, rounded to 2 places after the point." <code>printf</code>
+    then substitutes the value of <code>bmi</code> into that exact spot.</li>
+  </ul>
+  <div class="callout"><b class="tag">Constants</b> Two ways to make a value that can never change: <code>const
+  float PI = 3.14159;</code> (a typed, checked constant) or <code>#define PI 3.14159</code> (an older, simpler
+  text-substitution done before compiling — you'll meet this properly in stage 14).</div>
+  <div class="callout"><b class="tag">Type casting</b> <code>(float) sum / n</code> forces an integer to be
+  treated as a decimal <i>before</i> the division happens — without it, C would perform whole-number division and
+  silently throw away anything after the decimal point. You'll see exactly this trick again in stage 6.</div>
+
+  <h3 class="sub-head" id="c-operators">3 — Operators, all of them</h3>
+  <p>The official syllabus (Unit I–II) explicitly lists arithmetic, relational, logical, bitwise, assignment, and
+  the conditional (ternary) operator — so here they all are, side by side, with a worked value for each.</p>
+  <table>
+    <tr><th>Kind</th><th>Symbols</th><th>Example (a=6, b=4)</th><th>Result</th></tr>
+    <tr><td>Arithmetic</td><td><code>+ - * / %</code></td><td><code>a % b</code></td><td><code>2</code> (remainder after 6÷4)</td></tr>
+    <tr><td>Relational</td><td><code>== != &gt; &lt; &gt;= &lt;=</code></td><td><code>a &gt; b</code></td><td><code>1</code> (C has no true <code>bool</code> in older standards — 1 means true, 0 means false)</td></tr>
+    <tr><td>Logical</td><td><code>&amp;&amp; || !</code></td><td><code>(a&gt;b) &amp;&amp; (b&gt;0)</code></td><td><code>1</code></td></tr>
+    <tr><td>Bitwise</td><td><code>&amp; | ^ ~ &lt;&lt; &gt;&gt;</code></td><td><code>a &amp; b</code></td><td><code>4</code> (works on the raw binary bits, from §4.0's number systems)</td></tr>
+    <tr><td>Assignment shortcuts</td><td><code>+= -= *= /= %=</code></td><td><code>a += 1</code></td><td>same as <code>a = a + 1</code></td></tr>
+    <tr><td>Increment/decrement</td><td><code>++ --</code></td><td><code>a++</code></td><td>same as <code>a = a + 1</code>, written after a variable</td></tr>
+    <tr><td>Ternary (conditional)</td><td><code>? :</code></td><td><code>(a&gt;b) ? a : b</code></td><td><code>6</code> — "if a&gt;b, give a, else give b"</td></tr>
+  </table>
+  <pre><span class="lbl">C — bitwise &amp; ternary, from your official lab list</span><code class="k">#include</code> <code class="s">&lt;stdio.h&gt;</code>
+
+<code class="k">int</code> main() {
+    <code class="k">int</code> a = 6, b = 4;
+    printf(<code class="s">"AND: %d\n"</code>, a &amp; b);      <code class="c">// 0110 & 0100 = 0100 = 4</code>
+    printf(<code class="s">"OR:  %d\n"</code>, a | b);      <code class="c">// 0110 | 0100 = 0110 = 6</code>
+    printf(<code class="s">"Larger: %d\n"</code>, (a &gt; b) ? a : b);
+    <code class="k">return</code> 0;
+}</pre>
+  <div class="out">AND: 4
+OR:  6
+Larger: 6</div>
+  <div class="callout"><b class="tag">Common trap</b> <code>=</code> means "store this value" (assignment).
+  <code>==</code> means "are these equal?" (comparison). Writing <code>if (x = 5)</code> by mistake instead of
+  <code>if (x == 5)</code> is legal C, compiles without complaint, and silently does the wrong thing — arguably
+  the single most notorious beginner bug in the whole language.</div>
+
+  <h3 class="sub-head" id="c-io">4 — Input &amp; output, in depth</h3>
+  <div class="analogy"><div class="icon">🎙️</div><div><b>Plain-English idea:</b> <code>printf</code> speaks to
+  the user; <code>scanf</code> listens to the user. Getting <code>scanf</code> right means understanding one new
+  idea early: it needs to know <i>where</i> in memory to place whatever the user types.</div></div>
+  <pre><span class="lbl">C</span><code class="k">#include</code> <code class="s">&lt;stdio.h&gt;</code>
+
+<code class="k">int</code> main() {
+    <code class="k">float</code> tempC;
+    printf(<code class="s">"Enter body temperature (C): "</code>);
+    scanf(<code class="s">"%f"</code>, &amp;tempC);
+    printf(<code class="s">"You entered: %.1f\n"</code>, tempC);
+    <code class="k">return</code> 0;
+}</pre>
+  <ul class="steps">
+    <li><code>scanf("%f", &amp;tempC)</code> — the <code>%f</code> tells <code>scanf</code> what <i>kind</i>
+    of value to expect (a decimal number).</li>
+    <li>The <code>&amp;</code> in front of <code>tempC</code> means "the address of" — you are handing
+    <code>scanf</code> the exact memory location of the box named <code>tempC</code>, not the value inside it
+    (which doesn't exist yet).</li>
+    <li><code>scanf</code> writes the typed value directly into that address. This is your very first glimpse of
+    the idea behind pointers (stage 11) — <code>scanf</code> genuinely cannot do its job without an address to
+    write to.</li>
+    <li><code>printf</code>, in contrast, never needs <code>&amp;</code> — it only needs to <i>read</i> a value,
+    not write one, so a plain variable name is enough.</li>
+  </ul>
+  <div class="callout"><b class="tag">A classic trap: reading a string after a number</b> <code>scanf("%s", name)</code>
+  stops reading at the very first space or newline — it cannot read "Aarav Rao" into one variable; it will only
+  capture "Aarav". Also, mixing <code>scanf("%d", ...)</code> followed by <code>scanf("%c", ...)</code> often
+  grabs a leftover newline character instead of what you expect. Both are extremely common early bugs — if your
+  program seems to "skip" an input, this is almost always why.</div>
+
+  <h3 class="sub-head" id="c-decisions">5 — Decisions: if / else if / else / switch</h3>
+  <div class="analogy"><div class="icon">🚦</div><div><b>Plain-English idea:</b> Real programs need to make
+  choices — "if the patient's temperature is above 37.5°C, flag a fever." <code>if</code> checks a condition; the
+  program only enters the block underneath if that condition works out to true (non-zero).</div></div>
+  <pre><span class="lbl">C — decisions</span><code class="k">#include</code> <code class="s">&lt;stdio.h&gt;</code>
+
+<code class="k">int</code> main() {
+    <code class="k">float</code> tempC;
+    printf(<code class="s">"Enter body temperature (C): "</code>);
+    scanf(<code class="s">"%f"</code>, &amp;tempC);
+
+    <code class="k">if</code> (tempC &gt; 37.5) {
+        printf(<code class="s">"Fever detected.\n"</code>);
+    } <code class="k">else if</code> (tempC &lt; 35.0) {
+        printf(<code class="s">"Hypothermia risk.\n"</code>);
+    } <code class="k">else</code> {
+        printf(<code class="s">"Temperature normal.\n"</code>);
+    }
+    <code class="k">return</code> 0;
+}</pre>
+  <h4 class="micro-head">Step-by-step: tracing this by hand for tempC = 36.0</h4>
+  <ul class="steps">
+    <li>Check the first condition: is 36.0 &gt; 37.5? No.</li>
+    <li>Move to <code>else if</code>: is 36.0 &lt; 35.0? No.</li>
+    <li>Both checks failed, so the final <code>else</code> block runs: "Temperature normal." is printed.</li>
+    <li>Only <b>one</b> of the three blocks ever runs for a given input — as soon as one condition matches, C
+    skips straight past the rest.</li>
+  </ul>
+  <p><code>switch</code> is a cleaner alternative when you're comparing one variable against several exact fixed
+  values (like a menu choice), instead of ranges:</p>
+  <pre><span class="lbl">C — switch</span><code class="k">char</code> grade = <code class="s">'B'</code>;
+<code class="k">switch</code> (grade) {
+    <code class="k">case</code> <code class="s">'A'</code>: printf(<code class="s">"Excellent\n"</code>); <code class="k">break</code>;
+    <code class="k">case</code> <code class="s">'B'</code>: printf(<code class="s">"Good\n"</code>);      <code class="k">break</code>;
+    <code class="k">default</code>:  printf(<code class="s">"Needs work\n"</code>);
+}</pre>
+  <div class="callout"><b class="tag">Common trap</b> Forget a <code>break;</code> inside a <code>switch</code>
+  and C will keep executing every case below the matching one too ("fall-through") — this is legal C, and it is
+  almost never what a beginner actually wanted.</div>
+
+  <h3 class="sub-head" id="c-loops">6 — Loops: for, while, do-while</h3>
+  <div class="analogy"><div class="icon">🔁</div><div><b>Plain-English idea:</b> A loop repeats a block of
+  instructions instead of you copy-pasting it — "record the pulse once every second for 60 seconds" is one line of
+  logic repeated 60 times, not 60 separate lines.</div></div>
+  <pre><span class="lbl">C — for loop: record N pulse readings</span><code class="k">#include</code> <code class="s">&lt;stdio.h&gt;</code>
+
+<code class="k">int</code> main() {
+    <code class="k">int</code> n = 5, sum = 0;
+    <code class="k">for</code> (<code class="k">int</code> i = 1; i &lt;= n; i++) {
+        <code class="k">int</code> reading;
+        printf(<code class="s">"Pulse reading %d: "</code>, i);
+        scanf(<code class="s">"%d"</code>, &amp;reading);
+        sum += reading;
+    }
+    printf(<code class="s">"Average pulse: %.1f bpm\n"</code>, (<code class="k">float</code>)sum / n);
+    <code class="k">return</code> 0;
+}</pre>
+  <h4 class="micro-head">A <code>for</code> loop's three parts, taken one at a time</h4>
+  <ul class="steps">
+    <li><b>Start</b> (<code>i = 1</code>) — runs exactly once, before the loop even begins.</li>
+    <li><b>Condition to keep going</b> (<code>i &lt;= n</code>) — checked <i>before every single round</i>. The
+    moment this becomes false, the loop stops immediately, without running its body again.</li>
+    <li><b>What happens after each round</b> (<code>i++</code>) — runs automatically at the end of every round,
+    right before the condition is checked again.</li>
+    <li>So the real order is: start → check condition → run body → i++ → check condition → run body → i++ → ...
+    until the condition fails.</li>
+  </ul>
+  <pre><span class="lbl">C — while loop</span><code class="k">int</code> pulse = 60;
+<code class="k">while</code> (pulse &lt; 100) {
+    printf(<code class="s">"%d\n"</code>, pulse);
+    pulse += 10;   <code class="c">// without this line, the loop would run forever</code>
+}</pre>
+  <pre><span class="lbl">C — do-while loop</span><code class="k">int</code> choice;
+<code class="k">do</code> {
+    printf(<code class="s">"Enter 1 to continue, 0 to stop: "</code>);
+    scanf(<code class="s">"%d"</code>, &amp;choice);
+} <code class="k">while</code> (choice != 0);</pre>
+  <table>
+    <tr><th>Loop</th><th>Use it when...</th></tr>
+    <tr><td><code>for</code></td><td>you know (or can calculate) the exact number of repetitions in advance</td></tr>
+    <tr><td><code>while</code></td><td>you don't know the count in advance — you just keep going while something stays true</td></tr>
+    <tr><td><code>do-while</code></td><td>the loop's body must run at least once, even before the condition is ever checked</td></tr>
+  </table>
+  <div class="callout"><b class="tag"><code>break</code>, <code>continue</code>, and <code>goto</code></b>
+  <code>break</code> exits the loop immediately, skipping everything remaining, even if the condition would still
+  be true. <code>continue</code> skips only the rest of the <i>current</i> round and jumps straight to the
+  condition check. <code>goto</code> jumps to a labelled line anywhere in the function — it's in your official
+  syllabus, but modern C style avoids it almost entirely because it makes code hard to follow; know it for the
+  exam, avoid it in your own code.</div>
+
+  <h3 class="sub-head" id="c-functions">7 — Functions</h3>
+  <div class="analogy"><div class="icon">🔧</div><div><b>Plain-English idea:</b> A function is a named,
+  reusable block of instructions — like a lab procedure written once ("how to centrifuge a sample") that anyone
+  can follow by name, feeding in their own sample and getting their own result back.</div></div>
+  <pre><span class="lbl">C — user-defined function</span><code class="k">#include</code> <code class="s">&lt;stdio.h&gt;</code>
+
+<code class="k">float</code> celsiusToFahrenheit(<code class="k">float</code> c) {
+    <code class="k">return</code> (c * 9.0 / 5.0) + 32;
+}
+
+<code class="k">int</code> main() {
+    <code class="k">float</code> tempC = 37.0;
+    printf(<code class="s">"%.1f C = %.1f F\n"</code>, tempC, celsiusToFahrenheit(tempC));
+    <code class="k">return</code> 0;
+}</pre>
+  <ul class="steps">
+    <li><code>float celsiusToFahrenheit(float c)</code> is the function's <b>signature</b>: it returns a
+    <code>float</code>, is named <code>celsiusToFahrenheit</code>, and accepts one <code>float</code> parameter
+    named <code>c</code>.</li>
+    <li>Inside <code>main</code>, calling <code>celsiusToFahrenheit(tempC)</code> copies the <i>value</i> of
+    <code>tempC</code> (37.0) into the function's own local box named <code>c</code>.</li>
+    <li>The function calculates and <code>return</code>s a result — control jumps straight back to exactly where
+    it was called from, carrying that result with it.</li>
+  </ul>
+  <div class="callout"><b class="tag">The single most important rule about C functions: call by value</b> A
+  function receives a <i>copy</i> of whatever you pass it, never the original variable. If a function changes its
+  own parameter, the caller's variable is completely untouched. This is exactly why <code>scanf</code> needed
+  <code>&amp;</code> in stage 4 — a plain variable couldn't be modified by a function otherwise. Stage 11
+  (Pointers) shows you the one way around this rule.</div>
+  <div class="callout"><b class="tag">Storage classes, briefly (official syllabus, Unit II)</b> <code>auto</code>
+  is the default for any variable inside a function — it exists only while that function is running.
+  <code>static</code> makes a variable keep its value between calls instead of resetting each time. <code>extern</code>
+  lets one file use a variable defined in another file. <code>register</code> is a hint asking the compiler to
+  keep a variable in the CPU's fastest storage; modern compilers mostly ignore it and decide this themselves.</div>
+
+  <h3 class="sub-head" id="c-recursion">8 — Recursion</h3>
+  <div class="analogy"><div class="icon">🪆</div><div><b>Plain-English idea:</b> Like a set of Russian nesting
+  dolls — to open the big doll you first have to solve the exact same "open the doll" problem on the slightly
+  smaller doll inside it, and so on, until you reach the smallest doll, which just opens directly.</div></div>
+  <pre><span class="lbl">C — recursion</span><code class="k">int</code> factorial(<code class="k">int</code> n) {
+    <code class="k">if</code> (n == 0) <code class="k">return</code> 1;        <code class="c">// base case — stops the recursion</code>
+    <code class="k">return</code> n * factorial(n - 1);   <code class="c">// recursive case</code>
+}</pre>
+  <h4 class="micro-head">Step-by-step: tracing factorial(3) by hand</h4>
+  <ul class="steps">
+    <li><code>factorial(3)</code> isn't 0, so it needs <code>3 * factorial(2)</code> — but it can't finish this
+    line until it knows what <code>factorial(2)</code> is. It pauses here and waits.</li>
+    <li><code>factorial(2)</code> similarly needs <code>2 * factorial(1)</code>, and pauses too.</li>
+    <li><code>factorial(1)</code> needs <code>1 * factorial(0)</code>, and pauses too.</li>
+    <li><code>factorial(0)</code> finally hits the <b>base case</b> and returns 1 immediately — no more pausing.</li>
+    <li>Now the pauses unwind in reverse: <code>factorial(1)</code> resumes and returns <code>1 * 1 = 1</code>.
+    <code>factorial(2)</code> resumes and returns <code>2 * 1 = 2</code>. <code>factorial(3)</code> resumes and
+    returns <code>3 * 2 = 6</code>.</li>
+  </ul>
+  <div class="callout red"><b class="tag">Why every recursive function needs a base case</b> Every one of those
+  "paused, waiting" calls is secretly sitting on the <b>call stack</b> — the exact same LIFO stack structure from
+  §6.3. If you forget the base case, the function calls itself forever, the stack fills up completely, and the
+  program crashes with a "stack overflow." This is not a coincidence of naming — it's the literal mechanism.</div>
+
+  <h3 class="sub-head" id="c-arrays">9 — Arrays, the C way</h3>
+  <p>The core idea — a row of numbered lockers with instant access by position — is explained fully with a
+  step-by-step insert/delete walkthrough in <a href="#ds-array">§6.1 Arrays</a>. This stage covers only the
+  C-specific syntax on top of that idea.</p>
+  <pre><span class="lbl">C — declaring, and a 2-D array</span><code class="k">int</code> pulses[5] = {72, 75, 80, 78, 76};   <code class="c">// a 1-D array, 5 slots</code>
+printf(<code class="s">"%d\n"</code>, pulses[2]);                <code class="c">// 80 — instant, no searching</code>
+
+<code class="k">int</code> readings[3][2] = {              <code class="c">// a 2-D array: 3 patients, 2 readings each</code>
+    {72, 75},
+    {80, 78},
+    {76, 90}
+};
+printf(<code class="s">"%d\n"</code>, readings[1][0]);    <code class="c">// 80 — patient index 1, reading index 0</code></pre>
+  <ul class="steps">
+    <li><code>int pulses[5]</code> reserves exactly 5 consecutive <code>int</code>-sized boxes — the size must be
+    a fixed number known at compile time; you cannot resize it afterwards, unlike a Python list.</li>
+    <li>A 2-D array is really "an array of arrays" — think of <code>readings</code> as 3 rows, each row itself
+    holding 2 numbers. <code>readings[1][0]</code> means "row 1, column 0."</li>
+    <li>Passing an array to a function (needed for the official matrix-addition/transpose lab exercise) passes
+    only the array's starting address, not a copy of the whole thing — which is why a function <i>can</i> modify
+    the caller's original array, unlike with a single <code>int</code> parameter in stage 7.</li>
+  </ul>
+  <pre><span class="lbl">C — passing an array to a function</span><code class="k">float</code> average(<code class="k">int</code> arr[], <code class="k">int</code> n) {
+    <code class="k">int</code> sum = 0;
+    <code class="k">for</code> (<code class="k">int</code> i = 0; i &lt; n; i++) sum += arr[i];
+    <code class="k">return</code> (<code class="k">float</code>) sum / n;
+}</pre>
+
+  <h3 class="sub-head" id="c-strings">10 — Strings, in depth</h3>
+  <div class="analogy"><div class="icon">🔤</div><div><b>Plain-English idea:</b> C has no separate "string" type
+  at all — a string is simply an array of <code>char</code>, with one invisible extra character,
+  <code>'\0'</code> (called the "null terminator"), marking exactly where the text stops.</div></div>
+  <div class="diagram">
+    <div class="box filled">'A'</div><div class="box filled">'a'</div><div class="box filled">'r'</div><div class="box filled">'a'</div><div class="box filled">'v'</div><div class="box ptr">'\0'</div>
+  </div>
+  <pre><span class="lbl">C — strings, with the standard library</span><code class="k">#include</code> <code class="s">&lt;stdio.h&gt;</code>
+<code class="k">#include</code> <code class="s">&lt;string.h&gt;</code>
+
+<code class="k">int</code> main() {
+    <code class="k">char</code> patient[50] = <code class="s">"Aarav"</code>;
+    printf(<code class="s">"Patient: %s\n"</code>, patient);
+    printf(<code class="s">"Length: %lu\n"</code>, strlen(patient));       <code class="c">// counts chars BEFORE the \0</code>
+    strcat(patient, <code class="s">" Rao"</code>);                          <code class="c">// appends text onto the end</code>
+    printf(<code class="s">"After strcat: %s\n"</code>, patient);
+    <code class="k">return</code> 0;
+}</pre>
+  <div class="out">Patient: Aarav
+Length: 5
+After strcat: Aarav Rao</div>
+  <p>Your official lab explicitly asks you to also do string manipulation <b>without</b> the library — meaning you
+  write your own version of <code>strlen</code> by hand, which is a genuinely excellent exercise for understanding
+  the null terminator:</p>
+  <pre><span class="lbl">C — a hand-written strlen()</span><code class="k">int</code> myStrlen(<code class="k">char</code> str[]) {
+    <code class="k">int</code> count = 0;
+    <code class="k">while</code> (str[count] != <code class="s">'\0'</code>) {   <code class="c">// keep going until the null terminator</code>
+        count++;
+    }
+    <code class="k">return</code> count;
+}</pre>
+  <div class="callout"><b class="tag">Common trap</b> <code>scanf("%s", name)</code> stops reading at the first
+  space, so <code>"Aarav Rao"</code> typed at a prompt only stores <code>"Aarav"</code>. To read a whole line
+  including spaces, use <code>fgets(name, 50, stdin)</code> instead.</div>
+
+  <h3 class="sub-head" id="c-pointers">11 — Pointers, step by step</h3>
+  <div class="analogy"><div class="icon">🏠</div><div><b>Plain-English idea:</b> Every variable lives somewhere in
+  memory, and every memory location has an <b>address</b> — like a house has a street address. A normal variable
+  is the <i>house itself</i>. A <b>pointer</b> is a sticky note with that house's <i>address</i> written on it.
+  If you know the address, you can go to that exact house and change what's inside — even from far away, such as
+  from inside a different function.</div></div>
+  <pre><span class="lbl">C — pointers</span><code class="k">#include</code> <code class="s">&lt;stdio.h&gt;</code>
+
+<code class="k">int</code> main() {
+    <code class="k">int</code> pulse = 72;
+    <code class="k">int</code> *ptr = &amp;pulse;   <code class="c">// ptr now stores pulse's address</code>
+
+    printf(<code class="s">"Value of pulse:        %d\n"</code>, pulse);
+    printf(<code class="s">"Address of pulse:      %p\n"</code>, (<code class="k">void</code>*)&amp;pulse);
+    printf(<code class="s">"Value stored in ptr:   %p\n"</code>, (<code class="k">void</code>*)ptr);
+    printf(<code class="s">"Value ptr points to:   %d\n"</code>, *ptr);
+
+    *ptr = 80;   <code class="c">// changes pulse itself, via the pointer</code>
+    printf(<code class="s">"pulse is now:          %d\n"</code>, pulse);
+    <code class="k">return</code> 0;
+}</pre>
+  <div class="out">Value of pulse:        72
+Address of pulse:      0x7ffee2a1c9ac
+Value stored in ptr:   0x7ffee2a1c9ac
+Value ptr points to:   72
+pulse is now:          80</div>
+  <h4 class="micro-head">Step-by-step: what each line actually does</h4>
+  <ul class="steps">
+    <li><code>int pulse = 72;</code> — an ordinary box, holding 72, sitting at some address (say, 0x7ffee2a1c9ac).</li>
+    <li><code>int *ptr = &amp;pulse;</code> — <code>&amp;pulse</code> means "give me the address of pulse," not its
+    value. <code>int *ptr</code> declares "ptr is a box whose job is to hold the address of an int." So
+    <code>ptr</code> now contains 0x7ffee2a1c9ac — <i>the address</i>, not 72.</li>
+    <li><code>*ptr</code> (called "dereferencing") means "go to the address stored in ptr, and give me the value
+    sitting there." That's how <code>printf</code> can print 72 using <code>*ptr</code>.</li>
+    <li><code>*ptr = 80;</code> means "go to the address stored in ptr, and change the value there to 80" — and
+    because that address <i>is</i> pulse's address, <code>pulse</code> itself becomes 80. Nothing about
+    <code>ptr</code> changed; only what it points <i>to</i> changed.</li>
+  </ul>
+  <div class="callout"><b class="tag">Why this fixes the call-by-value limit from stage 7</b> A function can't
+  modify the caller's variable directly — but if you pass a <b>pointer</b> to that variable instead, the function
+  receives the address, and can dereference it to change the original:</div>
+  <pre><span class="lbl">C — a function that actually changes the caller's variable</span><code class="k">void</code> addFive(<code class="k">int</code> *p) {
+    *p = *p + 5;    <code class="c">// go to the address, change what's there</code>
+}
+
+<code class="k">int</code> main() {
+    <code class="k">int</code> pulse = 72;
+    addFive(&amp;pulse);           <code class="c">// pass the ADDRESS, not the value</code>
+    printf(<code class="s">"%d\n"</code>, pulse);   <code class="c">// 77 — the original really changed</code>
+    <code class="k">return</code> 0;
+}</pre>
+  <h4 class="micro-head">Pointers and arrays are close cousins</h4>
+  <p>An array's name, used on its own, already behaves like a pointer to its first element — this is exactly why
+  arrays can be passed to functions "by address" for free, as you saw in stage 9.</p>
+  <pre><span class="lbl">C — pointer arithmetic walking through an array</span><code class="k">int</code> pulses[3] = {72, 75, 80};
+<code class="k">int</code> *p = pulses;             <code class="c">// p now points at pulses[0]</code>
+printf(<code class="s">"%d\n"</code>, *p);       <code class="c">// 72</code>
+p++;                        <code class="c">// move the pointer forward by ONE INT'S WORTH of memory</code>
+printf(<code class="s">"%d\n"</code>, *p);       <code class="c">// 75 — same as pulses[1]</code></pre>
+  <div class="callout"><b class="tag">Dynamic memory, briefly (official syllabus)</b> <code>malloc(n * sizeof(int))</code>
+  asks the operating system for a fresh block of memory big enough for <code>n</code> integers, and hands back a
+  pointer to it — this is exactly how a linked list's nodes (§6.2) get created one at a time, on demand, instead
+  of all at once like an array. Always pair <code>malloc</code> with <code>free(ptr)</code> once you're done with
+  it, or the memory stays reserved forever ("a memory leak"). A <b>pointer to a pointer</b> (<code>int **pp</code>)
+  is simply an address that stores another address — used when a function needs to modify the caller's own
+  pointer, not just the value it points to.</div>
+
+  <h3 class="sub-head" id="c-structs">12 — Structures &amp; unions</h3>
+  <div class="analogy"><div class="icon">🗂️</div><div><b>Plain-English idea:</b> A <code>struct</code> is a
+  single patient file folder that bundles several related pieces of information — name, age, pulse — that don't
+  share the same type, so a plain array won't do.</div></div>
+  <pre><span class="lbl">C — structures</span><code class="k">#include</code> <code class="s">&lt;stdio.h&gt;</code>
+
+<code class="k">struct</code> Patient {
+    <code class="k">char</code> name[30];
+    <code class="k">int</code> age;
+    <code class="k">float</code> pulse;
+};
+
+<code class="k">int</code> main() {
+    <code class="k">struct</code> Patient p1 = {<code class="s">"Meera Iyer"</code>, 34, 76.5};
+    printf(<code class="s">"%s, age %d, pulse %.1f\n"</code>, p1.name, p1.age, p1.pulse);
+    <code class="k">return</code> 0;
+}</pre>
+  <ul class="steps">
+    <li><code>struct Patient { ... };</code> defines the <i>blueprint</i> only — no memory is used yet, exactly
+    like a class definition in Python (§5.14) before you make any objects.</li>
+    <li><code>struct Patient p1 = {...};</code> actually creates one real folder, filled in with real values.</li>
+    <li><code>p1.name</code>, <code>p1.age</code>, <code>p1.pulse</code> — the dot reaches inside the folder to
+    one specific field.</li>
+  </ul>
+  <p>You can also have an <b>array of structures</b> (many patient folders in a row), a <b>pointer to a
+  structure</b> (<code>p1_ptr->age</code> instead of <code>(*p1_ptr).age</code>), and a <b>self-referential
+  structure</b> — a struct that contains a pointer to another struct of the same type. That last one is precisely
+  what a linked-list node (§6.2) is: <code>struct Node { int pulse; struct Node *next; };</code></p>
+  <pre><span class="lbl">C — union: a shared box (uses only the biggest member's worth of memory)</span><code class="k">union</code> Reading {
+    <code class="k">int</code> wholeNumber;
+    <code class="k">float</code> decimal;
+};</pre>
+  <div class="callout"><b class="tag">Struct vs. union, in one line</b> A <code>struct</code> gives every field
+  its own separate memory, all present at once. A <code>union</code> makes all its fields <i>share</i> the same
+  memory, so only one of them holds a meaningful value at any given time — used when you want to save space and
+  know only one interpretation matters at once. <code>typedef</code> just lets you give a struct a shorter name
+  (e.g. <code>typedef struct Patient Patient;</code>), and <code>enum</code> lets you name a small fixed set of
+  values (e.g. <code>enum Severity {LOW, MEDIUM, HIGH};</code>) instead of using plain, easily-confused numbers.</div>
+
+  <h3 class="sub-head" id="c-files">13 — File handling, in depth</h3>
+  <div class="analogy"><div class="icon">🗄️</div><div><b>Plain-English idea:</b> Variables disappear the moment
+  your program ends. A file lets your program save data <i>permanently</i>, so it's still there the next time the
+  program runs.</div></div>
+  <table>
+    <tr><th>Mode</th><th>Meaning</th></tr>
+    <tr><td><code>"r"</code></td><td>Read — the file must already exist</td></tr>
+    <tr><td><code>"w"</code></td><td>Write — creates the file if missing, <b>erases</b> its old contents if it exists</td></tr>
+    <tr><td><code>"a"</code></td><td>Append — creates the file if missing, adds new content after whatever's already there</td></tr>
+  </table>
+  <pre><span class="lbl">C — writing, then reading a file back</span><code class="k">#include</code> <code class="s">&lt;stdio.h&gt;</code>
+
+<code class="k">int</code> main() {
+    FILE *fp = fopen(<code class="s">"log.txt"</code>, <code class="s">"w"</code>);
+    fprintf(fp, <code class="s">"Pulse reading: 78 bpm\n"</code>);
+    fclose(fp);   <code class="c">// ALWAYS close a file — forgetting this can lose unsaved data</code>
+
+    <code class="k">char</code> line[100];
+    fp = fopen(<code class="s">"log.txt"</code>, <code class="s">"r"</code>);
+    fgets(line, 100, fp);
+    printf(<code class="s">"Read back: %s"</code>, line);
+    fclose(fp);
+    <code class="k">return</code> 0;
+}</pre>
+  <p>Your official lab explicitly asks for a program that counts characters, words, and lines in a text file —
+  here's the pattern, using the character-by-character function <code>fgetc</code>:</p>
+  <pre><span class="lbl">C — counting characters, words &amp; lines</span><code class="k">#include</code> <code class="s">&lt;stdio.h&gt;</code>
+
+<code class="k">int</code> main() {
+    FILE *fp = fopen(<code class="s">"notes.txt"</code>, <code class="s">"r"</code>);
+    <code class="k">int</code> ch, chars = 0, words = 0, lines = 0;
+    <code class="k">int</code> insideWord = 0;
+
+    <code class="k">while</code> ((ch = fgetc(fp)) != EOF) {   <code class="c">// EOF = "End Of File", a special signal value</code>
+        chars++;
+        <code class="k">if</code> (ch == <code class="s">'\n'</code>) lines++;
+        <code class="k">if</code> (ch == <code class="s">' '</code> || ch == <code class="s">'\n'</code>) {
+            insideWord = 0;
+        } <code class="k">else if</code> (insideWord == 0) {
+            words++;
+            insideWord = 1;
+        }
+    }
+    printf(<code class="s">"Characters: %d, Words: %d, Lines: %d\n"</code>, chars, words, lines);
+    fclose(fp);
+    <code class="k">return</code> 0;
+}</pre>
+  <ul class="steps">
+    <li><code>fgetc(fp)</code> reads exactly one character at a time from the file, and returns the special value
+    <code>EOF</code> once there's nothing left — that's how the loop knows when to stop.</li>
+    <li>A "word" is counted only at the exact moment you transition from "inside a space" to "inside actual
+    text" — the <code>insideWord</code> flag is what tracks that transition.</li>
+    <li>A "line" is counted every time a <code>'\n'</code> character is seen.</li>
+  </ul>
+
+  <h3 class="sub-head" id="c-preprocessor">14 — The preprocessor</h3>
+  <div class="analogy"><div class="icon">✂️</div><div><b>Plain-English idea:</b> Before your code is even
+  compiled, a separate, very literal step called the <b>preprocessor</b> runs through your file doing simple
+  text find-and-replace, based on lines starting with <code>#</code>.</div></div>
+  <pre><span class="lbl">C — preprocessor directives</span><code class="k">#include</code> <code class="s">&lt;stdio.h&gt;</code>     <code class="c">// paste in stdio.h's contents</code>
+<code class="k">#define</code> MAX_PATIENTS 50    <code class="c">// replace every "MAX_PATIENTS" with 50, as plain text</code>
+<code class="k">#define</code> SQUARE(x) ((x)*(x)) <code class="c">// a "macro": a tiny reusable text template</code>
+
+<code class="k">int</code> main() {
+    <code class="k">int</code> beds[MAX_PATIENTS];
+    printf(<code class="s">"%d\n"</code>, SQUARE(5));   <code class="c">// becomes ((5)*(5)) before compiling, prints 25</code>
+    <code class="k">return</code> 0;
+}</pre>
+  <div class="callout"><b class="tag">Why this matters, and where you already used it</b> Every single
+  <code>#include</code> you've written since stage 1 is a preprocessor directive. <code>#define</code> constants
+  (like <code>MAX_PATIENTS</code>) make your code easier to change later — update the number once, at the top,
+  instead of hunting through the whole file for every place a fixed limit was typed by hand.</div>
+
+  <h3 class="sub-head" id="c-capstone">15 — Capstone project: a Patient Register</h3>
+  <p>This is the same idea as the Python capstone in §5.17 — one program deliberately combining almost everything
+  above (structures, arrays, functions, file handling), so you can see it all work together. It also matches the
+  Weeks 12–14 project suggested in the study plan (§7.1).</p>
+  <pre><span class="lbl">C — capstone</span><code class="k">#include</code> <code class="s">&lt;stdio.h&gt;</code>
+<code class="k">#define</code> MAX 50
+
+<code class="k">struct</code> Patient {
+    <code class="k">char</code> name[30];
+    <code class="k">int</code> pulse;
+};
+
+<code class="k">int</code> addPatient(<code class="k">struct</code> Patient list[], <code class="k">int</code> count) {
+    printf(<code class="s">"Name: "</code>);
+    scanf(<code class="s">"%s"</code>, list[count].name);
+    printf(<code class="s">"Pulse: "</code>);
+    scanf(<code class="s">"%d"</code>, &amp;list[count].pulse);
+    <code class="k">return</code> count + 1;   <code class="c">// the new, updated count of patients</code>
+}
+
+<code class="k">void</code> saveToFile(<code class="k">struct</code> Patient list[], <code class="k">int</code> count) {
+    FILE *fp = fopen(<code class="s">"patients.txt"</code>, <code class="s">"w"</code>);
+    <code class="k">for</code> (<code class="k">int</code> i = 0; i &lt; count; i++) {
+        fprintf(fp, <code class="s">"%s %d\n"</code>, list[i].name, list[i].pulse);
+    }
+    fclose(fp);
+}
+
+<code class="k">int</code> main() {
+    <code class="k">struct</code> Patient patients[MAX];
+    <code class="k">int</code> count = 0, choice;
+
+    <code class="k">do</code> {
+        printf(<code class="s">"\n1. Add patient\n2. Save &amp; exit\nChoice: "</code>);
+        scanf(<code class="s">"%d"</code>, &amp;choice);
+        <code class="k">if</code> (choice == 1) {
+            count = addPatient(patients, count);
+        }
+    } <code class="k">while</code> (choice != 2);
+
+    saveToFile(patients, count);
+    printf(<code class="s">"Saved %d patients to patients.txt\n"</code>, count);
+    <code class="k">return</code> 0;
+}</pre>
+  <div class="callout"><b class="tag">Build this yourself</b> Type it in, run it, add two or three patients, and
+  open <code>patients.txt</code> afterwards to see it saved. Then try extending it: add a "search by name" option
+  using linear search (§6.8), or rebuild the whole thing using a linked list (§6.2) instead of the fixed-size
+  <code>patients[MAX]</code> array, so it can hold any number of patients.</div>
+</section>
+
+<div class="pulse-divider"><span>Deep breath</span><div class="line"></div><span>Now, Python — properly, from the very start</span></div>
+
+<!-- ================= 5. PYTHON ZERO TO HERO ================= -->
+<section id="python-tutorial">
+  <div class="section-head"><span class="num">§5</span><h2>Python: zero to hero</h2><span class="sub"><span class="badge py">Python</span>18 small stages, each one buildable on its own</span></div>
+
+  <p>Forget C for a moment. Pretend you have never coded anything. This is a complete course, in order — each
+  stage only uses things you already learned in the stages before it. Do not skip ahead; every "hero"-level
+  feature near the end (classes, comprehensions, libraries) leans on the basics being solid.</p>
+
+  <h3 class="sub-head" id="py-setup">0 — Setup: where does the code actually run?</h3>
+  <p>You need one thing: a place to type Python and press "run."</p>
+  <ul class="checklist">
+    <li><b>Easiest, zero-install option:</b> open <a href="https://www.python.org/shell/" target="_blank" rel="noopener">python.org's browser shell</a> or <a href="https://replit.com" target="_blank" rel="noopener">replit.com</a> and start typing.</li>
+    <li><b>On your own laptop:</b> install Python from <a href="https://python.org" target="_blank" rel="noopener">python.org</a>, then open the app called <b>IDLE</b> that comes with it — that's a simple editor + "run" button built for beginners.</li>
+    <li><b>Two ways to use Python:</b> the <b>interactive shell</b> (type one line, see the result immediately — great for experiments) and a <b>script file</b> ending in <code>.py</code> that you write fully, save, then run all at once (what you'll use for real programs).</li>
+  </ul>
+  <div class="callout">
+    <b class="tag">Your very first line</b>
+    Open the shell and type <code>print("hello")</code> then press Enter. If you see <code>hello</code> printed
+    back, everything works. That's it — you're now running Python.
+  </div>
+
+  <h3 class="sub-head" id="py-vars">1 — Variables &amp; data types</h3>
+  <div class="analogy"><div class="icon">📦</div><div><b>Plain-English idea:</b> A variable is a name you give to
+  a piece of information so you can use that information again later, just by using the name.</div></div>
+  <pre><span class="lbl">Python</span>age = 20          <code class="c"># a whole number -&gt; type "int"</code>
+height = 1.72     <code class="c"># a decimal number -&gt; type "float"</code>
+name = <code class="s">"Aarav"</code>     <code class="c"># text -&gt; type "str" (string)</code>
+is_student = <code class="k">True</code>  <code class="c"># True or False -&gt; type "bool"</code>
+
+print(age, height, name, is_student)
+print(type(age))    <code class="c"># asks Python: what type is this?</code></pre>
+  <div class="out">20 1.72 Aarav True
+&lt;class 'int'&gt;</div>
+  <ul class="steps">
+    <li><b>Step 1.</b> When Python sees <code>age = 20</code>, it creates a box in memory containing 20, and
+    labels that box <code>age</code>.</li>
+    <li><b>Step 2.</b> You never declare a type up front (unlike C's <code>int age;</code>) — Python looks at the
+    value you gave and decides the type automatically. This is called <b>dynamic typing</b>.</li>
+    <li><b>Step 3.</b> A variable's type can even change later if you reassign it — <code>age = "twenty"</code>
+    would silently turn <code>age</code> into a string. Powerful, but be careful with it.</li>
+    <li><b>Step 4.</b> Naming rule: variable names can use letters, digits and underscores, but can't start with a
+    digit, and are case-sensitive (<code>Age</code> and <code>age</code> are different variables).</li>
+  </ul>
+  <div class="callout"><b class="tag">Try it yourself</b> Create three variables for your own name, age, and
+  favourite subject. Print all three in one <code>print()</code> call, separated by commas.</div>
+
+  <h3 class="sub-head" id="py-ops">2 — Operators</h3>
+  <table>
+    <tr><th>Kind</th><th>Symbols</th><th>Example</th><th>Result</th></tr>
+    <tr><td>Arithmetic</td><td><code>+ - * / // % **</code></td><td><code>7 // 2</code> and <code>7 % 2</code></td><td><code>3</code> and <code>1</code> (// is whole-number division, % is the remainder)</td></tr>
+    <tr><td>Comparison</td><td><code>== != &gt; &lt; &gt;= &lt;=</code></td><td><code>5 &gt; 3</code></td><td><code>True</code></td></tr>
+    <tr><td>Logical</td><td><code>and&nbsp;or&nbsp;not</code></td><td><code>(5&gt;3) and (2&gt;1)</code></td><td><code>True</code></td></tr>
+    <tr><td>Assignment shortcuts</td><td><code>+= -= *= /=</code></td><td><code>x += 1</code></td><td>same as <code>x = x + 1</code></td></tr>
+  </table>
+  <pre><span class="lbl">Python</span>pulse = 72
+pulse += 4          <code class="c"># pulse is now 76</code>
+print(pulse &gt; 100 <code class="k">and</code> pulse &lt; 60)   <code class="c"># False — pulse is 76</code></pre>
+  <div class="callout"><b class="tag">Common trap</b> <code>=</code> means "store this value" (assignment).
+  <code>==</code> means "are these equal?" (comparison). Mixing them up is the single most common beginner bug in
+  every language, not just Python.</div>
+
+  <h3 class="sub-head" id="py-strings">3 — Strings, in depth</h3>
+  <div class="analogy"><div class="icon">🔤</div><div><b>Plain-English idea:</b> A string is just text. In
+  Python you can treat it almost like a mini-array of characters — each character has a position number, starting
+  at 0, just like the array lockers from §6.1.</div></div>
+  <pre><span class="lbl">Python</span>name = <code class="s">"Biomedical"</code>
+print(name[0])       <code class="c"># 'B'  -&gt; first character, position 0</code>
+print(name[-1])      <code class="c"># 'l'  -&gt; -1 always means "last character"</code>
+print(name[0:4])     <code class="c"># 'Biom' -&gt; a "slice": positions 0,1,2,3</code>
+print(name.upper())  <code class="c"># 'BIOMEDICAL'</code>
+print(name.lower())  <code class="c"># 'biomedical'</code>
+print(len(name))     <code class="c"># 10 -&gt; number of characters</code>
+print(name.replace(<code class="s">"Bio"</code>, <code class="s">"Neuro"</code>))  <code class="c"># 'Neuromedical'</code>
+
+<code class="c"># joining text and variables cleanly:</code>
+age = 20
+print(f<code class="s">"{name} student, age {age}"</code>)</pre>
+  <div class="out">B
+l
+Biom
+BIOMEDICAL
+biomedical
+10
+Neuromedical
+Biomedical student, age 20</div>
+  <ul class="steps">
+    <li><b>Step 1.</b> Indexing (<code>name[0]</code>) gets one character at a known position.</li>
+    <li><b>Step 2.</b> Slicing (<code>name[0:4]</code>) gets a <i>range</i> of characters — "start at 0, stop
+    before 4," so you get exactly 4 characters.</li>
+    <li><b>Step 3.</b> Strings have built-in helper actions, called <b>methods</b>, that you call with a dot:
+    <code>.upper()</code>, <code>.lower()</code>, <code>.replace()</code>, and many more.</li>
+    <li><b>Step 4.</b> An <b>f-string</b> (the <code>f</code> right before the quote) lets you drop a variable
+    straight into a sentence using <code>{curly braces}</code> — much easier than gluing text together with
+    <code>+</code>.</li>
+  </ul>
+
+  <h3 class="sub-head" id="py-io">4 — Input &amp; output</h3>
+  <pre><span class="lbl">Python</span>name = input(<code class="s">"What is your name? "</code>)
+age = int(input(<code class="s">"What is your age? "</code>))   <code class="c"># input() always gives text, so we convert it</code>
+print(f<code class="s">"Hi {name}, next year you'll be {age + 1}."</code>)</pre>
+  <div class="callout"><b class="tag">Why <code>int(...)</code>?</b> <code>input()</code> always hands you back
+  text (a string), even if the user typed a number. <code>int("20")</code> converts that text into a real number
+  you can do arithmetic with. Forgetting this is a very common early bug — Python will happily glue
+  <code>"20" + "1"</code> into <code>"201"</code> instead of adding them.</div>
+
+  <h3 class="sub-head" id="py-control">5 — if / elif / else</h3>
+  <pre><span class="lbl">Python</span>temp_c = float(input(<code class="s">"Enter body temperature (C): "</code>))
+
+<code class="k">if</code> temp_c &gt; 37.5:
+    print(<code class="s">"Fever detected."</code>)
+<code class="k">elif</code> temp_c &lt; 35.0:
+    print(<code class="s">"Hypothermia risk."</code>)
+<code class="k">else</code>:
+    print(<code class="s">"Temperature normal."</code>)</pre>
+  <div class="callout">
+    <b class="tag">The one rule that trips up every beginner</b>
+    Python has no <code>{ }</code> to mark a block of code — <b>indentation itself</b> (4 spaces, consistently)
+    is what groups statements together. Everything indented under the <code>if</code> belongs to that
+    <code>if</code>. Get the indentation wrong and the logic changes silently, with no error message.
+  </div>
+
+  <h3 class="sub-head" id="py-loops">6 — Loops</h3>
+  <pre><span class="lbl">Python — for loop</span><code class="k">for</code> i <code class="k">in</code> range(5):     <code class="c"># range(5) means 0,1,2,3,4</code>
+    print(<code class="s">"Reading number"</code>, i)</pre>
+  <pre><span class="lbl">Python — while loop</span>pulse = 60
+<code class="k">while</code> pulse &lt; 100:
+    print(pulse)
+    pulse += 10   <code class="c"># without this line, the loop would run forever</code></pre>
+  <ul class="steps">
+    <li><b>Step 1.</b> <code>for</code> is for "repeat this a known/countable number of times, or once per item in
+    a collection." <code>range(5)</code> generates the numbers 0 to 4.</li>
+    <li><b>Step 2.</b> <code>while</code> is for "keep repeating <i>as long as</i> a condition stays true" — you
+    don't need to know the exact count in advance.</li>
+    <li><b>Step 3.</b> <code>break</code> exits a loop immediately. <code>continue</code> skips straight to the
+    next round without finishing the current one.</li>
+    <li><b>Step 4.</b> Every <code>while</code> loop needs something inside it that eventually makes the
+    condition false — otherwise it's an infinite loop.</li>
+  </ul>
+
+  <h3 class="sub-head" id="py-lists">7 — Lists</h3>
+  <div class="analogy"><div class="icon">📝</div><div><b>Plain-English idea:</b> A list is an ordered, growable
+  collection — like a shopping list you can add to, cross items off, or reorder, unlike C's fixed-size array.</div></div>
+  <pre><span class="lbl">Python</span>pulses = [72, 75, 80, 78, 76]
+
+print(pulses[0])          <code class="c"># 72 -&gt; first item</code>
+pulses.append(90)         <code class="c"># adds 90 to the end</code>
+pulses.insert(0, 68)      <code class="c"># inserts 68 at position 0</code>
+pulses.remove(80)         <code class="c"># removes the value 80 (first match)</code>
+last = pulses.pop()       <code class="c"># removes &amp; returns the last item</code>
+pulses.sort()             <code class="c"># sorts the list in place</code>
+
+print(pulses)
+print(<code class="s">"length:"</code>, len(pulses))
+print(<code class="s">"average:"</code>, sum(pulses)/len(pulses))
+
+<code class="k">for</code> p <code class="k">in</code> pulses:            <code class="c"># loop directly over the items — very common in Python</code>
+    <code class="k">if</code> p &gt; 90:
+        print(p, <code class="s">"is high"</code>)</pre>
+  <div class="callout green"><b class="tag">List vs. C array, in one line</b> A Python list can grow and shrink
+  and hold mixed information; a C array is a fixed number of same-type lockers decided up front. Same core idea
+  (§6.1), far fewer rules.</div>
+
+  <h3 class="sub-head" id="py-tuplesets">8 — Tuples &amp; sets (two quick, useful cousins of the list)</h3>
+  <pre><span class="lbl">Python</span><code class="c"># Tuple: an ordered list that can NEVER change after creation ("immutable")</code>
+coordinates = (12.5, 78.3)     <code class="c"># e.g. a fixed sensor location</code>
+
+<code class="c"># Set: an unordered collection with NO duplicates allowed</code>
+blood_groups_seen = {<code class="s">"A+"</code>, <code class="s">"O+"</code>, <code class="s">"A+"</code>, <code class="s">"B+"</code>}
+print(blood_groups_seen)   <code class="c"># duplicate "A+" is automatically dropped</code></pre>
+  <div class="out">{'A+', 'O+', 'B+'}</div>
+  <p>Use a <b>tuple</b> when data shouldn't change (like a fixed coordinate). Use a <b>set</b> when you only care
+  about "which unique things appeared," not order or duplicates.</p>
+
+  <h3 class="sub-head" id="py-dicts">9 — Dictionaries</h3>
+  <div class="analogy"><div class="icon">🗂️</div><div><b>Plain-English idea:</b> Instead of finding data by
+  position (like <code>list[0]</code>), a dictionary finds data by a meaningful <b>name</b> — like a real patient
+  file folder labelled with fields, not numbers.</div></div>
+  <pre><span class="lbl">Python</span>patient = {
+    <code class="s">"name"</code>: <code class="s">"Meera Iyer"</code>,
+    <code class="s">"age"</code>: 34,
+    <code class="s">"pulse"</code>: 76.5
+}
+
+print(patient[<code class="s">"name"</code>])       <code class="c"># access by key</code>
+patient[<code class="s">"pulse"</code>] = 80.0       <code class="c"># update a value</code>
+patient[<code class="s">"ward"</code>] = <code class="s">"ICU"</code>       <code class="c"># add a brand-new field</code>
+
+<code class="k">for</code> key, value <code class="k">in</code> patient.items():
+    print(key, <code class="s">"-&gt;"</code>, value)</pre>
+  <div class="out">Meera Iyer
+name -&gt; Meera Iyer
+age -&gt; 34
+pulse -&gt; 80.0
+ward -&gt; ICU</div>
+  <p>A dictionary is Python's version of C's <code>struct</code> (§4.7) — a bundle of related fields — except you
+  can add or remove fields any time, and you always access by name (<code>"pulse"</code>), never by position.</p>
+
+  <h3 class="sub-head" id="py-functions">10 — Functions</h3>
+  <pre><span class="lbl">Python</span><code class="k">def</code> celsius_to_fahrenheit(c):
+    <code class="k">return</code> (c * 9/5) + 32
+
+<code class="k">def</code> classify_bp(systolic, diastolic=80):   <code class="c"># diastolic has a DEFAULT value</code>
+    <code class="k">if</code> systolic &lt; 120:
+        <code class="k">return</code> <code class="s">"Normal"</code>
+    <code class="k">elif</code> systolic &lt; 140:
+        <code class="k">return</code> <code class="s">"Elevated"</code>
+    <code class="k">else</code>:
+        <code class="k">return</code> <code class="s">"High"</code>
+
+print(celsius_to_fahrenheit(37))
+print(classify_bp(125))            <code class="c"># uses default diastolic=80</code>
+print(classify_bp(125, 95))        <code class="c"># overrides the default</code></pre>
+  <div class="out">98.6
+Elevated
+Elevated</div>
+  <ul class="steps">
+    <li><b>Step 1.</b> <code>def name(parameters):</code> starts a function definition; everything indented
+    beneath it is the function's body.</li>
+    <li><b>Step 2.</b> A <b>parameter</b> with <code>= something</code> (like <code>diastolic=80</code>) is
+    optional — if the caller doesn't supply it, the default is used.</li>
+    <li><b>Step 3.</b> <code>return</code> sends a value back to wherever the function was called from, and ends
+    the function immediately.</li>
+    <li><b>Step 4.</b> A variable created <i>inside</i> a function only exists inside that function — this is
+    called <b>scope</b>. It disappears once the function finishes.</li>
+  </ul>
+
+  <h3 class="sub-head" id="py-modules">11 — Modules &amp; the standard library</h3>
+  <div class="analogy"><div class="icon">📚</div><div><b>Plain-English idea:</b> A module is a file of
+  ready-made functions someone else already wrote, so you don't reinvent square roots or random numbers. Python
+  ships with a huge built-in collection called the <b>standard library</b>.</div></div>
+  <pre><span class="lbl">Python</span><code class="k">import</code> math
+<code class="k">import</code> random
+<code class="k">from</code> datetime <code class="k">import</code> date
+
+print(math.sqrt(144))          <code class="c"># 12.0</code>
+print(random.randint(60, 100))  <code class="c"># a random pulse-like number between 60 and 100</code>
+print(date.today())             <code class="c"># today's date</code></pre>
+  <p><code>import math</code> loads the whole module; you then use <code>math.sqrt(...)</code>.
+  <code>from datetime import date</code> loads just one specific tool out of a bigger module, so you can call it
+  directly as <code>date</code> instead of <code>datetime.date</code>.</p>
+
+  <h3 class="sub-head" id="py-errors">12 — Handling errors, on purpose</h3>
+  <div class="analogy"><div class="icon">🛟</div><div><b>Plain-English idea:</b> Sometimes something goes wrong
+  that you can predict — a user types letters instead of a number, or a file doesn't exist. Instead of letting
+  the whole program crash, you can catch the problem and respond calmly.</div></div>
+  <pre><span class="lbl">Python</span><code class="k">try</code>:
+    age = int(input(<code class="s">"Enter age: "</code>))
+    print(<code class="s">"Age in 5 years:"</code>, age + 5)
+<code class="k">except</code> ValueError:
+    print(<code class="s">"That wasn't a valid whole number. Please try again."</code>)
+<code class="k">finally</code>:
+    print(<code class="s">"Input attempt finished."</code>)</pre>
+  <p><code>try:</code> holds code that might fail. <code>except ValueError:</code> only runs if that specific kind
+  of error happens (here: converting bad text to a number). <code>finally:</code> always runs, whether there was
+  an error or not — useful for clean-up steps.</p>
+
+  <h3 class="sub-head" id="py-files">13 — Files</h3>
+  <pre><span class="lbl">Python — writing, then reading, a file</span><code class="k">with</code> open(<code class="s">"log.txt"</code>, <code class="s">"w"</code>) <code class="k">as</code> f:   <code class="c"># "w" = write (overwrites the file)</code>
+    f.write(<code class="s">"Pulse reading: 78 bpm\n"</code>)
+    f.write(<code class="s">"Pulse reading: 82 bpm\n"</code>)
+
+<code class="k">with</code> open(<code class="s">"log.txt"</code>, <code class="s">"r"</code>) <code class="k">as</code> f:   <code class="c"># "r" = read</code>
+    <code class="k">for</code> line <code class="k">in</code> f:
+        print(<code class="s">"Read:"</code>, line.strip())
+
+<code class="k">with</code> open(<code class="s">"log.txt"</code>, <code class="s">"a"</code>) <code class="k">as</code> f:   <code class="c"># "a" = append, adds to the end</code>
+    f.write(<code class="s">"Pulse reading: 90 bpm\n"</code>)</pre>
+  <p><code>with open(...) as f:</code> automatically closes the file for you when the indented block ends — C makes
+  you remember <code>fclose()</code> yourself, and forgetting it is a classic bug. <code>line.strip()</code>
+  removes the invisible newline character from the end of each line.</p>
+
+  <h3 class="sub-head" id="py-oop">14 — Classes &amp; objects (this is the "hero" step)</h3>
+  <div class="analogy"><div class="icon">🧬</div><div><b>Plain-English idea:</b> So far, a dictionary bundled
+  data (name, age, pulse) but had no <i>behaviour</i>. A <b>class</b> is a blueprint that bundles data
+  <i>and</i> the actions that belong with it, together, into one reusable design. Each patient you create from the
+  blueprint is called an <b>object</b> (or "instance").</div></div>
+  <pre><span class="lbl">Python — a Patient blueprint</span><code class="k">class</code> Patient:
+    <code class="k">def</code> __init__(self, name, age, pulse):   <code class="c"># runs automatically when a new Patient is made</code>
+        self.name = name
+        self.age = age
+        self.pulse = pulse
+
+    <code class="k">def</code> is_tachycardic(self):        <code class="c"># a behaviour that belongs to every Patient</code>
+        <code class="k">return</code> self.pulse &gt; 100
+
+    <code class="k">def</code> describe(self):
+        status = <code class="s">"high pulse"</code> <code class="k">if</code> self.is_tachycardic() <code class="k">else</code> <code class="s">"normal pulse"</code>
+        <code class="k">return</code> f<code class="s">"{self.name} ({self.age}): {self.pulse} bpm, {status}"</code>
+
+<code class="c"># creating two separate objects from the same blueprint:</code>
+p1 = Patient(<code class="s">"Meera Iyer"</code>, 34, 76)
+p2 = Patient(<code class="s">"Rohan Das"</code>, 45, 112)
+
+print(p1.describe())
+print(p2.describe())</pre>
+  <div class="out">Meera Iyer (34): 76 bpm, normal pulse
+Rohan Das (45): 112 bpm, high pulse</div>
+  <ul class="steps">
+    <li><b>Step 1.</b> <code>class Patient:</code> defines the blueprint's name.</li>
+    <li><b>Step 2.</b> <code>__init__</code> is a special function that runs the moment you create a new object —
+    it's where you set up that object's own data.</li>
+    <li><b>Step 3.</b> <code>self</code> means "this particular object" — it's how <code>describe()</code> knows
+    whether to talk about <code>p1</code> or <code>p2</code>.</li>
+    <li><b>Step 4.</b> <code>p1</code> and <code>p2</code> are two independent objects built from the same
+    blueprint — changing <code>p1.pulse</code> never affects <code>p2</code>.</li>
+    <li><b>Step 5. (a peek further)</b> A class can also <b>inherit</b> from another class to reuse and extend a
+    blueprint, e.g. <code>class ICUPatient(Patient):</code> would automatically get everything <code>Patient</code>
+    has, plus anything new you add.</li>
+  </ul>
+  <div class="callout"><b class="tag">Why this matters for you</b> Everything you already learned — variables,
+  functions, dictionaries — was secretly preparing you for this. A class is just "a dictionary of data, plus
+  functions that know how to work on that data, packaged together." This is how almost all real-world Python
+  software (including biomedical signal-processing libraries) is organised.</div>
+
+  <h3 class="sub-head" id="py-comprehension">15 — Comprehensions &amp; lambda (writing Python more fluently)</h3>
+  <pre><span class="lbl">Python</span>pulses = [72, 110, 65, 130, 88]
+
+<code class="c"># the long way, using a loop:</code>
+high = []
+<code class="k">for</code> p <code class="k">in</code> pulses:
+    <code class="k">if</code> p &gt; 100:
+        high.append(p)
+
+<code class="c"># the same result, as a "list comprehension" — one readable line:</code>
+high = [p <code class="k">for</code> p <code class="k">in</code> pulses <code class="k">if</code> p &gt; 100]
+print(high)
+
+<code class="c"># lambda: a tiny, unnamed, throwaway function, often used inline</code>
+squared = list(map(<code class="k">lambda</code> x: x * x, [1, 2, 3]))
+print(squared)</pre>
+  <div class="out">[110, 130]
+[1, 4, 9]</div>
+  <p>A list comprehension is not a new concept — it's the exact same loop-and-filter idea from §6–7, just written
+  compactly. Learn the long way first (you just did); reach for comprehensions once the long way feels automatic.</p>
+
+  <h3 class="sub-head" id="py-libs">16 — A taste of NumPy, Matplotlib &amp; Pandas</h3>
+  <p>These are not part of standard Python — they're separate, extremely popular <b>packages</b> you install
+  once with <code>pip install numpy matplotlib pandas</code>. They're what actually gets used in signal-processing
+  and biomedical data work, so it's worth seeing them once.</p>
+  <pre><span class="lbl">Python — NumPy: fast arrays of numbers</span><code class="k">import</code> numpy <code class="k">as</code> np
+
+ecg_sample = np.array([0.1, 0.4, 1.2, 0.3, -0.2, 0.1])
+print(<code class="s">"mean:"</code>, ecg_sample.mean())
+print(<code class="s">"max:"</code>, ecg_sample.max())
+print(<code class="s">"above 0.3:"</code>, ecg_sample[ecg_sample &gt; 0.3])</pre>
+  <pre><span class="lbl">Python — Matplotlib: plotting a signal</span><code class="k">import</code> matplotlib.pyplot <code class="k">as</code> plt
+
+plt.plot(ecg_sample)
+plt.title(<code class="s">"Sample ECG-like signal"</code>)
+plt.xlabel(<code class="s">"Time step"</code>)
+plt.ylabel(<code class="s">"Voltage (mV)"</code>)
+plt.show()</pre>
+  <pre><span class="lbl">Python — Pandas: tables of data (like a spreadsheet)</span><code class="k">import</code> pandas <code class="k">as</code> pd
+
+df = pd.read_csv(<code class="s">"patients.csv"</code>)
+print(df.head())              <code class="c"># first 5 rows</code>
+print(df[<code class="s">"pulse"</code>].mean())   <code class="c"># average of the "pulse" column</code></pre>
+  <div class="callout green"><b class="tag">You already know enough to read this</b> NumPy arrays are lists with
+  superpowers, Matplotlib calls are just functions (§10) you feed data into, and a Pandas DataFrame is basically a
+  big table of dictionaries (§9). Nothing here is a new <i>concept</i> — only new vocabulary on top of ideas you
+  already have.</div>
+
+  <h3 class="sub-head" id="py-capstone">17 — Capstone project: a Patient Vitals Tracker</h3>
+  <p>This one program deliberately uses almost everything above — variables, loops, functions, a dictionary/class,
+  file handling, and error handling — so you can see them work together.</p>
+  <pre><span class="lbl">Python — capstone</span><code class="k">class</code> Patient:
+    <code class="k">def</code> __init__(self, name):
+        self.name = name
+        self.readings = []          <code class="c"># a list living inside an object</code>
+
+    <code class="k">def</code> add_reading(self, pulse):
+        self.readings.append(pulse)
+
+    <code class="k">def</code> average(self):
+        <code class="k">if</code> <code class="k">not</code> self.readings:
+            <code class="k">return</code> 0
+        <code class="k">return</code> sum(self.readings) / len(self.readings)
+
+    <code class="k">def</code> flagged(self):
+        <code class="k">return</code> [p <code class="k">for</code> p <code class="k">in</code> self.readings <code class="k">if</code> p &gt; 100 <code class="k">or</code> p &lt; 50]
+
+<code class="k">def</code> main():
+    patient = Patient(input(<code class="s">"Patient name: "</code>))
+
+    <code class="k">while</code> <code class="k">True</code>:
+        raw = input(<code class="s">"Enter a pulse reading (or 'done'): "</code>)
+        <code class="k">if</code> raw.lower() == <code class="s">"done"</code>:
+            <code class="k">break</code>
+        <code class="k">try</code>:
+            patient.add_reading(int(raw))
+        <code class="k">except</code> ValueError:
+            print(<code class="s">"Please enter a whole number, or 'done'."</code>)
+
+    print(f<code class="s">"\nAverage pulse for {patient.name}: {patient.average():.1f} bpm"</code>)
+    print(<code class="s">"Flagged (abnormal) readings:"</code>, patient.flagged())
+
+    <code class="k">with</code> open(<code class="s">"vitals_log.txt"</code>, <code class="s">"a"</code>) <code class="k">as</code> f:
+        f.write(f<code class="s">"{patient.name}: avg={patient.average():.1f}, flagged={patient.flagged()}\n"</code>)
+    print(<code class="s">"Saved to vitals_log.txt"</code>)
+
+main()</pre>
+  <div class="callout"><b class="tag">Build this yourself</b> Type it in, run it, break it on purpose (type letters
+  instead of numbers, type nothing), and watch how each part you learned earlier is the reason the program doesn't
+  crash. Then try extending it: add a second patient, or compute the highest and lowest reading too.</div>
+</section>
+
+<div class="pulse-divider"><span>The main event</span><div class="line"></div><span>Data Structures — the smallest possible steps</span></div>
+
+<!-- ================= 6. DATA STRUCTURES ================= -->
+<section id="data-structures">
+  <div class="section-head"><span class="num">§6</span><h2>Data Structures, one small step at a time</h2><span class="sub"><span class="badge ds">Concept</span>no step assumes anything you haven't just read</span></div>
+
+  <p>A <b>data structure</b> is just a way of arranging information so a particular job — finding something,
+  adding something, removing something, keeping things in order — is fast and doesn't waste space. Nothing below
+  requires cleverness. Every idea is a real-world picture first, a tiny numbered walkthrough second, and code
+  last.</p>
+
+  <h3 class="sub-head" id="ds-zero">6.0 — Before anything else: what is "memory," really?</h3>
+  <div class="analogy"><div class="icon">🏨</div><div><b>Real-world picture:</b> Imagine your computer's memory
+  (RAM) as one enormous hotel corridor, lined with millions of identical numbered rooms. Every single value your
+  program ever creates — a number, a letter, anything — gets placed into one of these rooms. The room number is
+  called an <b>address</b>. A data structure is simply a <i>strategy</i> for which rooms you use and how you
+  connect them.</div></div>
+  <ul class="checklist">
+    <li>An <b>array</b>'s strategy: book a block of <i>consecutive</i> rooms, all the same size.</li>
+    <li>A <b>linked list</b>'s strategy: book rooms wherever there's space, and leave a note in each room saying
+    which room to visit next.</li>
+  </ul>
+  <p>Keep this hotel picture in mind — every structure below is just a different room-booking strategy, chosen to
+  make one particular job fast.</p>
+
+  <h3 class="sub-head" id="ds-array">6.1 — Arrays: the row of lockers</h3>
+  <div class="analogy"><div class="icon">🗄️</div><div><b>Real-world picture:</b> A row of identical, numbered
+  lockers bolted to a wall, side by side, no gaps. Locker 0, locker 1, locker 2 ... each holding exactly one item.</div></div>
+
+  <h4 class="micro-head">Why numbering starts at 0, not 1</h4>
+  <p>Think of the locker number as "how many steps to walk from the very first locker." The first locker itself
+  needs 0 steps to reach — so it's locker number 0. This single habit (counting from 0) is one of the first
+  things that feels odd and then becomes automatic.</p>
+
+  <h4 class="micro-head">Step-by-step: reading an item</h4>
+  <ul class="steps">
+    <li>You ask for <code>locker[2]</code>.</li>
+    <li>The computer already knows exactly where locker 0 begins, and exactly how wide one locker is.</li>
+    <li>It calculates: <i>start position + (2 × locker width)</i> — simple multiplication, done instantly.</li>
+    <li>It jumps straight there. It never had to look inside locker 0 or locker 1 first.</li>
+  </ul>
+  <p>This "jump straight there" behaviour is called <b>random access</b>, and it's an array's single biggest
+  strength: reading <code>arr[47]</code> costs the same tiny effort whether the array has 100 items or
+  10,000,000.</p>
+
+  <div class="diagram">
+    <div class="box filled">72<br><small>[0]</small></div>
+    <div class="box filled">75<br><small>[1]</small></div>
+    <div class="box filled">80<br><small>[2]</small></div>
+    <div class="box filled">78<br><small>[3]</small></div>
+    <div class="box filled">76<br><small>[4]</small></div>
+  </div>
+
+  <h4 class="micro-head">Step-by-step: inserting a new value in the middle</h4>
+  <p>Say you want to insert 74 at position 2 of <code>[72, 75, 80, 78, 76]</code>.</p>
+  <ul class="steps">
+    <li>There is no empty locker at position 2 — every locker is already bolted down and occupied.</li>
+    <li>So first, the value in locker 4 (76) is copied one locker to the right, into a new locker 5.</li>
+    <li>Then the value in locker 3 (78) is copied into locker 4.</li>
+    <li>Then the value in locker 2 (80) is copied into locker 3.</li>
+    <li>Only now is locker 2 empty, and 74 can finally be placed there.</li>
+  </ul>
+  <p>Notice how much shifting happened just to insert <b>one</b> value. That's the array's one real weakness —
+  inserting or deleting anywhere except the very end is slow, because everything after it must physically shift.
+  In C, there's a second limitation too: you must decide the total number of lockers up front and can't change it
+  later (Python's list quietly handles this resizing for you, as you saw in §7 of the Python course).</p>
+
+  <pre><span class="lbl">C</span><code class="k">int</code> pulses[5] = {72, 75, 80, 78, 76};
+printf(<code class="s">"%d\n"</code>, pulses[2]);   <code class="c">// prints 80 — instantly, no searching</code></pre>
+  <pre><span class="lbl">Python</span>pulses = [72, 75, 80, 78, 76]
+print(pulses[2])    <code class="c"># prints 80 — Python lists auto-resize, unlike C arrays</code></pre>
+
+  <table>
+    <tr><th>Operation</th><th>How fast, in plain words</th></tr>
+    <tr><td>Read item at a known position</td><td>Instant, regardless of array size</td></tr>
+    <tr><td>Insert/delete in the middle</td><td>Slow — everything after must shift</td></tr>
+    <tr><td>Insert/delete at the very end</td><td>Fast (if there's spare room)</td></tr>
+  </table>
+
+  <h3 class="sub-head" id="ds-linkedlist">6.2 — Linked lists: the treasure hunt</h3>
+  <div class="analogy"><div class="icon">🔗</div><div><b>Real-world picture:</b> A treasure hunt. Clue #1, found
+  anywhere, says "the next clue is under the park bench." You walk there, find clue #2, which says "the next clue
+  is on the library's third shelf." The clues themselves can be scattered anywhere in the building — only the
+  <i>notes connecting them</i> matter.</div></div>
+
+  <h4 class="micro-head">What one "clue" (node) actually contains</h4>
+  <p>Each node holds exactly two things: (1) the actual data, and (2) a pointer — the "next clue" — telling you
+  where the following node lives in memory. There's no requirement that nodes sit next to each other, unlike
+  array lockers.</p>
+  <div class="diagram">
+    <div class="box filled">72</div><div class="arrow">→</div>
+    <div class="box filled">75</div><div class="arrow">→</div>
+    <div class="box filled">80</div><div class="arrow">→</div>
+    <div class="box ptr">NULL</div>
+  </div>
+  <p>The very last node's "next" points to <code>NULL</code> — a special value meaning "there is nothing after
+  this; the chain ends here."</p>
+
+  <h4 class="micro-head">Step-by-step: inserting 74 at the front</h4>
+  <ul class="steps">
+    <li>A brand new node is created somewhere in memory, containing 74.</li>
+    <li>That new node's "next" pointer is set to point at the <i>current</i> first node (the one holding 72).</li>
+    <li>The list's official starting point ("head") is updated to point at the new node instead.</li>
+    <li>Nothing else in the whole list had to move even slightly — unlike the array case above.</li>
+  </ul>
+
+  <h4 class="micro-head">Step-by-step: finding the 3rd item</h4>
+  <ul class="steps">
+    <li>Start at the head (first node).</li>
+    <li>Follow its "next" pointer to reach node 2.</li>
+    <li>Follow node 2's "next" pointer to reach node 3.</li>
+    <li>There is no way to "jump straight to node 3" the way arrays can jump to locker 3 — you must walk the
+    chain one link at a time.</li>
+  </ul>
+  <p>This is the trade-off, in one sentence: <b>linked lists make inserting/deleting cheap, but make reaching a
+  specific position slow</b> — exactly the opposite trade-off from arrays.</p>
+
+  <pre><span class="lbl">C — a linked list node, and inserting at the front</span><code class="k">struct</code> Node {
+    <code class="k">int</code> pulse;
+    <code class="k">struct</code> Node *next;
+};
+
+<code class="k">struct</code> Node* insertFront(<code class="k">struct</code> Node* head, <code class="k">int</code> value) {
+    <code class="k">struct</code> Node* newNode = (<code class="k">struct</code> Node*) malloc(<code class="k">sizeof</code>(<code class="k">struct</code> Node));
+    newNode-&gt;pulse = value;
+    newNode-&gt;next  = head;   <code class="c">// new node points to the old first node</code>
+    <code class="k">return</code> newNode;      <code class="c">// new node is now the head (start) of the list</code>
+}</pre>
+  <pre><span class="lbl">Python — the same idea, built by hand</span><code class="k">class</code> Node:
+    <code class="k">def</code> __init__(self, pulse):
+        self.pulse = pulse
+        self.next = <code class="k">None</code>     <code class="c"># None is Python's NULL</code>
+
+<code class="k">def</code> insert_front(head, value):
+    new_node = Node(value)
+    new_node.next = head
+    <code class="k">return</code> new_node
+
+<code class="c"># Python's own built-in list already behaves like a flexible array (§6.1's Python
+# side), so hand-built linked lists here are mostly taught so you truly understand
+# the mechanism, not because you'd reach for them daily.</code></pre>
+
+  <h3 class="sub-head" id="ds-stack">6.3 — Stacks: the plate dispenser</h3>
+  <div class="analogy"><div class="icon">🍽️</div><div><b>Real-world picture:</b> A canteen's spring-loaded plate
+  dispenser. You can only take the <i>top</i> plate. You can only add a new plate to the <i>top</i>. The plate
+  placed first, at the very bottom, is the last one anyone will ever reach.</div></div>
+  <p>This rule has a name: <b>LIFO — Last In, First Out</b>. There are only ever two moves.</p>
+  <ul class="checklist">
+    <li><b>push</b> — place a new item on top.</li>
+    <li><b>pop</b> — remove and return whatever is currently on top.</li>
+  </ul>
+
+  <h4 class="micro-head">Step-by-step: push 72, push 75, push 80, then pop twice</h4>
+  <ul class="steps">
+    <li>push 72 → stack is <code>[72]</code>, top = 72</li>
+    <li>push 75 → stack is <code>[72, 75]</code>, top = 75</li>
+    <li>push 80 → stack is <code>[72, 75, 80]</code>, top = 80</li>
+    <li>pop → returns 80, stack is now <code>[72, 75]</code></li>
+    <li>pop → returns 75, stack is now <code>[72]</code></li>
+  </ul>
+  <p>Notice 72 — the very first thing pushed — is now the hardest to reach; it's at the bottom, exactly like the
+  plate dispenser.</p>
+  <div class="diagram"><div class="box ptr">top →</div><div class="box filled">3rd pushed</div></div>
+  <div class="diagram" style="margin-top:-10px;flex-direction:column;align-items:flex-start;margin-left:70px;">
+    <div class="box filled" style="width:120px;">2nd pushed</div>
+    <div class="box filled" style="width:120px;">1st pushed (bottom)</div>
+  </div>
+  <p>Where you've already met this without knowing it: your browser's <b>Back</b> button is a stack of pages you
+  visited. When a C function calls another function (§4.4), the computer secretly uses a stack to remember where
+  to return to — which is exactly why infinite recursion with no base case crashes with a "stack overflow": the
+  stack of "remember to return here" notes grows forever until memory runs out.</p>
+  <pre><span class="lbl">C — array-based stack</span><code class="k">#define</code> MAX 100
+<code class="k">int</code> stack[MAX], top = -1;
+
+<code class="k">void</code> push(<code class="k">int</code> value) { stack[++top] = value; }
+<code class="k">int</code>  pop()             { <code class="k">return</code> stack[top--]; }</pre>
+  <pre><span class="lbl">Python — a Python list already IS a stack</span>stack = []
+stack.append(72)    <code class="c"># push</code>
+stack.append(75)    <code class="c"># push</code>
+stack.append(80)    <code class="c"># push</code>
+last = stack.pop()   <code class="c"># pop -&gt; removes and returns 80</code>
+print(stack, last)</pre>
+  <div class="out">[72, 75] 80</div>
+
+  <h3 class="sub-head" id="ds-queue">6.4 — Queues: the hospital token counter</h3>
+  <div class="analogy"><div class="icon">🎫</div><div><b>Real-world picture:</b> The token queue at a hospital's
+  OPD counter. Whoever took the earliest token is served first. New arrivals join the <i>back</i> of the line.
+  Nobody can cut in.</div></div>
+  <p>This rule has a name: <b>FIFO — First In, First Out</b>. Again, only two moves.</p>
+  <ul class="checklist">
+    <li><b>enqueue</b> — join the back of the line.</li>
+    <li><b>dequeue</b> — the person at the front leaves.</li>
+  </ul>
+
+  <h4 class="micro-head">Step-by-step: three patients arrive, then two are served</h4>
+  <ul class="steps">
+    <li>enqueue Patient A → line is <code>[A]</code></li>
+    <li>enqueue Patient B → line is <code>[A, B]</code></li>
+    <li>enqueue Patient C → line is <code>[A, B, C]</code></li>
+    <li>dequeue → A is served and leaves, line is now <code>[B, C]</code></li>
+    <li>dequeue → B is served and leaves, line is now <code>[C]</code></li>
+  </ul>
+  <p>Compare this directly with the stack above: same two ideas (add one end, remove one end), but a queue removes
+  from the <i>opposite</i> end it adds to, while a stack removes from the <i>same</i> end it adds to. That single
+  difference is the entire distinction between FIFO and LIFO.</p>
+  <div class="diagram">
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:.8rem;">front →</span>
+    <div class="box filled">B</div>
+    <div class="box filled">C</div>
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:.8rem;">← back (new patients join here)</span>
+  </div>
+  <pre><span class="lbl">Python — using the recommended deque (double-ended queue)</span><code class="k">from</code> collections <code class="k">import</code> deque
+queue = deque()
+queue.append(<code class="s">"Patient A"</code>)    <code class="c"># enqueue</code>
+queue.append(<code class="s">"Patient B"</code>)    <code class="c"># enqueue</code>
+queue.append(<code class="s">"Patient C"</code>)    <code class="c"># enqueue</code>
+next_patient = queue.popleft()   <code class="c"># dequeue -&gt; "Patient A"</code>
+print(next_patient, list(queue))</pre>
+  <div class="out">Patient A ['Patient B', 'Patient C']</div>
+
+  <h3 class="sub-head" id="ds-tree">6.5 — Trees: the hospital's organisation chart</h3>
+  <div class="analogy"><div class="icon">🌳</div><div><b>Real-world picture:</b> A hospital's organisation chart:
+  the Medical Superintendent at the top, Heads of Department reporting to them, and doctors reporting to each
+  Head. Information branches outward and never loops back on itself.</div></div>
+  <p>Vocabulary, in plain terms: the topmost box (Medical Superintendent) is the <b>root</b>. Each box is a
+  <b>node</b>. A box directly below another is its <b>child</b>. A box with no boxes below it is a <b>leaf</b>.</p>
+
+  <h4 class="micro-head">A special, very common tree: the Binary Search Tree (BST)</h4>
+  <p>A BST adds one strict rule: each node can have at most <b>two</b> children, and for every node — everything
+  smaller goes to the left, everything bigger goes to the right.</p>
+  <div class="diagram" style="flex-direction:column;align-items:center;">
+    <div class="box filled">50 (root)</div>
+    <div style="display:flex;gap:60px;"><div class="box filled">30</div><div class="box filled">70</div></div>
+    <div style="display:flex;gap:20px;"><div class="box filled">20</div><div class="box filled">40</div><div class="box filled">60</div><div class="box filled">80</div></div>
+  </div>
+
+  <h4 class="micro-head">Step-by-step: searching for 60 in the tree above</h4>
+  <ul class="steps">
+    <li>Start at the root, 50. Is 60 bigger or smaller than 50? Bigger → go right.</li>
+    <li>Now at 70. Is 60 bigger or smaller than 70? Smaller → go left.</li>
+    <li>Now at 60. Match found — stop.</li>
+  </ul>
+  <p>Just three steps, in a tree holding 7 values. Each comparison threw away an entire half of the remaining
+  possibilities — a bit like a well-organised patient-record cabinet split first into "A–M" and "N–Z," which
+  instantly halves your search space.</p>
+  <pre><span class="lbl">C — a BST node</span><code class="k">struct</code> TreeNode {
+    <code class="k">int</code> value;
+    <code class="k">struct</code> TreeNode *left, *right;
+};</pre>
+  <div class="callout"><b class="tag">Where BME meets this</b> File-system folders, a decision tree for diagnosing
+  symptoms, and hierarchical clustering of gene-expression data (mentioned in your Bioinformatics elective) are
+  all trees in disguise.</div>
+
+  <h3 class="sub-head" id="ds-graph">6.6 — Graphs: the referral network</h3>
+  <div class="analogy"><div class="icon">🗺️</div><div><b>Real-world picture:</b> A network of hospitals that
+  refer patients to each other for specialised treatment. Hospital A might refer to both B and C; B might also
+  refer to C, or even back to A. Unlike a tree, there's no single "top," and connections can loop back around.</div></div>
+  <p>A graph is simply a set of <b>nodes</b> ("vertices," e.g. hospitals) connected by <b>edges</b> (e.g. referral
+  links), with no restriction on how they connect. Every tree you just saw in §6.5 is actually a special,
+  more restricted <i>kind</i> of graph — one with no loops and exactly one path between any two nodes. Google
+  Maps' road network, a social network's friendships, and neuron-to-neuron connections are all graphs.</p>
+
+  <h3 class="sub-head" id="ds-sort">6.7 — Sorting: organising patient files by name</h3>
+  <div class="analogy"><div class="icon">🗃️</div><div><b>Real-world picture:</b> A stack of patient files dumped
+  in random order that you need to arrange alphabetically before filing them.</div></div>
+
+  <h4 class="micro-head">Bubble sort, walked through one pass at a time</h4>
+  <p>Starting list: <code>[80, 72, 78, 75]</code>. The rule: look at each neighbouring pair, left to right; if the
+  left one is bigger, swap them.</p>
+  <ul class="steps">
+    <li>Compare 80 and 72 → 80 is bigger, swap → <code>[72, 80, 78, 75]</code></li>
+    <li>Compare 80 and 78 → 80 is bigger, swap → <code>[72, 78, 80, 75]</code></li>
+    <li>Compare 80 and 75 → 80 is bigger, swap → <code>[72, 78, 75, 80]</code></li>
+    <li><i>End of pass 1.</i> Notice 80 — the biggest value — has "bubbled" all the way to the end.</li>
+    <li>Pass 2: compare 72&amp;78 (no swap), compare 78&amp;75 → swap → <code>[72, 75, 78, 80]</code></li>
+    <li>Pass 3: compare 72&amp;75 (no swap needed) → the list is now fully sorted.</li>
+  </ul>
+  <pre><span class="lbl">C — bubble sort</span><code class="k">void</code> bubbleSort(<code class="k">int</code> arr[], <code class="k">int</code> n) {
+    <code class="k">for</code> (<code class="k">int</code> i = 0; i &lt; n-1; i++)
+        <code class="k">for</code> (<code class="k">int</code> j = 0; j &lt; n-1-i; j++)
+            <code class="k">if</code> (arr[j] &gt; arr[j+1]) {
+                <code class="k">int</code> temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
+            }
+}</pre>
+
+  <h4 class="micro-head">Selection sort, walked through the same way</h4>
+  <p>Same starting list: <code>[80, 72, 78, 75]</code>. The rule: find the smallest value in the <i>unsorted</i>
+  part, and swap it into the front of that unsorted part.</p>
+  <ul class="steps">
+    <li>Scan the whole list for the smallest value → 72 (at position 1). Swap it with position 0 →
+    <code>[72, 80, 78, 75]</code>. Position 0 is now finalised.</li>
+    <li>Scan positions 1–3 for the smallest → 75 (at position 3). Swap it with position 1 →
+    <code>[72, 75, 78, 80]</code>. Position 1 is now finalised.</li>
+    <li>Scan positions 2–3 for the smallest → 78 is already smaller than 80, no swap needed. Position 2 is
+    finalised, and position 3 is automatically correct too.</li>
+  </ul>
+  <pre><span class="lbl">Python — both ideas</span><code class="k">def</code> bubble_sort(arr):
+    n = len(arr)
+    <code class="k">for</code> i <code class="k">in</code> range(n-1):
+        <code class="k">for</code> j <code class="k">in</code> range(n-1-i):
+            <code class="k">if</code> arr[j] &gt; arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]   <code class="c"># Python can swap in one line</code>
+    <code class="k">return</code> arr
+
+<code class="k">def</code> selection_sort(arr):
+    n = len(arr)
+    <code class="k">for</code> i <code class="k">in</code> range(n):
+        smallest = i
+        <code class="k">for</code> j <code class="k">in</code> range(i+1, n):
+            <code class="k">if</code> arr[j] &lt; arr[smallest]:
+                smallest = j
+        arr[i], arr[smallest] = arr[smallest], arr[i]
+    <code class="k">return</code> arr
+
+<code class="c"># in real projects, Python's built-in sorted(arr) is used instead — but knowing
+# HOW sorting works underneath is exactly what your syllabus is testing.</code></pre>
+  <div class="callout">
+    <b class="tag">Why "how fast" matters</b>
+    Both methods above do roughly <i>n × n</i> comparisons for <i>n</i> files: 10 files ≈ 100 comparisons, but
+    10,000 files ≈ 100,000,000. That's why large real-world software uses cleverer algorithms — but these simple
+    ones are exactly right for learning the underlying idea, which is what the exam and viva actually test.
+  </div>
+
+  <h3 class="sub-head" id="ds-search">6.8 — Searching: finding one file in the cabinet</h3>
+  <div class="analogy"><div class="icon">🔎</div><div><b>Real-world picture:</b> Looking for one specific
+  patient's file.</div></div>
+
+  <h4 class="micro-head">Linear search, step by step</h4>
+  <p>Looking for 78 in <code>[72, 75, 80, 78, 76]</code> — files in random order, not sorted:</p>
+  <ul class="steps">
+    <li>Check position 0: 72. Not a match. Move on.</li>
+    <li>Check position 1: 75. Not a match. Move on.</li>
+    <li>Check position 2: 80. Not a match. Move on.</li>
+    <li>Check position 3: 78. Match! Stop — return position 3.</li>
+  </ul>
+  <p>Works on any pile, sorted or not — but in the worst case (the value is last, or missing entirely), you check
+  every single item.</p>
+
+  <h4 class="micro-head">Binary search, step by step (needs a sorted list first)</h4>
+  <p>Looking for 78 in the already-sorted list <code>[72, 75, 76, 78, 80]</code> (positions 0 to 4):</p>
+  <ul class="steps">
+    <li>low = 0, high = 4. Middle position = (0+4)/2 = 2, value there = 76. Is 78 bigger or smaller than 76?
+    Bigger → the answer must be in the right half, so narrow: low = 3.</li>
+    <li>Now low = 3, high = 4. Middle position = (3+4)/2 = 3, value there = 78. Match! Stop.</li>
+  </ul>
+  <p>Just two checks, instead of four. Every single check throws away half of whatever's left — which is why it
+  gets dramatically faster than linear search as the pile grows, provided the pile is sorted first.</p>
+  <div class="diagram">
+    <div class="box fade">72</div><div class="box fade">75</div><div class="box hi">76</div><div class="box filled">78</div><div class="box fade">80</div>
+  </div>
+  <pre><span class="lbl">C — binary search</span><code class="k">int</code> binarySearch(<code class="k">int</code> arr[], <code class="k">int</code> n, <code class="k">int</code> target) {
+    <code class="k">int</code> low = 0, high = n - 1;
+    <code class="k">while</code> (low &lt;= high) {
+        <code class="k">int</code> mid = (low + high) / 2;
+        <code class="k">if</code> (arr[mid] == target) <code class="k">return</code> mid;
+        <code class="k">else if</code> (arr[mid] &lt; target) low  = mid + 1;
+        <code class="k">else</code>                      high = mid - 1;
+    }
+    <code class="k">return</code> -1;   <code class="c">// not found</code>
+}</pre>
+  <table>
+    <tr><th>Search on 1,000,000 sorted items</th><th>Roughly how many checks</th></tr>
+    <tr><td>Linear search (worst case)</td><td>1,000,000</td></tr>
+    <tr><td>Binary search (worst case)</td><td>~20</td></tr>
+  </table>
+
+  <details>
+    <summary>A quick, plain-English word on "Big-O" (why programmers say O(n) and O(log n))</summary>
+    <p>You'll hear this notation constantly once you go past your first year. It simply describes <b>how the
+    amount of work grows as the amount of data grows</b>, ignoring exact numbers:</p>
+    <ul>
+      <li><b>O(1)</b> — constant. Reading <code>arr[47]</code>: same speed no matter the array size.</li>
+      <li><b>O(log n)</b> — grows very slowly. Binary search: doubling the data adds just <i>one more</i> check.</li>
+      <li><b>O(n)</b> — grows in direct proportion. Linear search: doubling the data doubles the work.</li>
+      <li><b>O(n²)</b> — grows with the square. Bubble/selection sort: doubling the data quadruples the work.</li>
+    </ul>
+  </details>
+
+  <h3 class="sub-head" id="ds-cheatsheet">6.9 — Cheat sheet: all eight, side by side</h3>
+  <table>
+    <tr><th>Structure</th><th>Real-world picture</th><th>Best at</th><th>Weak at</th></tr>
+    <tr><td>Array</td><td>Row of numbered lockers</td><td>Instant read by position</td><td>Insert/delete in the middle</td></tr>
+    <tr><td>Linked list</td><td>Treasure hunt clues</td><td>Cheap insert/delete anywhere</td><td>Reaching a specific position</td></tr>
+    <tr><td>Stack</td><td>Plate dispenser (LIFO)</td><td>Undo actions, matching brackets</td><td>Reaching anything but the top</td></tr>
+    <tr><td>Queue</td><td>Hospital token line (FIFO)</td><td>Fair, ordered processing</td><td>Reaching anything but the front</td></tr>
+    <tr><td>Tree (BST)</td><td>Org chart / sorted cabinet</td><td>Fast search when sorted</td><td>Can get "unbalanced" and slow</td></tr>
+    <tr><td>Graph</td><td>Hospital referral network</td><td>Modelling any real connections</td><td>Can get complex to search fully</td></tr>
+    <tr><td>Sorting</td><td>Alphabetising files</td><td>Making later searches fast</td><td>Simple methods are slow on huge piles</td></tr>
+    <tr><td>Searching</td><td>Finding one file</td><td>Binary search is very fast if sorted</td><td>Needs sorted data first</td></tr>
+  </table>
+</section>
+
+<div class="pulse-divider"><span>Putting it into a schedule</span><div class="line"></div><span>Semester I → VIII</span></div>
+
+<!-- ================= 7. STUDY PLAN ================= -->
+<section id="study-plan">
+  <div class="section-head"><span class="num">§7</span><h2>Study plan</h2><span class="sub">a realistic semester-by-semester map</span></div>
+
+  <h3 class="sub-head">7.1 — Semester II: your 14-week C roadmap (mapped to the official units)</h3>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="when">Weeks 1–2 · Unit I</div>
+      <h4>Foundations</h4>
+      <p>Number systems, C program structure, data types, <code>printf</code>/<code>scanf</code>, arithmetic
+      operators. <b>Do:</b> write 5 tiny programs a day (temperature converter, area calculators, simple
+      arithmetic). Get comfortable compiling on Linux with <code>gcc</code>.</p>
+    </div>
+    <div class="tl-item">
+      <div class="when">Weeks 3–5 · Unit II</div>
+      <h4>Decisions, loops, functions</h4>
+      <p><code>if/else</code>, <code>switch</code>, all three loop types, then functions and recursion. <b>Do:</b>
+      every "simple control statement" exercise from your official lab list (quadratic roots, Armstrong numbers,
+      prime check, magic numbers) — these are exam favourites, not busywork.</p>
+    </div>
+    <div class="tl-item">
+      <div class="when">Weeks 6–8 · Unit III</div>
+      <h4>Arrays &amp; your first algorithms</h4>
+      <p>1-D and 2-D arrays, then bubble sort, selection sort, linear &amp; binary search (§6.7–6.8 above).
+      <b>Do:</b> matrix addition/multiplication/transpose using functions — this combines arrays and functions,
+      a favourite viva question.</p>
+    </div>
+    <div class="tl-item">
+      <div class="when">Weeks 9–11 · Unit IV</div>
+      <h4>Pointers &amp; strings</h4>
+      <p>The hardest conceptual jump (§4.6) — budget real time here, don't rush it. <b>Do:</b> re-implement
+      2–3 earlier array programs using pointer arithmetic instead of indexing, to feel the equivalence.</p>
+    </div>
+    <div class="tl-item">
+      <div class="when">Weeks 12–14 · Unit V</div>
+      <h4>Structures, unions, files, linked lists</h4>
+      <p><b>Do:</b> build one small combined project — e.g. a "Patient Register" that stores several
+      <code>struct Patient</code> records in a <b>linked list</b>, lets you add/search/delete a patient, and saves
+      the list to a file on exit and reloads it on start-up. This one project touches almost every official Unit
+      IV–V lab exercise at once.</p>
+    </div>
+  </div>
+
+  <h3 class="sub-head">7.2 — A parallel, self-paced 12-week Python zero-to-hero + DSA track</h3>
+  <div class="timeline">
+    <div class="tl-item"><div class="when">Weeks 1–2 · §5 stages 0–6</div><h4>Real basics</h4><p>Setup, variables,
+    operators, strings, input/output, if/elif/else, loops. Translate 5 of your existing C programs into Python,
+    one concept at a time.</p></div>
+    <div class="tl-item"><div class="when">Weeks 3–4 · §5 stages 7–9</div><h4>Collections</h4><p>Lists, tuples,
+    sets, dictionaries. Re-solve your string-manipulation lab exercises without <code>string.h</code>, using
+    Python's built-in string methods instead.</p></div>
+    <div class="tl-item"><div class="when">Weeks 5–6 · §5 stages 10–13</div><h4>Structure your code</h4><p>
+    Functions, modules, error handling, files. Rebuild your "count characters/words/lines" C lab program in
+    Python, with proper <code>try/except</code> around file reading.</p></div>
+    <div class="tl-item"><div class="when">Week 7 · §5 stage 14</div><h4>OOP</h4><p>Classes and objects. Turn your
+    C <code>struct Patient</code> into a Python <code>class Patient</code> with real behaviour (methods), not just
+    data.</p></div>
+    <div class="tl-item"><div class="when">Weeks 8–9 · §6.1–6.4</div><h4>Core data structures by hand</h4><p>
+    Implement a stack, a queue, and a singly linked list <i>from scratch</i> in Python even though Python gives
+    you shortcuts — the goal is understanding the mechanism, not convenience.</p></div>
+    <div class="tl-item"><div class="when">Week 10 · §6.5, 6.7–6.8</div><h4>Trees &amp; algorithms</h4><p>Build a
+    simple Binary Search Tree; implement bubble sort, selection sort, linear and binary search, then compare
+    against Python's built-in <code>sorted()</code>.</p></div>
+    <div class="tl-item"><div class="when">Weeks 11–12 · §5.16–5.17</div><h4>A biomedical mini-project</h4><p>
+    Load a small CSV of simulated ECG or pulse readings with Pandas, compute average/min/max, flag abnormal
+    readings with a list comprehension, and plot them with Matplotlib — a genuinely useful, portfolio-worthy
+    project that also previews your Semester IV Signals &amp; Systems course.</p></div>
+  </div>
+
+  <h3 class="sub-head">7.3 — General exam &amp; viva habits that consistently work</h3>
+  <div class="two-col">
+    <div class="card"><h4>For CIE / SEE (theory)</h4><ul>
+      <li>Redraw every diagram in this guide by hand from memory — don't just re-read it.</li>
+      <li>For each concept, write its one-sentence, plain-English definition in your own words before checking
+      this page's version.</li>
+      <li>Practice tracing recursive functions, pointer code, and sort/search algorithms line-by-line on paper
+      before typing anything — exactly like the numbered "step-by-step" walkthroughs above.</li>
+    </ul></div>
+    <div class="card"><h4>For the lab exam / viva</h4><ul>
+      <li>Type every program from memory at least once — don't just read the solution.</li>
+      <li>Be ready to explain, out loud, <i>why</i> each line exists, not just what it does.</li>
+      <li>Know the difference between a compile-time error, a run-time error, and a logical error, with an example
+      of each from your own code.</li>
+    </ul></div>
+  </div>
+</section>
+
+<!-- ================= 8. RESOURCES ================= -->
+<section id="resources">
+  <div class="section-head"><span class="num">§8</span><h2>Resources &amp; textbooks</h2><span class="sub">as prescribed, plus a few honest extras</span></div>
+  <div class="two-col">
+    <div class="card">
+      <h4>Official C syllabus references</h4>
+      <ul>
+        <li>B.A. Forouzan &amp; R.F. Gilberg — <i>A Structured Programming Approach in C</i> (Cengage, 2007)</li>
+        <li>Brian W. Kernighan &amp; Dennis M. Ritchie — <i>The C Programming Language</i>, 2nd ed. (PHI, 2006)</li>
+        <li>V. Rajaraman — <i>The Fundamentals of Computers</i>, 4th ed. (PHI, 2006)</li>
+        <li>R.G. Dromey — <i>How to Solve it by Computer</i> (Pearson, 2006)</li>
+        <li>Practice: <a href="https://projecteuler.net" target="_blank" rel="noopener">projecteuler.net</a> (linked directly in the official lab manual)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Good, free next steps for Python + DSA</h4>
+      <ul>
+        <li>Allen B. Downey — <i>Think Python</i> (O'Reilly) — free, gentle, used elsewhere in OU's own AICTE model curriculum</li>
+        <li>Ellis Horowitz &amp; Sartaj Sahni — <i>Fundamentals of Data Structures</i> — the standard reference cited in OU's own CSE data-structures syllabus</li>
+        <li>Official Python docs tutorial — <a href="https://docs.python.org/3/tutorial/" target="_blank" rel="noopener">docs.python.org/3/tutorial</a></li>
+        <li>Practice: revisit projecteuler.net in Python once you've finished the C track — solving the same problems twice cements both languages</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout">
+    <b class="tag">Always double-check</b>
+    Syllabi at autonomous colleges are revised roughly every 1–2 years by the Board of Studies. Before an exam,
+    cross-check this page's Unit breakdown against your own department's current handout or the latest PDF on
+    <a href="https://www.uceou.edu/dept-bme.php" target="_blank" rel="noopener">uceou.edu/dept-bme.php</a> — this
+    page reflects the AY 2022–23 (Sem I–II) and AY 2023–24 (Sem III–IV) published versions.
+  </div>
+</section>
+
+</main>
+</div>
+
+<footer>
+  Built as a study reference for B.E. Biomedical Engineering, University College of Engineering, Osmania
+  University. Syllabus content sourced from official PDFs published at uceou.edu (Department of Biomedical
+  Engineering). Not an official university publication — always confirm against your current department handout.
+</footer>
+
+</body>
+</html>

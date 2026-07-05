@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mathematics-III · Learn &amp; Practice · BE Biomedical · Osmania University</title>
+<meta name="description" content="A slow, granular, beginner-friendly tutorial for Engineering Mathematics-III (BS 901 MT, BME), Osmania University — complex variables, residue calculus, Fourier series and partial differential equations, with worked examples and practice." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script>
+  window.MathJax = { tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]}, svg:{fontCache:'global'}, startup:{typeset:true} };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+  :root{--paper:#eef3f1;--paper-2:#e4ebe8;--card:#ffffff;--ink:#132420;--ink-soft:#3f524d;--teal:#0e4e4a;--teal-bright:#178a7e;--rose:#e23e6b;--rose-deep:#b62a53;--amber:#c9821a;--line:#cdd8d3;--line-soft:#dde6e2;--shadow:0 1px 2px rgba(19,36,32,.05),0 8px 30px rgba(19,36,32,.06);--radius:14px;--maxw:820px;}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:74px}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:"Newsreader",Georgia,serif;font-size:19px;line-height:1.72;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  h1,h2,h3,h4,.disp{font-family:"Space Grotesk",system-ui,sans-serif;line-height:1.18;letter-spacing:-.01em}
+  code,.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+  a{color:var(--teal-bright);text-decoration:none}a:hover{text-decoration:underline}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+  mjx-container{overflow-x:auto;overflow-y:hidden;max-width:100%}
+  p{margin:14px 0}
+  header.nav{position:sticky;top:0;z-index:60;background:rgba(238,243,241,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav-inner{max-width:var(--maxw);margin:0 auto;padding:11px 22px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .brand{display:flex;align-items:center;gap:9px;font-family:"Space Grotesk";font-weight:600;font-size:14px;letter-spacing:.02em;color:var(--teal);white-space:nowrap}
+  .brand svg{width:24px;height:24px;color:var(--rose)}
+  .unit-nav{margin-left:auto;display:flex;gap:5px;flex-wrap:wrap}
+  .unit-nav a{font-family:"JetBrains Mono";font-size:12px;color:var(--ink-soft);padding:6px 10px;border-radius:7px;border:1px solid var(--line);background:var(--card)}
+  .unit-nav a:hover{background:var(--teal);color:#fff;border-color:var(--teal);text-decoration:none}
+  .hero{padding:50px 0 26px}
+  .eyebrow{font-family:"JetBrains Mono";font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--rose-deep);font-weight:500;margin-bottom:14px}
+  .hero h1{font-size:clamp(32px,6vw,52px);font-weight:700;margin:0;color:var(--ink)}
+  .hero h1 .g{color:var(--teal)}
+  .hero .lede{font-size:clamp(18px,2.2vw,21px);color:var(--ink-soft);margin:16px 0 0}
+  .startbox{margin-top:26px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 22px;box-shadow:var(--shadow)}
+  .startbox b{font-family:"Space Grotesk";color:var(--teal)}
+  .pulse{display:block;width:100%;height:28px;color:var(--rose);margin-top:26px}
+  .pulse path{fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1400;stroke-dashoffset:1400;animation:trace 3s ease forwards}
+  @keyframes trace{to{stroke-dashoffset:0}}
+  .unit{padding:26px 0 8px;scroll-margin-top:76px}
+  .unit-band{background:var(--teal);color:#eef3f1;border-radius:var(--radius);padding:22px 26px;margin-top:24px}
+  .unit-band .u-tag{font-family:"JetBrains Mono";font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#8fd3c7}
+  .unit-band h2{color:#fff;font-size:clamp(24px,4vw,34px);margin:8px 0 6px}
+  .unit-band p{margin:6px 0 0;color:#cfe4df;font-size:16px}
+  .unit-band .map{margin-top:14px;display:flex;flex-wrap:wrap;gap:7px}
+  .unit-band .map a{font-family:"JetBrains Mono";font-size:11.5px;background:rgba(255,255,255,.1);color:#eafffb;padding:5px 10px;border-radius:7px}
+  .unit-band .map a:hover{background:rgba(255,255,255,.22);text-decoration:none}
+  .lesson{scroll-margin-top:76px;padding:26px 0;border-bottom:1px solid var(--line-soft)}
+  .lesson-no{font-family:"JetBrains Mono";font-size:13px;color:var(--rose);font-weight:600}
+  .lesson h3{font-size:clamp(20px,3vw,26px);font-weight:600;margin:6px 0 0;color:var(--ink)}
+  .plain{background:#e7f1ee;border:1px solid #c4ded6;border-left:4px solid var(--teal-bright);border-radius:10px;padding:14px 18px;margin:18px 0}
+  .plain .lab{font-family:"Space Grotesk";font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--teal);font-weight:600;display:block;margin-bottom:4px}
+  .plain p{margin:4px 0}
+  .method{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:6px 20px 14px;margin:18px 0;box-shadow:var(--shadow)}
+  .method h4{font-family:"Space Grotesk";font-size:12.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--rose-deep);margin:16px 0 6px;font-weight:600}
+  .method ol{margin:6px 0;padding-left:22px}.method ol li{margin:8px 0}
+  .formula{background:#fbfdfc;border:1px dashed var(--line);border-radius:10px;padding:6px 18px;margin:16px 0}
+  .formula .lab{font-family:"Space Grotesk";font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--rose);font-weight:600}
+  .eg{background:#fffdf7;border:1px solid #ecdcb8;border-left:4px solid var(--amber);border-radius:10px;padding:8px 20px 16px;margin:20px 0}
+  .eg h4{font-family:"Space Grotesk";font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--amber);margin:14px 0 4px;font-weight:600;display:flex;align-items:center;gap:8px}
+  .eg .diff{font-family:"JetBrains Mono";font-size:10.5px;padding:2px 8px;border-radius:999px;border:1px solid currentColor;letter-spacing:.03em}
+  .eg .q{font-weight:600;color:var(--ink)}
+  .step{margin:10px 0}
+  .step .s{font-family:"JetBrains Mono";font-size:11.5px;color:var(--amber);font-weight:600;display:block;margin-bottom:1px;letter-spacing:.03em}
+  .practice{background:#fff5f7;border:1px solid #f2cdd7;border-radius:12px;padding:8px 20px 18px;margin:22px 0}
+  .practice > h4{font-family:"Space Grotesk";font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--rose-deep);margin:14px 0 4px;font-weight:600}
+  .practice .hint{font-size:14.5px;color:var(--ink-soft);margin:0 0 10px}
+  .pq{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:12px 0}
+  .pq .qh{display:flex;align-items:baseline;gap:10px}
+  .pq .qn{font-family:"Space Grotesk";font-weight:700;color:var(--rose);font-size:16px}
+  .pq .qbody{margin:2px 0 0}
+  .reveal{margin-top:10px;font-family:"Space Grotesk";font-size:13px;font-weight:600;color:#fff;background:var(--teal);border:none;border-radius:8px;padding:8px 15px;cursor:pointer;transition:.16s}
+  .reveal:hover{background:var(--teal-bright)}
+  .sol{display:none;margin-top:12px;padding-top:12px;border-top:1px dashed var(--line);font-size:16.5px}
+  .sol.open{display:block}
+  .sol .lab{font-family:"JetBrains Mono";font-size:11px;color:var(--teal);font-weight:600;letter-spacing:.04em}
+  .sol .ans{margin-top:8px;font-weight:600;color:var(--teal)}
+  .checkpoint{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--rose);border-radius:10px;padding:14px 18px;margin:22px 0;box-shadow:var(--shadow)}
+  .checkpoint .lab{font-family:"Space Grotesk";font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--rose-deep);font-weight:600;display:block;margin-bottom:6px}
+  .checkpoint ul{margin:6px 0;padding-left:20px}
+  footer{background:var(--ink);color:#c4d2cd;padding:42px 0 36px;margin-top:26px}
+  footer h4{font-family:"Space Grotesk";color:#fff;font-size:15px;margin:0 0 12px}
+  footer p{font-size:14px;color:#9fb3ad;line-height:1.6}
+  footer a{color:#5fc0b2}
+  footer .fine{border-top:1px solid #2a3d38;padding-top:18px;margin-top:20px;font-size:12.5px;color:#7f938d}
+  footer .mono{color:#5fc0b2}
+  @media(max-width:720px){body{font-size:18px}.unit-nav{width:100%;margin-left:0}}
+  @media(prefers-reduced-motion:reduce){.pulse path{animation:none;stroke-dashoffset:0}html{scroll-behavior:auto}}
+  @media print{.reveal{display:none}.sol{display:block!important}header.nav{position:static}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="index.html" style="font-family:'Space Grotesk',system-ui,sans-serif;font-size:13px;font-weight:600;color:#0e4e4a;background:#fff;border:1px solid #cdd8d3;border-radius:8px;padding:6px 11px;text-decoration:none;white-space:nowrap;margin-right:4px">&#8962; Hub</a>
+    <span class="brand"><svg viewBox="0 0 40 24" aria-hidden="true"><path d="M1 12h8l3-9 5 18 4-13 3 6 3-2h9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> MATHS-III · LEARN &amp; PRACTICE</span>
+    <nav class="unit-nav"><a href="#unit1">U1</a><a href="#unit2">U2</a><a href="#unit3">U3</a><a href="#unit4">U4</a><a href="#unit5">U5</a></nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="eyebrow">BS 901 MT · Semester 3 · the BME-specific paper</div>
+    <h1>Mathematics&nbsp;–&nbsp;III<br><span class="g">learn it, then practise it</span></h1>
+    <p class="lede">The mathematics behind biomedical signals: complex numbers as a calculation tool, Fourier series to break a signal into its frequencies, and partial differential equations that model heat, waves and diffusion in the body.</p>
+    <div class="startbox"><p style="margin:0"><b>How to use this page.</b> This paper leans on Maths I &amp; II — partial derivatives, integration, and series all come back. If a step feels shaky, revisit that lesson first, then return here. Work every example with a pen.</p></div>
+    <svg class="pulse" viewBox="0 0 1200 28" preserveAspectRatio="none" aria-hidden="true"><path d="M0 14 H220 l14 -11 l20 22 l16 -18 H500 l12 -9 l22 20 l14 -15 H820 l14 11 l18 -9 H1200"/></svg>
+  </div>
+</div>
+
+<main class="wrap">
+
+<div class="unit" id="unit1">
+  <div class="unit-band">
+    <div class="u-tag">Unit I</div>
+    <h2>Functions of a Complex Variable</h2>
+    <p>Functions that eat and return complex numbers. The magic word is <em>analytic</em> — and one pair of equations decides everything.</p>
+    <div class="map"><a href="#l1-1">1.1 Complex numbers recap</a><a href="#l1-2">1.2 Analytic &amp; C–R equations</a><a href="#l1-3">1.3 Harmonic conjugate</a><a href="#l1-4">1.4 Cauchy's theorems</a><a href="#l1-5">1.5 Practice</a></div>
+  </div>
+
+  <div class="lesson" id="l1-1">
+    <div class="lesson-no">Lesson 1.1</div>
+    <h3>A quick recap of complex numbers</h3>
+    <div class="plain"><span class="lab">In plain words</span>
+      <p>A complex number is \(z=x+iy\), where \(i=\sqrt{-1}\). The \(x\) is the "real part", the \(y\) is the "imaginary part". A <strong>complex function</strong> \(f(z)\) also splits into two real pieces: \(f(z)=u(x,y)+i\,v(x,y)\).</p>
+    </div>
+    <p>So every complex function is really <em>two</em> real functions, \(u\) and \(v\), travelling together. Almost everything in this unit is about the relationship between them.</p>
+  </div>
+
+  <div class="lesson" id="l1-2">
+    <div class="lesson-no">Lesson 1.2</div>
+    <h3>Analytic functions and the Cauchy–Riemann equations</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>A function is <strong>analytic</strong> if it's smoothly differentiable throughout a region. Not every complex function is — and there's a clean test to check: the <strong>Cauchy–Riemann (C–R) equations</strong>. If \(u\) and \(v\) satisfy them, the function is analytic.</p>
+    </div>
+    <div class="formula"><span class="lab">Cauchy–Riemann equations</span>
+      \[u_x=v_y\qquad\text{and}\qquad u_y=-v_x\]
+      <p style="font-size:15px;color:var(--ink-soft)">Watch the minus sign in the second equation — it's the classic slip.</p>
+    </div>
+    <div class="method">
+      <h4>Method — test analyticity</h4>
+      <ol>
+        <li>Split \(f(z)\) into \(u(x,y)\) and \(v(x,y)\).</li>
+        <li>Compute the four partials \(u_x,\ u_y,\ v_x,\ v_y\).</li>
+        <li>Check whether \(u_x=v_y\) and \(u_y=-v_x\). If both hold, it's analytic.</li>
+      </ol>
+    </div>
+    <div class="eg">
+      <h4>Worked example 1.2a <span class="diff">standard</span></h4>
+      <p class="q">Show that \(f(z)=z^{2}\) is analytic.</p>
+      <p class="step"><span class="s">Split into u and v</span> \(z^2=(x+iy)^2=(x^2-y^2)+i(2xy)\), so \(u=x^2-y^2,\ v=2xy\).</p>
+      <p class="step"><span class="s">Partials</span> \(u_x=2x,\ u_y=-2y,\ v_x=2y,\ v_y=2x\).</p>
+      <p class="step"><span class="s">Check C–R</span> \(u_x=2x=v_y\) ✓, and \(u_y=-2y=-v_x\) ✓.</p>
+      <p class="step"><span class="s">Conclude</span> Both hold, so \(f\) is analytic everywhere, with \(f'(z)=u_x+iv_x=2x+i2y=2z\).</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l1-3">
+    <div class="lesson-no">Lesson 1.3</div>
+    <h3>Harmonic functions and finding the conjugate</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>For an analytic function, both \(u\) and \(v\) automatically satisfy Laplace's equation \(u_{xx}+u_{yy}=0\) — such functions are called <strong>harmonic</strong>. A favourite exam task: you're given \(u\), and asked to find its partner \(v\) (the "harmonic conjugate").</p>
+    </div>
+    <div class="eg">
+      <h4>Worked example 1.3a <span class="diff">find the conjugate</span></h4>
+      <p class="q">Given \(u=x^{2}-y^{2}\), find the harmonic conjugate \(v\).</p>
+      <p class="step"><span class="s">Use the first C–R equation</span> \(v_y=u_x=2x\). Integrate in \(y\): \(v=2xy+g(x)\).</p>
+      <p class="step"><span class="s">Use the second C–R equation</span> \(v_x=2y+g'(x)\), and this must equal \(-u_y=-(-2y)=2y\).</p>
+      <p class="step"><span class="s">Solve for g</span> \(2y+g'(x)=2y\Rightarrow g'(x)=0\Rightarrow g=\text{constant}\).</p>
+      <p class="step"><span class="s">Conclusion</span> \(v=2xy\) (so \(f=u+iv=z^2\), matching Lesson 1.2).</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l1-4">
+    <div class="lesson-no">Lesson 1.4</div>
+    <h3>Cauchy's integral theorem and formula</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>Analytic functions are so well-behaved that integrating one around any closed loop gives exactly zero. And if there's a single "bad point" inside the loop, a neat formula reads off the function's value there.</p>
+    </div>
+    <div class="formula"><span class="lab">The two results</span>
+      <p><strong>Cauchy's integral theorem:</strong> if \(f\) is analytic inside and on a closed curve \(C\), then \(\displaystyle\oint_C f(z)\,dz=0\).</p>
+      <p><strong>Cauchy's integral formula:</strong> \(\displaystyle\oint_C\frac{f(z)}{z-a}\,dz=2\pi i\,f(a)\), when \(a\) is inside \(C\).</p>
+    </div>
+    <div class="eg">
+      <h4>Worked example 1.4a <span class="diff">using the formula</span></h4>
+      <p class="q">Evaluate \(\displaystyle\oint_{|z|=2}\frac{z}{z-1}\,dz\).</p>
+      <p class="step"><span class="s">Match the formula</span> Here \(f(z)=z\) and \(a=1\). Is \(a=1\) inside \(|z|=2\)? Yes.</p>
+      <p class="step"><span class="s">Apply</span> \(\oint=2\pi i\,f(1)=2\pi i\cdot 1=2\pi i\).</p>
+    </div>
+    <div class="checkpoint"><span class="lab">Unit I don't-lose-marks list</span>
+      <ul>
+        <li>Second C–R equation has a minus: \(u_y=-v_x\).</li>
+        <li>Cauchy's formula only applies when the point \(a\) is <em>inside</em> the curve.</li>
+        <li>If the function is analytic everywhere inside, the integral is simply \(0\).</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="practice" id="l1-5">
+    <h4>Practice — Unit I</h4>
+    <p class="hint">For analyticity, always write out all four partials before checking.</p>
+    <div class="pq"><div class="qh"><span class="qn">Q1</span><p class="qbody">Verify the C–R equations for \(f(z)=z^3\) at least in form — is it analytic? (Hint: any polynomial in \(z\) is.)</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> Every polynomial in \(z\) is analytic everywhere; \(f'(z)=3z^2\). (You can confirm via C–R by expanding \(z^3\).)</p><p class="ans">Analytic everywhere.</p></div></div>
+    <div class="pq"><div class="qh"><span class="qn">Q2</span><p class="qbody">Given \(u=x\), find its harmonic conjugate \(v\).</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> \(v_y=u_x=1\Rightarrow v=y+g(x)\). \(v_x=g'(x)=-u_y=0\Rightarrow g=\)const.</p><p class="ans">\(v=y\) (so \(f=x+iy=z\)).</p></div></div>
+    <div class="pq"><div class="qh"><span class="qn">Q3</span><p class="qbody">Evaluate \(\displaystyle\oint_{|z|=1}\frac{e^{z}}{z}\,dz\).</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> \(f(z)=e^z,\ a=0\) (inside). By Cauchy's formula \(=2\pi i\,e^0=2\pi i\).</p><p class="ans">\(2\pi i\).</p></div></div>
+    <div class="pq"><div class="qh"><span class="qn">Q4</span><p class="qbody">Evaluate \(\displaystyle\oint_{|z|=1} z^{2}\,dz\).</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> \(z^2\) is analytic everywhere inside the circle, so by Cauchy's theorem the integral is zero.</p><p class="ans">\(0\).</p></div></div>
+  </div>
+</div>
+
+<div class="unit" id="unit2">
+  <div class="unit-band">
+    <div class="u-tag">Unit II</div>
+    <h2>Residue Calculus</h2>
+    <p>The clever trick that turns hard integrals into simple bookkeeping over the "bad points" of a function.</p>
+    <div class="map"><a href="#l2-1">2.1 Taylor &amp; Laurent series</a><a href="#l2-2">2.2 Poles &amp; singularities</a><a href="#l2-3">2.3 Residues</a><a href="#l2-4">2.4 Residue theorem</a><a href="#l2-5">2.5 Practice</a></div>
+  </div>
+
+  <div class="lesson" id="l2-1">
+    <div class="lesson-no">Lesson 2.1</div>
+    <h3>Taylor and Laurent series</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>A <strong>Taylor series</strong> writes a function as a sum of positive powers of \((z-a)\) — good where the function is well-behaved. A <strong>Laurent series</strong> also allows <em>negative</em> powers like \(\tfrac{1}{z-a}\) — needed near a "bad point". Those negative-power terms are exactly what we'll harvest as residues.</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l2-2">
+    <div class="lesson-no">Lesson 2.2</div>
+    <h3>Singularities and poles</h3>
+    <div class="plain"><span class="lab">In plain words</span>
+      <p>A <strong>singularity</strong> is a point where a function blows up (denominator becomes zero). The commonest kind is a <strong>pole</strong>. If \(\tfrac{1}{z-a}\) appears, \(z=a\) is a "simple pole" (order 1); \(\tfrac{1}{(z-a)^2}\) is a pole of order 2, and so on.</p>
+    </div>
+    <div class="eg">
+      <h4>Worked example 2.2a <span class="diff">locate poles</span></h4>
+      <p class="q">Find the poles of \(f(z)=\dfrac{z}{(z-1)(z-3)}\).</p>
+      <p class="step"><span class="s">Set denominator to zero</span> \((z-1)(z-3)=0\Rightarrow z=1\) and \(z=3\).</p>
+      <p class="step"><span class="s">Order</span> Each factor appears once, so both are simple poles.</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l2-3">
+    <div class="lesson-no">Lesson 2.3</div>
+    <h3>Residues</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>The <strong>residue</strong> at a pole is a single number that captures the "leftover" of the function there. For a simple pole it's easy to compute with a limit.</p>
+    </div>
+    <div class="formula"><span class="lab">Residue at a simple pole \(z=a\)</span>
+      \[\operatorname{Res}_{z=a}f=\lim_{z\to a}(z-a)\,f(z)\]
+    </div>
+    <div class="eg">
+      <h4>Worked example 2.3a <span class="diff">standard</span></h4>
+      <p class="q">Find the residue of \(f(z)=\dfrac{z}{(z-1)(z-3)}\) at \(z=1\).</p>
+      <p class="step"><span class="s">Multiply out the pole</span> \((z-1)f=\dfrac{z}{z-3}\).</p>
+      <p class="step"><span class="s">Take the limit \(z\to1\)</span> \(\dfrac{1}{1-3}=-\dfrac12\).</p>
+      <p class="step"><span class="s">Result</span> \(\operatorname{Res}_{z=1}f=-\tfrac12\).</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l2-4">
+    <div class="lesson-no">Lesson 2.4</div>
+    <h3>The residue theorem</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>To integrate around a closed loop, you don't integrate at all — you just add up the residues of the poles trapped inside, and multiply by \(2\pi i\). That's the residue theorem, and it's what makes this unit powerful.</p>
+    </div>
+    <div class="formula"><span class="lab">Residue theorem</span>
+      \[\oint_C f(z)\,dz=2\pi i\sum(\text{residues of poles inside }C)\]
+    </div>
+    <div class="eg">
+      <h4>Worked example 2.4a <span class="diff">full problem</span></h4>
+      <p class="q">Evaluate \(\displaystyle\oint_{|z|=2}\frac{z}{(z-1)(z-3)}\,dz\).</p>
+      <p class="step"><span class="s">Which poles are inside?</span> \(z=1\) is inside \(|z|=2\); \(z=3\) is outside. Only \(z=1\) counts.</p>
+      <p class="step"><span class="s">Residue at \(z=1\)</span> From Lesson 2.3, it's \(-\tfrac12\).</p>
+      <p class="step"><span class="s">Apply the theorem</span> \(\oint=2\pi i\left(-\tfrac12\right)=-\pi i\).</p>
+    </div>
+    <div class="checkpoint"><span class="lab">Unit II don't-lose-marks list</span>
+      <ul>
+        <li>Only include poles <em>inside</em> the contour — always check against the circle's radius.</li>
+        <li>For a pole of order \(m>1\), the simple-pole limit formula does not apply — use the derivative version.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="practice" id="l2-5">
+    <h4>Practice — Unit II</h4>
+    <p class="hint">First find the poles, then decide which are inside, then sum their residues.</p>
+    <div class="pq"><div class="qh"><span class="qn">Q1</span><p class="qbody">Find the residue of \(\dfrac{1}{z-2}\) at \(z=2\).</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> \(\lim_{z\to2}(z-2)\cdot\dfrac{1}{z-2}=1\).</p><p class="ans">\(1\).</p></div></div>
+    <div class="pq"><div class="qh"><span class="qn">Q2</span><p class="qbody">Find the residue of \(\dfrac{z}{z^2+1}\) at \(z=i\). (Note \(z^2+1=(z-i)(z+i)\).)</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> \((z-i)f=\dfrac{z}{z+i}\); at \(z=i\): \(\dfrac{i}{2i}=\tfrac12\).</p><p class="ans">\(\tfrac12\).</p></div></div>
+    <div class="pq"><div class="qh"><span class="qn">Q3</span><p class="qbody">Evaluate \(\displaystyle\oint_{|z|=1}\frac{1}{z}\,dz\).</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> Pole at \(z=0\) (inside), residue \(1\). Integral \(=2\pi i(1)\).</p><p class="ans">\(2\pi i\).</p></div></div>
+    <div class="pq"><div class="qh"><span class="qn">Q4</span><p class="qbody">Evaluate \(\displaystyle\oint_{|z|=3}\frac{z}{(z-1)(z-3)}\,dz\). (Careful with the radius!)</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> \(|z|=3\) passes through \(z=3\) — the pole sits <em>on</em> the contour, so the residue theorem does not apply directly (the integral is improper). Only \(z=1\) is strictly inside; examiners usually intend \(|z|=2\) here. Flag the boundary issue.</p><p class="ans">Ill-defined as written — pole on the contour.</p></div></div>
+  </div>
+</div>
+
+<div class="unit" id="unit3">
+  <div class="unit-band">
+    <div class="u-tag">Unit III</div>
+    <h2>Fourier Series</h2>
+    <p>Breaking a repeating signal into a sum of simple sine and cosine waves — the exact idea behind analysing an ECG or EEG.</p>
+    <div class="map"><a href="#l3-1">3.1 The big idea</a><a href="#l3-2">3.2 The coefficient formulas</a><a href="#l3-3">3.3 Even &amp; odd shortcuts</a><a href="#l3-4">3.4 Half-range series</a><a href="#l3-5">3.5 Practice</a></div>
+  </div>
+
+  <div class="lesson" id="l3-1">
+    <div class="lesson-no">Lesson 3.1</div>
+    <h3>The big idea</h3>
+    <div class="plain"><span class="lab">In plain words</span>
+      <p>Any repeating (periodic) function — however jagged — can be built by adding together sine and cosine waves of different frequencies. A <strong>Fourier series</strong> tells you exactly how much of each wave to add. The "how much" numbers are called the <strong>Fourier coefficients</strong>.</p>
+    </div>
+    <div class="formula"><span class="lab">Fourier series on \((-\pi,\pi)\)</span>
+      \[f(x)=\frac{a_0}{2}+\sum_{n=1}^{\infty}\big(a_n\cos nx+b_n\sin nx\big)\]
+    </div>
+  </div>
+
+  <div class="lesson" id="l3-2">
+    <div class="lesson-no">Lesson 3.2</div>
+    <h3>The coefficient formulas</h3>
+    <div class="formula"><span class="lab">The three formulas</span>
+      \[a_0=\frac{1}{\pi}\int_{-\pi}^{\pi}f(x)\,dx,\quad a_n=\frac{1}{\pi}\int_{-\pi}^{\pi}f(x)\cos nx\,dx,\quad b_n=\frac{1}{\pi}\int_{-\pi}^{\pi}f(x)\sin nx\,dx\]
+    </div>
+    <p>That's the whole method: plug the given \(f(x)\) into these three integrals, and the series is built. The integration usually needs integration by parts, which is where care pays off.</p>
+  </div>
+
+  <div class="lesson" id="l3-3">
+    <div class="lesson-no">Lesson 3.3</div>
+    <h3>Even and odd shortcuts</h3>
+    <div class="plain"><span class="lab">The idea — huge time-saver</span>
+      <p>If \(f\) is <strong>even</strong> (symmetric, like \(x^2\)), all the sine coefficients \(b_n\) vanish — only cosines survive. If \(f\) is <strong>odd</strong> (like \(x\)), all the cosine coefficients \(a_n\) (and \(a_0\)) vanish — only sines survive. Always check symmetry first; it can halve the work.</p>
+    </div>
+    <div class="eg">
+      <h4>Worked example 3.3a <span class="diff">odd function</span></h4>
+      <p class="q">Find the Fourier series of \(f(x)=x\) on \((-\pi,\pi)\).</p>
+      <p class="step"><span class="s">Symmetry</span> \(x\) is odd, so \(a_0=0\) and all \(a_n=0\). Only \(b_n\) needed.</p>
+      <p class="step"><span class="s">Compute \(b_n\)</span> \(b_n=\dfrac{2}{\pi}\displaystyle\int_0^{\pi}x\sin nx\,dx\). By parts: \(=\dfrac{2}{\pi}\left[-\dfrac{x\cos nx}{n}+\dfrac{\sin nx}{n^2}\right]_0^{\pi}\).</p>
+      <p class="step"><span class="s">Evaluate</span> \(\sin n\pi=0,\ \cos n\pi=(-1)^n\), so \(b_n=\dfrac{2}{\pi}\cdot\left(-\dfrac{\pi(-1)^n}{n}\right)=\dfrac{2(-1)^{n+1}}{n}\).</p>
+      <p class="step"><span class="s">Series</span> \(x=2\displaystyle\sum_{n=1}^{\infty}\dfrac{(-1)^{n+1}}{n}\sin nx\).</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l3-4">
+    <div class="lesson-no">Lesson 3.4</div>
+    <h3>Half-range series</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>Sometimes a function is only defined on \((0,\pi)\) and you're asked for a <em>sine-only</em> or <em>cosine-only</em> expansion. The trick: mentally <strong>extend</strong> the function to \((-\pi,\pi)\) as odd (for a sine series) or even (for a cosine series), then use the usual formulas.</p>
+    </div>
+    <div class="checkpoint"><span class="lab">Unit III don't-lose-marks list</span>
+      <ul>
+        <li>Test even/odd first — it can kill a whole family of coefficients.</li>
+        <li>Integration by parts on \(x\sin nx\) or \(x\cos nx\) is where sign errors creep in.</li>
+        <li>For half-range, choose odd extension → sine series; even extension → cosine series.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="practice" id="l3-5">
+    <h4>Practice — Unit III</h4>
+    <p class="hint">Decide even/odd before touching an integral.</p>
+    <div class="pq"><div class="qh"><span class="qn">Q1</span><p class="qbody">For \(f(x)=x^2\) on \((-\pi,\pi)\), which coefficients vanish?</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> \(x^2\) is even, so all sine coefficients vanish.</p><p class="ans">All \(b_n=0\); only \(a_0,a_n\) remain.</p></div></div>
+    <div class="pq"><div class="qh"><span class="qn">Q2</span><p class="qbody">For \(f(x)=x^3\) on \((-\pi,\pi)\), which coefficients vanish?</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> \(x^3\) is odd, so \(a_0=0\) and all \(a_n=0\).</p><p class="ans">Only \(b_n\) survive.</p></div></div>
+    <div class="pq"><div class="qh"><span class="qn">Q3</span><p class="qbody">Compute \(a_0\) for \(f(x)=x^2\) on \((-\pi,\pi)\).</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> \(a_0=\dfrac1\pi\int_{-\pi}^{\pi}x^2\,dx=\dfrac1\pi\cdot\dfrac{2\pi^3}{3}=\dfrac{2\pi^2}{3}\).</p><p class="ans">\(a_0=\dfrac{2\pi^2}{3}\).</p></div></div>
+  </div>
+</div>
+
+<div class="unit" id="unit4">
+  <div class="unit-band">
+    <div class="u-tag">Unit IV</div>
+    <h2>Partial Differential Equations</h2>
+    <p>Equations with an unknown function of several variables and its partial derivatives. First form them, then solve the first-order ones.</p>
+    <div class="map"><a href="#l4-1">4.1 What a PDE is</a><a href="#l4-2">4.2 Forming a PDE</a><a href="#l4-3">4.3 Lagrange's method</a><a href="#l4-4">4.4 Charpit's method</a><a href="#l4-5">4.5 Practice</a></div>
+  </div>
+
+  <div class="lesson" id="l4-1">
+    <div class="lesson-no">Lesson 4.1</div>
+    <h3>What a PDE is (and the p, q shorthand)</h3>
+    <div class="plain"><span class="lab">In plain words</span>
+      <p>A <strong>partial differential equation</strong> involves an unknown function \(z(x,y)\) and its partial derivatives. We use shorthand: \(p=\dfrac{\partial z}{\partial x}\) and \(q=\dfrac{\partial z}{\partial y}\). So an equation might read \(p+q=z\).</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l4-2">
+    <div class="lesson-no">Lesson 4.2</div>
+    <h3>Forming a PDE</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>PDEs are often <em>built</em> by eliminating arbitrary constants (or functions) from a given relation, using differentiation. You need as many differentiations as there are constants to remove.</p>
+    </div>
+    <div class="eg">
+      <h4>Worked example 4.2a <span class="diff">form a PDE</span></h4>
+      <p class="q">Form a PDE by eliminating \(a,b\) from \(z=ax+by+ab\).</p>
+      <p class="step"><span class="s">Differentiate</span> \(p=\dfrac{\partial z}{\partial x}=a\), and \(q=\dfrac{\partial z}{\partial y}=b\).</p>
+      <p class="step"><span class="s">Substitute back</span> Since \(a=p,\ b=q\), the relation \(z=ax+by+ab\) becomes:</p>
+      <p class="step"><span class="s">PDE</span> \(z=px+qy+pq\).</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l4-3">
+    <div class="lesson-no">Lesson 4.3</div>
+    <h3>Lagrange's linear equation</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>A first-order <em>linear</em> PDE has the form \(Pp+Qq=R\). Lagrange's method solves it by turning it into a set of ordinary "auxiliary" fractions, solving two of them, and combining.</p>
+    </div>
+    <div class="formula"><span class="lab">Lagrange's method</span>
+      <p>For \(Pp+Qq=R\), solve the auxiliary equations \(\dfrac{dx}{P}=\dfrac{dy}{Q}=\dfrac{dz}{R}\). Get two independent solutions \(u=c_1,\ v=c_2\); the general solution is \(\phi(u,v)=0\).</p>
+    </div>
+    <div class="eg">
+      <h4>Worked example 4.3a <span class="diff">standard</span></h4>
+      <p class="q">Solve \(y\,p-x\,q=0\).</p>
+      <p class="step"><span class="s">Auxiliary equations</span> \(\dfrac{dx}{y}=\dfrac{dy}{-x}=\dfrac{dz}{0}\).</p>
+      <p class="step"><span class="s">From the last ratio</span> \(dz=0\Rightarrow z=c_1\).</p>
+      <p class="step"><span class="s">From the first pair</span> \(x\,dx+y\,dy=0\Rightarrow x^2+y^2=c_2\).</p>
+      <p class="step"><span class="s">General solution</span> \(z=F(x^2+y^2)\) — the surface depends only on distance from the axis.</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l4-4">
+    <div class="lesson-no">Lesson 4.4</div>
+    <h3>Charpit's method (for non-linear PDEs)</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>When the first-order PDE is <em>non-linear</em> in \(p\) and \(q\), Lagrange's method won't work. <strong>Charpit's method</strong> is the general procedure: it builds an auxiliary system to find an extra relation between \(p\) and \(q\), which you then integrate.</p>
+    </div>
+    <p>Recognising that a problem needs Charpit (non-linear) rather than Lagrange (linear) is the first, examinable decision.</p>
+    <div class="checkpoint"><span class="lab">Unit IV don't-lose-marks list</span>
+      <ul>
+        <li>Match \(P,Q,R\) carefully into \(\tfrac{dx}{P}=\tfrac{dy}{Q}=\tfrac{dz}{R}\).</li>
+        <li>When forming a PDE, count the arbitrary constants — that's how many derivatives you need.</li>
+        <li>Linear in \(p,q\) → Lagrange; non-linear → Charpit.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="practice" id="l4-5">
+    <h4>Practice — Unit IV</h4>
+    <p class="hint">For Lagrange, always write the three auxiliary fractions first.</p>
+    <div class="pq"><div class="qh"><span class="qn">Q1</span><p class="qbody">Form a PDE by eliminating \(a,b\) from \(z=ax+by\).</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> \(p=a,\ q=b\), so \(z=px+qy\).</p><p class="ans">\(z=px+qy\).</p></div></div>
+    <div class="pq"><div class="qh"><span class="qn">Q2</span><p class="qbody">Solve \(p+q=1\) using \(z=px+qy+\ldots\) reasoning (a complete integral).</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> Take \(p=a\), then \(q=1-a\). A complete integral is \(z=ax+(1-a)y+c\).</p><p class="ans">\(z=ax+(1-a)y+c\).</p></div></div>
+    <div class="pq"><div class="qh"><span class="qn">Q3</span><p class="qbody">Solve \(xp+yq=z\) by Lagrange's method.</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> \(\dfrac{dx}{x}=\dfrac{dy}{y}=\dfrac{dz}{z}\). First pair: \(y/x=c_1\). Second: \(z/x=c_2\).</p><p class="ans">\(z=x\,F(y/x)\).</p></div></div>
+  </div>
+</div>
+
+<div class="unit" id="unit5">
+  <div class="unit-band">
+    <div class="u-tag">Unit V</div>
+    <h2>Fourier Series Applied to PDEs</h2>
+    <p>The payoff: solving the heat, wave and Laplace equations by splitting variables and rebuilding with a Fourier series.</p>
+    <div class="map"><a href="#l5-1">5.1 The three equations</a><a href="#l5-2">5.2 Separation of variables</a><a href="#l5-3">5.3 Worked heat equation</a><a href="#l5-4">5.4 Practice</a></div>
+  </div>
+
+  <div class="lesson" id="l5-1">
+    <div class="lesson-no">Lesson 5.1</div>
+    <h3>The three classic equations</h3>
+    <div class="plain"><span class="lab">In plain words</span>
+      <p>Three PDEs describe an enormous amount of physics — and of biomedical engineering.</p>
+    </div>
+    <div class="formula"><span class="lab">The three equations</span>
+      <p><strong>Heat</strong> (diffusion, e.g. thermal therapy): \(\dfrac{\partial u}{\partial t}=c^2\dfrac{\partial^2 u}{\partial x^2}\).</p>
+      <p><strong>Wave</strong> (vibration, ultrasound): \(\dfrac{\partial^2 u}{\partial t^2}=c^2\dfrac{\partial^2 u}{\partial x^2}\).</p>
+      <p><strong>Laplace</strong> (steady state): \(\dfrac{\partial^2 u}{\partial x^2}+\dfrac{\partial^2 u}{\partial y^2}=0\).</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l5-2">
+    <div class="lesson-no">Lesson 5.2</div>
+    <h3>The separation-of-variables method</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>Guess that the solution splits into a product: \(u(x,t)=X(x)\,T(t)\), one factor per variable. Substituting turns the PDE into two <em>ordinary</em> differential equations — which you already know how to solve from Maths II. Then a Fourier series stitches the pieces together to fit the boundary conditions.</p>
+    </div>
+    <div class="method">
+      <h4>Method — separation of variables</h4>
+      <ol>
+        <li>Assume \(u=X(x)T(t)\) and substitute into the PDE.</li>
+        <li>Rearrange so each side depends on one variable only; set both equal to a constant \(-\lambda\).</li>
+        <li>Solve the two resulting ODEs, applying the boundary conditions to fix the constants.</li>
+        <li>Add up (superpose) the solutions as a Fourier series to match the initial condition.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="lesson" id="l5-3">
+    <div class="lesson-no">Lesson 5.3</div>
+    <h3>Worked walk-through: the heat equation</h3>
+    <div class="eg">
+      <h4>Worked example 5.3a <span class="diff">the method in action</span></h4>
+      <p class="q">Outline the solution of \(u_t=c^2u_{xx}\) on a rod \(0\le x\le L\) with ends held at zero, \(u(0,t)=u(L,t)=0\).</p>
+      <p class="step"><span class="s">Separate</span> Put \(u=X(x)T(t)\). Substituting and dividing: \(\dfrac{T'}{c^2T}=\dfrac{X''}{X}=-\lambda\).</p>
+      <p class="step"><span class="s">Space equation</span> \(X''+\lambda X=0\) with \(X(0)=X(L)=0\) gives \(X_n=\sin\dfrac{n\pi x}{L}\) and \(\lambda_n=\left(\dfrac{n\pi}{L}\right)^2\).</p>
+      <p class="step"><span class="s">Time equation</span> \(T'=-c^2\lambda_n T\Rightarrow T_n=e^{-c^2\lambda_n t}\).</p>
+      <p class="step"><span class="s">Superpose</span> \(u(x,t)=\displaystyle\sum_{n=1}^{\infty}b_n\sin\dfrac{n\pi x}{L}\,e^{-c^2\lambda_n t}\), with \(b_n\) fixed by expanding the initial temperature as a Fourier sine series.</p>
+    </div>
+    <div class="checkpoint"><span class="lab">Unit V don't-lose-marks list</span>
+      <ul>
+        <li>The separation constant is written \(-\lambda\); the wrong sign gives exponentials where you need sines.</li>
+        <li>Apply boundary conditions first (they fix the shapes), the initial condition last (it fixes the coefficients).</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="practice" id="l5-4">
+    <h4>Practice — Unit V</h4>
+    <p class="hint">These are mostly "set up and outline" questions — showing the method structure earns most of the marks.</p>
+    <div class="pq"><div class="qh"><span class="qn">Q1</span><p class="qbody">Name the type of each: (a) \(u_t=c^2u_{xx}\); (b) \(u_{tt}=c^2u_{xx}\); (c) \(u_{xx}+u_{yy}=0\).</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> (a) heat/diffusion; (b) wave; (c) Laplace (steady state).</p></div></div>
+    <div class="pq"><div class="qh"><span class="qn">Q2</span><p class="qbody">In separation of variables for \(u_t=c^2u_{xx}\), what two ODEs do you get from \(u=X(x)T(t)\)?</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> \(X''+\lambda X=0\) and \(T'+c^2\lambda T=0\).</p></div></div>
+    <div class="pq"><div class="qh"><span class="qn">Q3</span><p class="qbody">With ends at \(x=0,L\) held at zero, what are the allowed \(X_n(x)\)?</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> The zero-endpoint conditions force sine shapes.</p><p class="ans">\(X_n=\sin\dfrac{n\pi x}{L}\).</p></div></div>
+  </div>
+</div>
+
+<div class="checkpoint" style="margin-top:30px">
+  <span class="lab">Your weekly routine</span>
+  <ul>
+    <li><strong>Read</strong> one unit's lessons, working every example by hand.</li>
+    <li><strong>Practise</strong> that unit with solutions hidden; re-do only the ones you missed.</li>
+    <li><strong>Build</strong> a one-page formula sheet per unit (C–R equations, residue formula, Fourier coefficients, Lagrange's auxiliary system).</li>
+    <li><strong>Finish</strong> with matching questions from an Osmania University past paper.</li>
+  </ul>
+</div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <h4>About this page</h4>
+    <p>A beginner-friendly, worked tutorial for Engineering Mathematics-III (BS 901 MT), BE Biomedical Engineering, University College of Engineering (Autonomous), Osmania University. Explanations, examples and practice are standard treatments aligned to the prescribed texts (Grewal; Jain &amp; Iyengar; Kreyszig; Brown &amp; Churchill). Equations render with MathJax; tap "Show solution" to check your practice answers.</p>
+    <div class="fine">Self-contained single file — upload <span class="mono">index.html</span> to tiiny.host to publish. Needs an internet connection to load web fonts and the MathJax renderer. &nbsp;Compiled study reference, not an official university publication. &nbsp;Prepared <span class="mono">04 July 2026</span>.</div>
+  </div>
+</footer>
+
+<script>
+  document.addEventListener('click', function(e){
+    if(e.target && e.target.classList.contains('reveal')){
+      var sol = e.target.nextElementSibling;
+      if(sol && sol.classList.contains('sol')){
+        var open = sol.classList.toggle('open');
+        e.target.textContent = open ? 'Hide solution' : 'Show solution';
+      }
+    }
+  });
+</script>
+</body>
+</html>

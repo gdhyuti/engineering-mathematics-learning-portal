@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mathematics-II · Learn &amp; Practice · BE Biomedical · Osmania University</title>
+<meta name="description" content="A slow, granular, beginner-friendly tutorial for Engineering Mathematics-II (BS 201 MT), BE Biomedical Engineering, Osmania University — matrices, differential equations, series solutions and special functions, with worked examples and practice." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script>
+  window.MathJax = { tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]}, svg:{fontCache:'global'}, startup:{typeset:true} };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+  :root{--paper:#eef3f1;--paper-2:#e4ebe8;--card:#ffffff;--ink:#132420;--ink-soft:#3f524d;--teal:#0e4e4a;--teal-bright:#178a7e;--rose:#e23e6b;--rose-deep:#b62a53;--amber:#c9821a;--line:#cdd8d3;--line-soft:#dde6e2;--shadow:0 1px 2px rgba(19,36,32,.05),0 8px 30px rgba(19,36,32,.06);--radius:14px;--maxw:820px;}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:74px}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:"Newsreader",Georgia,serif;font-size:19px;line-height:1.72;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  h1,h2,h3,h4,.disp{font-family:"Space Grotesk",system-ui,sans-serif;line-height:1.18;letter-spacing:-.01em}
+  code,.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+  a{color:var(--teal-bright);text-decoration:none}a:hover{text-decoration:underline}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+  mjx-container{overflow-x:auto;overflow-y:hidden;max-width:100%}
+  p{margin:14px 0}
+  header.nav{position:sticky;top:0;z-index:60;background:rgba(238,243,241,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav-inner{max-width:var(--maxw);margin:0 auto;padding:11px 22px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .brand{display:flex;align-items:center;gap:9px;font-family:"Space Grotesk";font-weight:600;font-size:14px;letter-spacing:.02em;color:var(--teal);white-space:nowrap}
+  .brand svg{width:24px;height:24px;color:var(--rose)}
+  .unit-nav{margin-left:auto;display:flex;gap:5px;flex-wrap:wrap}
+  .unit-nav a{font-family:"JetBrains Mono";font-size:12px;color:var(--ink-soft);padding:6px 10px;border-radius:7px;border:1px solid var(--line);background:var(--card)}
+  .unit-nav a:hover{background:var(--teal);color:#fff;border-color:var(--teal);text-decoration:none}
+  .hero{padding:50px 0 26px}
+  .eyebrow{font-family:"JetBrains Mono";font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--rose-deep);font-weight:500;margin-bottom:14px}
+  .hero h1{font-size:clamp(32px,6vw,52px);font-weight:700;margin:0;color:var(--ink)}
+  .hero h1 .g{color:var(--teal)}
+  .hero .lede{font-size:clamp(18px,2.2vw,21px);color:var(--ink-soft);margin:16px 0 0}
+  .startbox{margin-top:26px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 22px;box-shadow:var(--shadow)}
+  .startbox b{font-family:"Space Grotesk";color:var(--teal)}
+  .pulse{display:block;width:100%;height:28px;color:var(--rose);margin-top:26px}
+  .pulse path{fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1400;stroke-dashoffset:1400;animation:trace 3s ease forwards}
+  @keyframes trace{to{stroke-dashoffset:0}}
+  .unit{padding:26px 0 8px;scroll-margin-top:76px}
+  .unit-band{background:var(--teal);color:#eef3f1;border-radius:var(--radius);padding:22px 26px;margin-top:24px}
+  .unit-band .u-tag{font-family:"JetBrains Mono";font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#8fd3c7}
+  .unit-band h2{color:#fff;font-size:clamp(24px,4vw,34px);margin:8px 0 6px}
+  .unit-band p{margin:6px 0 0;color:#cfe4df;font-size:16px}
+  .unit-band .map{margin-top:14px;display:flex;flex-wrap:wrap;gap:7px}
+  .unit-band .map a{font-family:"JetBrains Mono";font-size:11.5px;background:rgba(255,255,255,.1);color:#eafffb;padding:5px 10px;border-radius:7px}
+  .unit-band .map a:hover{background:rgba(255,255,255,.22);text-decoration:none}
+  .lesson{scroll-margin-top:76px;padding:26px 0;border-bottom:1px solid var(--line-soft)}
+  .lesson-no{font-family:"JetBrains Mono";font-size:13px;color:var(--rose);font-weight:600}
+  .lesson h3{font-size:clamp(20px,3vw,26px);font-weight:600;margin:6px 0 0;color:var(--ink)}
+  .plain{background:#e7f1ee;border:1px solid #c4ded6;border-left:4px solid var(--teal-bright);border-radius:10px;padding:14px 18px;margin:18px 0}
+  .plain .lab{font-family:"Space Grotesk";font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--teal);font-weight:600;display:block;margin-bottom:4px}
+  .plain p{margin:4px 0}
+  .method{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:6px 20px 14px;margin:18px 0;box-shadow:var(--shadow)}
+  .method h4{font-family:"Space Grotesk";font-size:12.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--rose-deep);margin:16px 0 6px;font-weight:600}
+  .method ol{margin:6px 0;padding-left:22px}.method ol li{margin:8px 0}
+  .formula{background:#fbfdfc;border:1px dashed var(--line);border-radius:10px;padding:6px 18px;margin:16px 0}
+  .formula .lab{font-family:"Space Grotesk";font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--rose);font-weight:600}
+  .eg{background:#fffdf7;border:1px solid #ecdcb8;border-left:4px solid var(--amber);border-radius:10px;padding:8px 20px 16px;margin:20px 0}
+  .eg h4{font-family:"Space Grotesk";font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--amber);margin:14px 0 4px;font-weight:600;display:flex;align-items:center;gap:8px}
+  .eg .diff{font-family:"JetBrains Mono";font-size:10.5px;padding:2px 8px;border-radius:999px;border:1px solid currentColor;letter-spacing:.03em}
+  .eg .q{font-weight:600;color:var(--ink)}
+  .step{margin:10px 0}
+  .step .s{font-family:"JetBrains Mono";font-size:11.5px;color:var(--amber);font-weight:600;display:block;margin-bottom:1px;letter-spacing:.03em}
+  .practice{background:#fff5f7;border:1px solid #f2cdd7;border-radius:12px;padding:8px 20px 18px;margin:22px 0}
+  .practice > h4{font-family:"Space Grotesk";font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--rose-deep);margin:14px 0 4px;font-weight:600}
+  .practice .hint{font-size:14.5px;color:var(--ink-soft);margin:0 0 10px}
+  .pq{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:12px 0}
+  .pq .qh{display:flex;align-items:baseline;gap:10px}
+  .pq .qn{font-family:"Space Grotesk";font-weight:700;color:var(--rose);font-size:16px}
+  .pq .qbody{margin:2px 0 0}
+  .reveal{margin-top:10px;font-family:"Space Grotesk";font-size:13px;font-weight:600;color:#fff;background:var(--teal);border:none;border-radius:8px;padding:8px 15px;cursor:pointer;transition:.16s}
+  .reveal:hover{background:var(--teal-bright)}
+  .sol{display:none;margin-top:12px;padding-top:12px;border-top:1px dashed var(--line);font-size:16.5px}
+  .sol.open{display:block}
+  .sol .lab{font-family:"JetBrains Mono";font-size:11px;color:var(--teal);font-weight:600;letter-spacing:.04em}
+  .sol .ans{margin-top:8px;font-weight:600;color:var(--teal)}
+  .checkpoint{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--rose);border-radius:10px;padding:14px 18px;margin:22px 0;box-shadow:var(--shadow)}
+  .checkpoint .lab{font-family:"Space Grotesk";font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--rose-deep);font-weight:600;display:block;margin-bottom:6px}
+  .checkpoint ul{margin:6px 0;padding-left:20px}
+  footer{background:var(--ink);color:#c4d2cd;padding:42px 0 36px;margin-top:26px}
+  footer h4{font-family:"Space Grotesk";color:#fff;font-size:15px;margin:0 0 12px}
+  footer p{font-size:14px;color:#9fb3ad;line-height:1.6}
+  footer a{color:#5fc0b2}
+  footer .fine{border-top:1px solid #2a3d38;padding-top:18px;margin-top:20px;font-size:12.5px;color:#7f938d}
+  footer .mono{color:#5fc0b2}
+  @media(max-width:720px){body{font-size:18px}.unit-nav{width:100%;margin-left:0}}
+  @media(prefers-reduced-motion:reduce){.pulse path{animation:none;stroke-dashoffset:0}html{scroll-behavior:auto}}
+  @media print{.reveal{display:none}.sol{display:block!important}header.nav{position:static}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="index.html" style="font-family:'Space Grotesk',system-ui,sans-serif;font-size:13px;font-weight:600;color:#0e4e4a;background:#fff;border:1px solid #cdd8d3;border-radius:8px;padding:6px 11px;text-decoration:none;white-space:nowrap;margin-right:4px">&#8962; Hub</a>
+    <span class="brand"><svg viewBox="0 0 40 24" aria-hidden="true"><path d="M1 12h8l3-9 5 18 4-13 3 6 3-2h9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> MATHS-II · LEARN &amp; PRACTICE</span>
+    <nav class="unit-nav"><a href="#unit1">U1</a><a href="#unit2">U2</a><a href="#unit3">U3</a><a href="#unit4">U4</a><a href="#unit5">U5</a></nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="eyebrow">BS 201 MT · Semester 2 · a slow, step-by-step guide</div>
+    <h1>Mathematics&nbsp;–&nbsp;II<br><span class="g">learn it, then practise it</span></h1>
+    <p class="lede">Two big engines of applied maths: linear algebra (matrices) and differential equations. This guide breaks each unit into small lessons, explains the idea in plain words, then builds up with examples and practice you can check yourself.</p>
+    <div class="startbox"><p style="margin:0"><b>How to use this page.</b> Differential equations reward pattern-recognition: most of the skill is spotting <em>which type</em> of equation you're looking at, because each type has a fixed recipe. Learn to classify first, solve second.</p></div>
+    <svg class="pulse" viewBox="0 0 1200 28" preserveAspectRatio="none" aria-hidden="true"><path d="M0 14 H220 l14 -11 l20 22 l16 -18 H500 l12 -9 l22 20 l14 -15 H820 l14 11 l18 -9 H1200"/></svg>
+  </div>
+</div>
+
+<main class="wrap">
+
+<div class="unit" id="unit1">
+  <div class="unit-band">
+    <div class="u-tag">Unit I</div>
+    <h2>Matrices</h2>
+    <p>Packaging linear systems into grids of numbers — and pulling out their hidden structure with rank and eigenvalues.</p>
+    <div class="map"><a href="#l1-1">1.1 Rank &amp; echelon form</a><a href="#l1-2">1.2 Solving systems</a><a href="#l1-3">1.3 Eigenvalues &amp; vectors</a><a href="#l1-4">1.4 Cayley–Hamilton</a><a href="#l1-5">1.5 Practice</a></div>
+  </div>
+
+  <div class="lesson" id="l1-1">
+    <div class="lesson-no">Lesson 1.1</div>
+    <h3>Rank and echelon form</h3>
+    <div class="plain"><span class="lab">In plain words</span>
+      <p>A <strong>matrix</strong> is just a grid of numbers. Its <strong>rank</strong> is the number of genuinely independent rows — rows that aren't just copies or combinations of others. Rank tells you how much real information the system carries.</p>
+    </div>
+    <p>To find the rank, use row operations to reach <strong>echelon form</strong> (a staircase of zeros in the bottom-left), then count the non-zero rows.</p>
+    <div class="method">
+      <h4>Method — find the rank</h4>
+      <ol>
+        <li>Use row operations (\(R_2\to R_2-2R_1\), etc.) to create zeros below each leading entry.</li>
+        <li>Keep going until it's a "staircase" — echelon form.</li>
+        <li>The rank is the number of rows that are <em>not</em> entirely zero.</li>
+      </ol>
+    </div>
+    <div class="eg">
+      <h4>Worked example 1.1a <span class="diff">standard</span></h4>
+      <p class="q">Find the rank of \(A=\begin{pmatrix}1&2&3\\2&4&6\\1&1&1\end{pmatrix}\).</p>
+      <p class="step"><span class="s">\(R_2\to R_2-2R_1\)</span> Row 2 becomes \((0,\ 0,\ 0)\).</p>
+      <p class="step"><span class="s">\(R_3\to R_3-R_1\)</span> Row 3 becomes \((0,\ -1,\ -2)\).</p>
+      <p class="step"><span class="s">Echelon form</span> \(\begin{pmatrix}1&2&3\\0&-1&-2\\0&0&0\end{pmatrix}\) — two non-zero rows.</p>
+      <p class="step"><span class="s">Conclude</span> Rank \(=2\).</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l1-2">
+    <div class="lesson-no">Lesson 1.2</div>
+    <h3>Solving systems of linear equations</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>A system like \(2x+y=5,\ x-y=1\) can be written as a matrix. Comparing the rank of the coefficient matrix with the rank of the "augmented" matrix (coefficients + right-hand side) tells you whether solutions exist, and how many.</p>
+    </div>
+    <div class="formula"><span class="lab">Consistency rule</span>
+      <p>Let \(r\) = rank of coefficient matrix, \(R\) = rank of augmented matrix, \(n\) = number of unknowns.</p>
+      <p>\(r\ne R\): <strong>no solution</strong>. &nbsp; \(r=R=n\): <strong>unique solution</strong>. &nbsp; \(r=R<n\): <strong>infinitely many</strong>.</p>
+    </div>
+    <div class="eg">
+      <h4>Worked example 1.2a <span class="diff">warm-up</span></h4>
+      <p class="q">Solve \(x+y=3,\ 2x-y=0\).</p>
+      <p class="step"><span class="s">Add cleverly</span> Adding the equations: \(3x=3\Rightarrow x=1\).</p>
+      <p class="step"><span class="s">Back-substitute</span> \(1+y=3\Rightarrow y=2\).</p>
+      <p class="step"><span class="s">Conclusion</span> Unique solution \((x,y)=(1,2)\).</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l1-3">
+    <div class="lesson-no">Lesson 1.3</div>
+    <h3>Eigenvalues and eigenvectors</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>Most vectors, when multiplied by a matrix \(A\), get rotated <em>and</em> stretched. But a few special directions only get stretched (or squashed), not rotated. Those directions are the <strong>eigenvectors</strong>, and the stretch factor for each is its <strong>eigenvalue</strong> \(\lambda\).</p>
+    </div>
+    <div class="method">
+      <h4>Method — find eigenvalues and eigenvectors</h4>
+      <ol>
+        <li>Solve the characteristic equation \(\det(A-\lambda I)=0\) for the eigenvalues \(\lambda\).</li>
+        <li>For each \(\lambda\), solve \((A-\lambda I)\mathbf x=\mathbf 0\) to find its eigenvector \(\mathbf x\).</li>
+        <li>Check: eigenvalues should sum to the trace of \(A\), and multiply to \(\det A\).</li>
+      </ol>
+    </div>
+    <div class="eg">
+      <h4>Worked example 1.3a <span class="diff">full problem</span></h4>
+      <p class="q">Find the eigenvalues and one eigenvector of \(A=\begin{pmatrix}4&1\\2&3\end{pmatrix}\).</p>
+      <p class="step"><span class="s">Characteristic equation</span> \(\det\!\begin{pmatrix}4-\lambda&1\\2&3-\lambda\end{pmatrix}=(4-\lambda)(3-\lambda)-2=0\).</p>
+      <p class="step"><span class="s">Expand &amp; solve</span> \(\lambda^2-7\lambda+10=0\Rightarrow(\lambda-2)(\lambda-5)=0\Rightarrow\lambda=2,\ 5\).</p>
+      <p class="step"><span class="s">Check</span> Sum \(=7=\) trace ✓; product \(=10=\det A\) ✓.</p>
+      <p class="step"><span class="s">Eigenvector for \(\lambda=2\)</span> \((A-2I)\mathbf x=\begin{pmatrix}2&1\\2&1\end{pmatrix}\mathbf x=\mathbf 0\Rightarrow 2x_1+x_2=0\). Choose \(x_1=1,\ x_2=-2\).</p>
+      <p class="step"><span class="s">Result</span> Eigenvector \((1,-2)\) for \(\lambda=2\).</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l1-4">
+    <div class="lesson-no">Lesson 1.4</div>
+    <h3>The Cayley–Hamilton theorem</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>Every matrix obeys its own characteristic equation. So if \(A\) has characteristic equation \(\lambda^2-7\lambda+10=0\), then \(A^2-7A+10I=0\). This is a shortcut to find \(A^{-1}\) and high powers of \(A\) without heavy computation.</p>
+    </div>
+    <div class="eg">
+      <h4>Worked example 1.4a <span class="diff">using the theorem</span></h4>
+      <p class="q">For \(A=\begin{pmatrix}1&2\\2&1\end{pmatrix}\), verify Cayley–Hamilton and find \(A^{-1}\).</p>
+      <p class="step"><span class="s">Characteristic equation</span> \(\det(A-\lambda I)=(1-\lambda)^2-4=\lambda^2-2\lambda-3=0\).</p>
+      <p class="step"><span class="s">Theorem says</span> \(A^2-2A-3I=0\).</p>
+      <p class="step"><span class="s">Verify</span> \(A^2=\begin{pmatrix}5&4\\4&5\end{pmatrix}\), and \(A^2-2A-3I=\begin{pmatrix}5&4\\4&5\end{pmatrix}-\begin{pmatrix}2&4\\4&2\end{pmatrix}-\begin{pmatrix}3&0\\0&3\end{pmatrix}=\begin{pmatrix}0&0\\0&0\end{pmatrix}\) ✓.</p>
+      <p class="step"><span class="s">Find inverse</span> From \(A^2-2A-3I=0\), multiply by \(A^{-1}\): \(A-2I-3A^{-1}=0\Rightarrow A^{-1}=\tfrac13(A-2I)=\tfrac13\begin{pmatrix}-1&2\\2&-1\end{pmatrix}\).</p>
+    </div>
+    <div class="checkpoint"><span class="lab">Unit I don't-lose-marks list</span>
+      <ul>
+        <li>Always sanity-check eigenvalues against the trace and determinant.</li>
+        <li>An eigenvector is never zero — the whole point is a non-zero direction.</li>
+        <li>For Cayley–Hamilton inverse questions, rearrange the theorem to isolate \(A^{-1}\).</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="practice" id="l1-5">
+    <h4>Practice — Unit I</h4>
+    <p class="hint">For eigenvalue questions, form \(\det(A-\lambda I)=0\) carefully — a sign slip here spoils everything.</p>
+    <div class="pq"><div class="qh"><span class="qn">Q1</span><p class="qbody">Find the rank of \(\begin{pmatrix}1&2\\2&4\end{pmatrix}\).</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> \(R_2\to R_2-2R_1\) gives a zero row. One non-zero row remains.</p><p class="ans">Rank \(=1\).</p></div></div>
+    <div class="pq"><div class="qh"><span class="qn">Q2</span><p class="qbody">Find the eigenvalues of \(\begin{pmatrix}2&0\\0&3\end{pmatrix}\).</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> Diagonal matrix — eigenvalues are the diagonal entries.</p><p class="ans">\(\lambda=2,\ 3\).</p></div></div>
+    <div class="pq"><div class="qh"><span class="qn">Q3</span><p class="qbody">Find the eigenvalues of \(\begin{pmatrix}3&1\\0&2\end{pmatrix}\).</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> Triangular — read the diagonal.</p><p class="ans">\(\lambda=3,\ 2\).</p></div></div>
+    <div class="pq"><div class="qh"><span class="qn">Q4</span><p class="qbody">Find the eigenvalues of \(A=\begin{pmatrix}2&2\\2&2\end{pmatrix}\).</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> \((2-\lambda)^2-4=\lambda^2-4\lambda=0\Rightarrow\lambda(\lambda-4)=0\).</p><p class="ans">\(\lambda=0,\ 4\).</p></div></div>
+  </div>
+</div>
+
+<div class="unit" id="unit2">
+  <div class="unit-band">
+    <div class="u-tag">Unit II</div>
+    <h2>Differential Equations — First Order</h2>
+    <p>Equations that link \(y\) with its rate of change \(\tfrac{dy}{dx}\). The skill is recognising the <em>type</em>, because each type has a set recipe.</p>
+    <div class="map"><a href="#l2-1">2.1 What an ODE is</a><a href="#l2-2">2.2 Separable</a><a href="#l2-3">2.3 Exact</a><a href="#l2-4">2.4 Linear &amp; I.F.</a><a href="#l2-5">2.5 Bernoulli</a><a href="#l2-6">2.6 Practice</a></div>
+  </div>
+
+  <div class="lesson" id="l2-1">
+    <div class="lesson-no">Lesson 2.1</div>
+    <h3>What a differential equation is</h3>
+    <div class="plain"><span class="lab">In plain words</span>
+      <p>A <strong>differential equation</strong> connects an unknown function \(y\) with its derivatives. "Solving" it means finding the function \(y(x)\) that fits. The <strong>order</strong> is the highest derivative present — here we deal with first-order (only \(\tfrac{dy}{dx}\)).</p>
+    </div>
+    <p>The single most important habit: before solving, <strong>classify the equation</strong>. Is it separable? Exact? Linear? Bernoulli? Each label points to one method.</p>
+  </div>
+
+  <div class="lesson" id="l2-2">
+    <div class="lesson-no">Lesson 2.2</div>
+    <h3>Variables separable — the friendliest type</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>If you can get all the \(y\)'s (and \(dy\)) on one side and all the \(x\)'s (and \(dx\)) on the other, just integrate both sides separately. Done.</p>
+    </div>
+    <div class="eg">
+      <h4>Worked example 2.2a <span class="diff">warm-up</span></h4>
+      <p class="q">Solve \(\dfrac{dy}{dx}=xy\).</p>
+      <p class="step"><span class="s">Separate</span> \(\dfrac{dy}{y}=x\,dx\).</p>
+      <p class="step"><span class="s">Integrate both sides</span> \(\ln|y|=\dfrac{x^2}{2}+C\).</p>
+      <p class="step"><span class="s">Solve for \(y\)</span> \(y=A\,e^{x^2/2}\) (where \(A=e^C\)).</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l2-3">
+    <div class="lesson-no">Lesson 2.3</div>
+    <h3>Exact equations</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>An equation \(M\,dx+N\,dy=0\) is <strong>exact</strong> if it came from differentiating some function \(F(x,y)\). The test is simple, and if it passes, you reconstruct \(F\).</p>
+    </div>
+    <div class="method">
+      <h4>Method — exact equations</h4>
+      <ol>
+        <li>Test: is \(\dfrac{\partial M}{\partial y}=\dfrac{\partial N}{\partial x}\)? If yes, it's exact.</li>
+        <li>Integrate \(M\) with respect to \(x\): \(F=\int M\,dx + g(y)\).</li>
+        <li>Differentiate that \(F\) in \(y\), set equal to \(N\), and solve for \(g(y)\).</li>
+        <li>Answer: \(F(x,y)=C\).</li>
+      </ol>
+    </div>
+    <div class="eg">
+      <h4>Worked example 2.3a <span class="diff">standard</span></h4>
+      <p class="q">Solve \((2xy+3)\,dx+(x^2-1)\,dy=0\).</p>
+      <p class="step"><span class="s">Test</span> \(M=2xy+3,\ N=x^2-1\). \(M_y=2x,\ N_x=2x\) — equal, so exact ✓.</p>
+      <p class="step"><span class="s">Integrate M in x</span> \(F=\int(2xy+3)\,dx=x^2y+3x+g(y)\).</p>
+      <p class="step"><span class="s">Match to N</span> \(F_y=x^2+g'(y)=N=x^2-1\Rightarrow g'(y)=-1\Rightarrow g(y)=-y\).</p>
+      <p class="step"><span class="s">Answer</span> \(x^2y+3x-y=C\).</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l2-4">
+    <div class="lesson-no">Lesson 2.4</div>
+    <h3>Linear equations and the integrating factor</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>A <strong>linear</strong> first-order equation looks like \(\tfrac{dy}{dx}+P(x)\,y=Q(x)\). Multiply through by a cleverly chosen factor \(\mu\) and the left side collapses into a single derivative you can integrate.</p>
+    </div>
+    <div class="formula"><span class="lab">The recipe</span>
+      <p>Integrating factor: \(\mu=e^{\int P\,dx}\). Then \(\dfrac{d}{dx}(\mu y)=\mu Q\), so \(\mu y=\int \mu Q\,dx + C\).</p>
+    </div>
+    <div class="eg">
+      <h4>Worked example 2.4a <span class="diff">standard</span></h4>
+      <p class="q">Solve \(\dfrac{dy}{dx}+y=e^{x}\).</p>
+      <p class="step"><span class="s">Identify</span> \(P=1,\ Q=e^x\).</p>
+      <p class="step"><span class="s">Integrating factor</span> \(\mu=e^{\int 1\,dx}=e^x\).</p>
+      <p class="step"><span class="s">Collapse the left side</span> \(\dfrac{d}{dx}(y\,e^x)=e^x\cdot e^x=e^{2x}\).</p>
+      <p class="step"><span class="s">Integrate</span> \(y\,e^x=\dfrac{e^{2x}}{2}+C\Rightarrow y=\dfrac{e^x}{2}+Ce^{-x}\).</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l2-5">
+    <div class="lesson-no">Lesson 2.5</div>
+    <h3>Bernoulli's equation</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>A <strong>Bernoulli</strong> equation \(\tfrac{dy}{dx}+Py=Qy^{n}\) isn't linear because of the \(y^n\) — but a clever substitution \(v=y^{1-n}\) turns it <em>into</em> a linear equation you already know how to solve.</p>
+    </div>
+    <div class="eg">
+      <h4>Worked example 2.5a <span class="diff">substitution</span></h4>
+      <p class="q">Solve \(\dfrac{dy}{dx}+y=y^{2}\).</p>
+      <p class="step"><span class="s">Divide by \(y^2\)</span> \(y^{-2}y'+y^{-1}=1\).</p>
+      <p class="step"><span class="s">Substitute</span> Let \(v=y^{-1}\), so \(v'=-y^{-2}y'\). The equation becomes \(-v'+v=1\), i.e. \(v'-v=-1\).</p>
+      <p class="step"><span class="s">Solve the linear equation</span> \(\mu=e^{-x}\): \((v e^{-x})'=-e^{-x}\Rightarrow v e^{-x}=e^{-x}+C\Rightarrow v=1+Ce^{x}\).</p>
+      <p class="step"><span class="s">Back-substitute</span> \(\dfrac1y=1+Ce^{x}\).</p>
+    </div>
+    <div class="checkpoint"><span class="lab">Classification cheat-sheet</span>
+      <ul>
+        <li>Can you split \(x\)'s from \(y\)'s? → <strong>separable</strong>.</li>
+        <li>Form \(M\,dx+N\,dy=0\) with \(M_y=N_x\)? → <strong>exact</strong>.</li>
+        <li>Form \(y'+Py=Q\)? → <strong>linear</strong> (integrating factor).</li>
+        <li>Form \(y'+Py=Qy^n\)? → <strong>Bernoulli</strong> (substitute \(v=y^{1-n}\)).</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="practice" id="l2-6">
+    <h4>Practice — Unit II</h4>
+    <p class="hint">Name the type first, then apply its recipe.</p>
+    <div class="pq"><div class="qh"><span class="qn">Q1</span><p class="qbody">Solve \(\dfrac{dy}{dx}=\dfrac{y}{x}\).</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> Separable: \(\dfrac{dy}{y}=\dfrac{dx}{x}\Rightarrow\ln y=\ln x+C\).</p><p class="ans">\(y=Ax\).</p></div></div>
+    <div class="pq"><div class="qh"><span class="qn">Q2</span><p class="qbody">Solve \(\dfrac{dy}{dx}+2y=4\).</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> Linear, \(P=2,\ Q=4\), \(\mu=e^{2x}\). \((ye^{2x})'=4e^{2x}\Rightarrow ye^{2x}=2e^{2x}+C\).</p><p class="ans">\(y=2+Ce^{-2x}\).</p></div></div>
+    <div class="pq"><div class="qh"><span class="qn">Q3</span><p class="qbody">Is \((2x+y)\,dx+(x+2y)\,dy=0\) exact? If so, solve it.</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> \(M_y=1=N_x\) — exact. \(F=\int(2x+y)dx=x^2+xy+g(y)\); \(F_y=x+g'=x+2y\Rightarrow g=y^2\).</p><p class="ans">\(x^2+xy+y^2=C\).</p></div></div>
+    <div class="pq"><div class="qh"><span class="qn">Q4</span><p class="qbody">Solve \(\dfrac{dy}{dx}=e^{x-y}\).</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> \(e^{x-y}=e^x e^{-y}\), so separable: \(e^y\,dy=e^x\,dx\Rightarrow e^y=e^x+C\).</p><p class="ans">\(e^y=e^x+C\).</p></div></div>
+  </div>
+</div>
+
+<div class="unit" id="unit3">
+  <div class="unit-band">
+    <div class="u-tag">Unit III</div>
+    <h2>Linear Differential Equations — Higher Order</h2>
+    <p>Second-order and beyond. The full answer is always two pieces added together: the complementary function plus the particular integral.</p>
+    <div class="map"><a href="#l3-1">3.1 CF + PI idea</a><a href="#l3-2">3.2 Auxiliary equation</a><a href="#l3-3">3.3 Particular integral</a><a href="#l3-4">3.4 Euler–Cauchy</a><a href="#l3-5">3.5 Practice</a></div>
+  </div>
+
+  <div class="lesson" id="l3-1">
+    <div class="lesson-no">Lesson 3.1</div>
+    <h3>The big picture: CF + PI</h3>
+    <div class="plain"><span class="lab">In plain words</span>
+      <p>For an equation like \(y''-5y'+6y=g(x)\), the full solution is two parts added:</p>
+      <p>the <strong>complementary function (CF)</strong> — the solution when the right side is zero, and the <strong>particular integral (PI)</strong> — one specific solution that matches the right side \(g(x)\). Answer \(=\) CF \(+\) PI.</p>
+    </div>
+    <p>If the right side is zero (a "homogeneous" equation), you only need the CF.</p>
+  </div>
+
+  <div class="lesson" id="l3-2">
+    <div class="lesson-no">Lesson 3.2</div>
+    <h3>The auxiliary equation and its three cases</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>Replace each \(\tfrac{d}{dx}\) with the letter \(m\). Solving the resulting polynomial (the <strong>auxiliary equation</strong>) gives roots that build the CF. There are exactly three cases, depending on the roots.</p>
+    </div>
+    <div class="formula"><span class="lab">The three cases</span>
+      <p>Real &amp; distinct \(m_1,m_2\): &nbsp; \(y_c=c_1e^{m_1x}+c_2e^{m_2x}\).</p>
+      <p>Repeated root \(m\): &nbsp; \(y_c=(c_1+c_2x)e^{mx}\) &nbsp;(note the extra \(x\)).</p>
+      <p>Complex \(\alpha\pm i\beta\): &nbsp; \(y_c=e^{\alpha x}(c_1\cos\beta x+c_2\sin\beta x)\).</p>
+    </div>
+    <div class="eg">
+      <h4>Worked example 3.2a <span class="diff">real roots</span></h4>
+      <p class="q">Solve \(y''-5y'+6y=0\).</p>
+      <p class="step"><span class="s">Auxiliary equation</span> \(m^2-5m+6=0\Rightarrow(m-2)(m-3)=0\Rightarrow m=2,3\).</p>
+      <p class="step"><span class="s">CF (real distinct)</span> \(y=c_1e^{2x}+c_2e^{3x}\).</p>
+    </div>
+    <div class="eg">
+      <h4>Worked example 3.2b <span class="diff">repeated &amp; complex</span></h4>
+      <p class="q">Solve (i) \(y''-4y'+4y=0\); (ii) \(y''+4y=0\).</p>
+      <p class="step"><span class="s">(i) Repeated root</span> \(m^2-4m+4=(m-2)^2=0\Rightarrow m=2\) (twice). So \(y=(c_1+c_2x)e^{2x}\).</p>
+      <p class="step"><span class="s">(ii) Complex roots</span> \(m^2+4=0\Rightarrow m=\pm 2i\) (so \(\alpha=0,\beta=2\)). So \(y=c_1\cos 2x+c_2\sin 2x\).</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l3-3">
+    <div class="lesson-no">Lesson 3.3</div>
+    <h3>Finding the particular integral</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>When the right side isn't zero, guess a PI that "looks like" the right side (an \(e^{kx}\) for an exponential, \(a\cos+b\sin\) for a trig term), plug it in, and solve for the unknown constant.</p>
+    </div>
+    <div class="eg">
+      <h4>Worked example 3.3a <span class="diff">full CF + PI</span></h4>
+      <p class="q">Solve \(y''-3y'+2y=e^{3x}\).</p>
+      <p class="step"><span class="s">CF</span> \(m^2-3m+2=0\Rightarrow m=1,2\), so \(y_c=c_1e^{x}+c_2e^{2x}\).</p>
+      <p class="step"><span class="s">Guess PI</span> Try \(y_p=Ae^{3x}\). Then \(y_p'=3Ae^{3x},\ y_p''=9Ae^{3x}\).</p>
+      <p class="step"><span class="s">Substitute</span> \(9A-9A+2A=1\Rightarrow 2A=1\Rightarrow A=\tfrac12\). So \(y_p=\tfrac12 e^{3x}\).</p>
+      <p class="step"><span class="s">Full solution</span> \(y=c_1e^{x}+c_2e^{2x}+\tfrac12 e^{3x}\).</p>
+    </div>
+    <div class="plain"><span class="lab">Watch out — the clash rule</span>
+      <p>If your guessed PI already appears in the CF, multiply your guess by \(x\) before substituting, otherwise it collapses to zero.</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l3-4">
+    <div class="lesson-no">Lesson 3.4</div>
+    <h3>Euler–Cauchy equations</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>An equation with \(x^2y'',\ xy'\) terms (variable coefficients) looks scary, but the substitution \(x=e^{t}\) magically turns it into a constant-coefficient equation you can already solve.</p>
+    </div>
+    <div class="formula"><span class="lab">Euler–Cauchy form</span>
+      <p>\(x^2\dfrac{d^2y}{dx^2}+ax\dfrac{dy}{dx}+by=0\). Substitute \(x=e^{t}\) (so \(t=\ln x\)); it becomes constant-coefficient in \(t\).</p>
+    </div>
+    <div class="checkpoint"><span class="lab">Unit III don't-lose-marks list</span>
+      <ul>
+        <li>Repeated root → don't forget the extra factor of \(x\).</li>
+        <li>Non-homogeneous → you need <em>both</em> CF and PI, added.</li>
+        <li>PI clashes with CF → multiply the trial by \(x\).</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="practice" id="l3-5">
+    <h4>Practice — Unit III</h4>
+    <p class="hint">Write the auxiliary equation clearly; the root type decides the CF form.</p>
+    <div class="pq"><div class="qh"><span class="qn">Q1</span><p class="qbody">Solve \(y''-y=0\).</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> \(m^2-1=0\Rightarrow m=\pm1\) (real distinct).</p><p class="ans">\(y=c_1e^{x}+c_2e^{-x}\).</p></div></div>
+    <div class="pq"><div class="qh"><span class="qn">Q2</span><p class="qbody">Solve \(y''+6y'+9y=0\).</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> \(m^2+6m+9=(m+3)^2=0\Rightarrow m=-3\) (repeated).</p><p class="ans">\(y=(c_1+c_2x)e^{-3x}\).</p></div></div>
+    <div class="pq"><div class="qh"><span class="qn">Q3</span><p class="qbody">Solve \(y''+9y=0\).</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> \(m^2+9=0\Rightarrow m=\pm 3i\) (\(\alpha=0,\beta=3\)).</p><p class="ans">\(y=c_1\cos 3x+c_2\sin 3x\).</p></div></div>
+    <div class="pq"><div class="qh"><span class="qn">Q4</span><p class="qbody">Find a PI for \(y''-y=e^{2x}\).</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> Try \(y_p=Ae^{2x}\): \(4A-A=1\Rightarrow 3A=1\Rightarrow A=\tfrac13\).</p><p class="ans">\(y_p=\tfrac13 e^{2x}\).</p></div></div>
+  </div>
+</div>
+
+<div class="unit" id="unit4">
+  <div class="unit-band">
+    <div class="u-tag">Unit IV</div>
+    <h2>Series Solutions, Beta &amp; Gamma</h2>
+    <p>When coefficients aren't constant, assume the answer is an infinite polynomial. Plus two special functions that tame otherwise awkward integrals.</p>
+    <div class="map"><a href="#l4-1">4.1 Power series solutions</a><a href="#l4-2">4.2 Frobenius method</a><a href="#l4-3">4.3 Gamma function</a><a href="#l4-4">4.4 Beta function</a><a href="#l4-5">4.5 Practice</a></div>
+  </div>
+
+  <div class="lesson" id="l4-1">
+    <div class="lesson-no">Lesson 4.1</div>
+    <h3>Power series solutions</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>Some differential equations have no neat formula solution. So we <em>assume</em> the solution is an infinite polynomial \(y=a_0+a_1x+a_2x^2+\cdots\), plug it in, and find the coefficients one by one by matching powers of \(x\).</p>
+    </div>
+    <p>A point where this works smoothly is called an <strong>ordinary point</strong>. Where it doesn't, we need a more careful method — Frobenius.</p>
+  </div>
+
+  <div class="lesson" id="l4-2">
+    <div class="lesson-no">Lesson 4.2</div>
+    <h3>The Frobenius method (near a singular point)</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>Near a "regular singular point", the ordinary power series fails. Frobenius' fix: assume \(y=x^{r}(a_0+a_1x+\cdots)\) with an unknown starting power \(r\). An <strong>indicial equation</strong> fixes \(r\), then a recurrence gives the coefficients.</p>
+    </div>
+    <p>You won't often be asked to derive it fully — but recognising when Frobenius (rather than a plain power series) is needed is the examinable skill.</p>
+  </div>
+
+  <div class="lesson" id="l4-3">
+    <div class="lesson-no">Lesson 4.3</div>
+    <h3>The Gamma function — factorials for all numbers</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>The <strong>Gamma function</strong> \(\Gamma\) extends the factorial to non-integers. For whole numbers it just gives the factorial; its real power is handling awkward integrals and half-integer values.</p>
+    </div>
+    <div class="formula"><span class="lab">Key Gamma facts</span>
+      <p>\(\Gamma(n+1)=n\,\Gamma(n)\); &nbsp; \(\Gamma(n+1)=n!\) for whole \(n\); &nbsp; \(\Gamma\!\left(\tfrac12\right)=\sqrt{\pi}\).</p>
+      <p>Also: \(\displaystyle\int_0^{\infty} x^{n-1}e^{-x}\,dx=\Gamma(n)\).</p>
+    </div>
+    <div class="eg">
+      <h4>Worked example 4.3a <span class="diff">warm-up</span></h4>
+      <p class="q">Evaluate \(\displaystyle\int_0^{\infty} x^{3}e^{-x}\,dx\).</p>
+      <p class="step"><span class="s">Match the form</span> This is \(\Gamma(4)\) (since \(n-1=3\Rightarrow n=4\)).</p>
+      <p class="step"><span class="s">Evaluate</span> \(\Gamma(4)=3!=6\).</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l4-4">
+    <div class="lesson-no">Lesson 4.4</div>
+    <h3>The Beta function</h3>
+    <div class="formula"><span class="lab">Beta function</span>
+      \[B(m,n)=\int_0^1 x^{m-1}(1-x)^{n-1}\,dx=\frac{\Gamma(m)\,\Gamma(n)}{\Gamma(m+n)}\]
+    </div>
+    <div class="eg">
+      <h4>Worked example 4.4a <span class="diff">standard</span></h4>
+      <p class="q">Evaluate \(\displaystyle\int_0^1 x^{3}(1-x)^{2}\,dx\).</p>
+      <p class="step"><span class="s">Read off m, n</span> Exponents are \(m-1=3\Rightarrow m=4\) and \(n-1=2\Rightarrow n=3\). So it's \(B(4,3)\).</p>
+      <p class="step"><span class="s">Apply the identity</span> \(B(4,3)=\dfrac{\Gamma(4)\Gamma(3)}{\Gamma(7)}=\dfrac{3!\cdot 2!}{6!}=\dfrac{6\cdot 2}{720}=\dfrac{1}{60}\).</p>
+    </div>
+    <div class="checkpoint"><span class="lab">Remember</span>
+      <ul>
+        <li>Beta's exponents are \(m-1\) and \(n-1\) — subtract one before reading off \(m,n\).</li>
+        <li>\(\Gamma(\tfrac12)=\sqrt\pi\) shows up whenever half-integers appear.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="practice" id="l4-5">
+    <h4>Practice — Unit IV</h4>
+    <p class="hint">Match integrals to the Gamma or Beta template before computing.</p>
+    <div class="pq"><div class="qh"><span class="qn">Q1</span><p class="qbody">Evaluate \(\displaystyle\int_0^{\infty} x^{4}e^{-x}\,dx\).</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> \(=\Gamma(5)=4!\).</p><p class="ans">\(24\).</p></div></div>
+    <div class="pq"><div class="qh"><span class="qn">Q2</span><p class="qbody">Evaluate \(\displaystyle\int_0^1 x^{2}(1-x)^{3}\,dx\).</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> \(m=3,n=4\): \(B(3,4)=\dfrac{2!\,3!}{6!}=\dfrac{2\cdot6}{720}=\dfrac{1}{60}\).</p><p class="ans">\(\tfrac{1}{60}\).</p></div></div>
+    <div class="pq"><div class="qh"><span class="qn">Q3</span><p class="qbody">Simplify \(\dfrac{\Gamma(6)}{\Gamma(4)}\).</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> \(\dfrac{5!}{3!}=\dfrac{120}{6}\).</p><p class="ans">\(20\).</p></div></div>
+  </div>
+</div>
+
+<div class="unit" id="unit5">
+  <div class="unit-band">
+    <div class="u-tag">Unit V</div>
+    <h2>Special Functions — Legendre &amp; Bessel</h2>
+    <p>Two families of functions that appear whenever physics meets spherical or cylindrical shapes. You mostly <em>use</em> their properties rather than derive them.</p>
+    <div class="map"><a href="#l5-1">5.1 Legendre polynomials</a><a href="#l5-2">5.2 Properties of \(P_n\)</a><a href="#l5-3">5.3 Bessel functions</a><a href="#l5-4">5.4 Practice</a></div>
+  </div>
+
+  <div class="lesson" id="l5-1">
+    <div class="lesson-no">Lesson 5.1</div>
+    <h3>Legendre polynomials and Rodrigue's formula</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>Legendre's differential equation produces a family of polynomials \(P_0,P_1,P_2,\dots\). There's a one-line machine for generating any of them: <strong>Rodrigue's formula</strong>.</p>
+    </div>
+    <div class="formula"><span class="lab">Rodrigue's formula</span>
+      \[P_n(x)=\frac{1}{2^{n}\,n!}\frac{d^{n}}{dx^{n}}\left(x^2-1\right)^{n}\]
+      <p style="font-size:15px;color:var(--ink-soft)">First few: \(P_0=1,\ P_1=x,\ P_2=\tfrac12(3x^2-1),\ P_3=\tfrac12(5x^3-3x)\).</p>
+    </div>
+    <div class="eg">
+      <h4>Worked example 5.1a <span class="diff">derive a polynomial</span></h4>
+      <p class="q">Find \(P_2(x)\) using Rodrigue's formula.</p>
+      <p class="step"><span class="s">Set up (\(n=2\))</span> \(P_2=\dfrac{1}{2^2\cdot 2!}\dfrac{d^2}{dx^2}(x^2-1)^2=\dfrac{1}{8}\dfrac{d^2}{dx^2}(x^4-2x^2+1)\).</p>
+      <p class="step"><span class="s">Differentiate twice</span> First: \(4x^3-4x\). Second: \(12x^2-4\).</p>
+      <p class="step"><span class="s">Simplify</span> \(P_2=\dfrac{12x^2-4}{8}=\dfrac{3x^2-1}{2}\) ✓.</p>
+    </div>
+  </div>
+
+  <div class="lesson" id="l5-2">
+    <div class="lesson-no">Lesson 5.2</div>
+    <h3>Orthogonality of Legendre polynomials</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>Different Legendre polynomials are "perpendicular" to each other in an integral sense: multiplying two <em>different</em> ones and integrating over \([-1,1]\) gives zero. This is what makes them useful for expanding other functions.</p>
+    </div>
+    <div class="formula"><span class="lab">Orthogonality</span>
+      \[\int_{-1}^{1}P_m(x)\,P_n(x)\,dx=0\quad(m\ne n)\]
+    </div>
+  </div>
+
+  <div class="lesson" id="l5-3">
+    <div class="lesson-no">Lesson 5.3</div>
+    <h3>Bessel functions</h3>
+    <div class="plain"><span class="lab">The idea</span>
+      <p>Bessel's equation produces functions \(J_n(x)\) that behave like decaying oscillations — they describe vibrations of a circular drum, and waves in cylinders. Like Legendre's, they come with a handy recurrence relation.</p>
+    </div>
+    <div class="formula"><span class="lab">Bessel recurrence relation</span>
+      \[J_{n-1}(x)+J_{n+1}(x)=\frac{2n}{x}\,J_n(x)\]
+    </div>
+    <div class="checkpoint"><span class="lab">Unit V don't-lose-marks list</span>
+      <ul>
+        <li>Keep the \(\tfrac{1}{2^n n!}\) prefactor in Rodrigue's formula.</li>
+        <li>Legendre orthogonality holds specifically over \([-1,1]\).</li>
+        <li>Bessel recurrence: memorise the \(\tfrac{2n}{x}\) factor.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="practice" id="l5-4">
+    <h4>Practice — Unit V</h4>
+    <p class="hint">These are often "prove the property" questions — show every step.</p>
+    <div class="pq"><div class="qh"><span class="qn">Q1</span><p class="qbody">Find \(P_1(x)\) using Rodrigue's formula.</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> \(P_1=\dfrac{1}{2^1\cdot1!}\dfrac{d}{dx}(x^2-1)=\dfrac{1}{2}(2x)\).</p><p class="ans">\(P_1=x\).</p></div></div>
+    <div class="pq"><div class="qh"><span class="qn">Q2</span><p class="qbody">Evaluate \(\displaystyle\int_{-1}^{1}P_1(x)\,P_2(x)\,dx\).</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> Different indices \((1\ne2)\), so by orthogonality it's zero.</p><p class="ans">\(0\).</p></div></div>
+    <div class="pq"><div class="qh"><span class="qn">Q3</span><p class="qbody">Using the Bessel recurrence with \(n=1\), express \(J_0+J_2\) in terms of \(J_1\).</p></div><button class="reveal">Show solution</button><div class="sol"><p><span class="lab">SOLUTION</span> \(J_{0}+J_{2}=\dfrac{2(1)}{x}J_1\).</p><p class="ans">\(J_0+J_2=\dfrac{2}{x}J_1\).</p></div></div>
+  </div>
+</div>
+
+<div class="checkpoint" style="margin-top:30px">
+  <span class="lab">Your weekly routine</span>
+  <ul>
+    <li><strong>Read</strong> one unit's lessons, working every example by hand.</li>
+    <li><strong>Practise</strong> that unit with solutions hidden; re-do only the ones you missed.</li>
+    <li><strong>Build</strong> a one-page formula sheet per unit (auxiliary-equation cases, integrating factors, Beta/Gamma).</li>
+    <li><strong>Finish</strong> with matching questions from an Osmania University past paper.</li>
+  </ul>
+</div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <h4>About this page</h4>
+    <p>A beginner-friendly, worked tutorial for Engineering Mathematics-II (BS 201 MT), BE Biomedical Engineering, University College of Engineering (Autonomous), Osmania University. Explanations, examples and practice are standard treatments aligned to the prescribed texts (Grewal; Jain &amp; Iyengar; Raisinghania; Kreyszig). Equations render with MathJax; tap "Show solution" to check your practice answers.</p>
+    <div class="fine">Self-contained single file — upload <span class="mono">index.html</span> to tiiny.host to publish. Needs an internet connection to load web fonts and the MathJax renderer. &nbsp;Compiled study reference, not an official university publication. &nbsp;Prepared <span class="mono">04 July 2026</span>.</div>
+  </div>
+</footer>
+
+<script>
+  document.addEventListener('click', function(e){
+    if(e.target && e.target.classList.contains('reveal')){
+      var sol = e.target.nextElementSibling;
+      if(sol && sol.classList.contains('sol')){
+        var open = sol.classList.toggle('open');
+        e.target.textContent = open ? 'Hide solution' : 'Show solution';
+      }
+    }
+  });
+</script>
+</body>
+</html>
